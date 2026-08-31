@@ -12,14 +12,22 @@ The goal of the 1st sprint was to make a project team, select a topic for our pr
 - Make a project plan
 
 ## What Went Well
+- Effective and timely teamwork
+- Successful setup of project management tools
+- Clear vision of project
 
 ## What Could Be Improved
+- Independent productivity from team members
+- The instructions
 
 ## Next Sprint Focus
+- Learning and conducting unit tests
+- Database planning
+- Sprint 2 tasks
 
-## Time spent by each member during the spring
+## Time spent by each member during the sprint
 | Team member | Hours spent |
 | ------------- | ------------- |
-| Aatu Laakso  | 666  |
-| Janette Kotanen  | 666 |
-| Sonja Meskus  | 666  |
+| Aatu Laakso  | 10 |
+| Janette Kotanen  | 10 |
+| Sonja Meskus  | 10 |
