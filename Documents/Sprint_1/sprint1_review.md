@@ -18,3 +18,8 @@ The goal of the 1st sprint was to make a project team, select a topic for our pr
 ## Next Sprint Focus
 
 ## Time spent by each member during the spring
+| Team member | Hours spent |
+| ------------- | ------------- |
+| Aatu Laakso  | 666  |
+| Janette Kotanen  | 666 |
+| Sonja Meskus  | 666  |
