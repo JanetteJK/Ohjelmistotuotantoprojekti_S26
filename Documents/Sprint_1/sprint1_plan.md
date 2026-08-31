@@ -15,7 +15,23 @@ The goal of the 1st sprint was to make a project team, select a topic for our pr
 
 ## Planned Tasks / Breakdown
 
-JOTAIN
+- Set up GitHub repository
+  Created a github repository for the project and added all group members as collaborators
+  
+- Choose a topic for this project
+  Topic chosen
+  
+- Make user stories
+  Constructed user stories from different user perspectives
+  
+- Create a vision statement
+  Discussed and wrote a vision statement
+  
+- Create User Case Diagram of Application
+  Discussed and created the UCD
+  
+- Make a project plan
+  Discussed and wrote the plan according to the template
 
 ## Team Capacity & Assumptions
 
