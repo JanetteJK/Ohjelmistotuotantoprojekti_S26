@@ -15,22 +15,22 @@ The goal of the 1st sprint was to make a project team, select a topic for our pr
 
 ## Planned Tasks / Breakdown
 
-- Set up GitHub repository/n
+- Set up GitHub repository /n
   Created a github repository for the project and added all group members as collaborators
   
-- Choose a topic for this project/n
+- Choose a topic for this project /n
   Topic chosen
   
-- Make user stories/n
+- Make user stories /n
   Constructed user stories from different user perspectives
   
-- Create a vision statement/n
+- Create a vision statement /n
   Discussed and wrote a vision statement
   
-- Create User Case Diagram of Application/n
+- Create User Case Diagram of Application /n
   Discussed and created the UCD
   
-- Make a project plan/n
+- Make a project plan /n
   Discussed and wrote the plan according to the template
 
 ## Team Capacity & Assumptions
