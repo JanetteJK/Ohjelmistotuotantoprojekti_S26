@@ -1,16 +1,22 @@
 package datasource;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MariaDBConnection {
 
-    private static final String URL = "jdbc:mariadb://localhost:3306";
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
+    public static Connection conn;
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+    public static void connect() {
+        try {
+            conn = DriverManager.getConnection(
+                    "jdbc:mariadb://localhost:3306/flashers_application",
+                    "flashcard_team",
+                    "salasana"
+            );
+        } catch (SQLException e) {
+            System.out.println("Connection failed.");
+            e.printStackTrace();
+        }
     }
 }
+
