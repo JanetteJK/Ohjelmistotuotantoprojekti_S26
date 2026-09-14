@@ -22,7 +22,7 @@ public class UI_dummy extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
         Parent root = fxmlLoader.load();
         controller = fxmlLoader.getController();
-        stage.setTitle("HOTEL SIMULATOR");
+        stage.setTitle("Flashers");
         stage.setScene(new Scene(root));
         stage.show();
     }

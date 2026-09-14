@@ -1,0 +1,20 @@
+.anchorPane {
+    -fx-background: #ED4672;
+}
+
+.sidebar {
+    -fx-background: #FF7C15;
+    -fx-background-radius: 0;
+    -fx-color: #FFDAC5;
+    -fx-pref-height: 110;
+    -fx-pref-width: 200;
+}
+
+.transparent {
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.shadow {
+    -fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0.1), 10.0,0.0,0.0,10.0);
+}
+
