@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="files">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/signInController.java" afterDir="false" />
+    <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="main toimii ja avaa loginin">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/UI_dummy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SignIn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/signInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/signInController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +109,7 @@
       <workItem from="1789024551483" duration="273000" />
       <workItem from="1789025589976" duration="4301000" />
       <workItem from="1789031170117" duration="11504000" />
-      <workItem from="1789646428581" duration="4346000" />
+      <workItem from="1789646428581" duration="11707000" />
     </task>
     <task id="LOCAL-00001" summary="files">
       <option name="closed" value="true" />
@@ -162,7 +159,15 @@
       <option name="project" value="LOCAL" />
       <updated>1789376243403</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="main toimii ja avaa loginin">
+      <option name="closed" value="true" />
+      <created>1789654475770</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1789654475770</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,7 +186,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="files" />
-    <option name="LAST_COMMIT_MESSAGE" value="files" />
+    <MESSAGE value="main toimii ja avaa loginin" />
+    <option name="LAST_COMMIT_MESSAGE" value="main toimii ja avaa loginin" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
