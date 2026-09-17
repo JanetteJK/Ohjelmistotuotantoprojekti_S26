@@ -1,7 +1,7 @@
-import view.UI_dummy;
+import view.SignIn;
 public class Main {
     public static void main(String[] args) {
 
-        UI_dummy.main(args);
+        SignIn.main(args);
     }
 }

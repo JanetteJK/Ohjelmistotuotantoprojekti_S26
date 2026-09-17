@@ -1,5 +1,7 @@
 package view;
 import java.io.IOException;
+
+import controller.signInController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,8 +10,8 @@ import javafx.stage.Stage;
 import controller.appController;
 
 
-public class UI_dummy extends Application {
-     appController controller;
+public class SignIn extends Application {
+     signInController controller;
 
     @Override
     public void init(){
@@ -19,7 +21,7 @@ public class UI_dummy extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/loginUi.fxml"));
         Parent root = fxmlLoader.load();
         controller = fxmlLoader.getController();
         stage.setTitle("Flashers");
