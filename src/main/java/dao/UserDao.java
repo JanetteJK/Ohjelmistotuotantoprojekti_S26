@@ -7,7 +7,7 @@ import entity.User;
 public class UserDao {
 
 
-    public static void saveUser(User u) {
+    public static void registerUser(User u) {
         if (conn == null) {
             System.out.println("Connection is null!");
             return;
@@ -19,8 +19,28 @@ public class UserDao {
 
             stmt.setString(1, u.getUserName());
             stmt.setString(2, u.getPassword());
-            //stmt.setString(3, u.email);
-            //stmt.setString(4, u.role);
+            stmt.setString(3, u.getEmail());
+            stmt.setString(4, u.getRole().name());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void logInUser(User u) {
+        if (conn == null) {
+            System.out.println("Connection is null!");
+            return;
+        }
+
+        String sql = "SELECT * FROM users WHERE username = ? AND passwd = PASSWORD(?)";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, u.getUserName());
+            stmt.setString(2, u.getPassword());
 
             stmt.executeUpdate();
 
