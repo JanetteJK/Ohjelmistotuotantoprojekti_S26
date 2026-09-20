@@ -53,7 +53,6 @@ public class signInController {
         if(actionEvent.getSource()==tOk) {
             String un = gettUsername();
             PasswordField ps = gettPassw();
-            User teacher = new User();
             // todo: here the thing that I talked about w sonja
 
 
