@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" styleClass="anchorPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutX="-3.0" layoutY="-1.0" prefHeight="700.0" prefWidth="906.0" styleClass="HBox" stylesheets="@style.css">
+         <left>
+            <VBox fx:id="sideBar" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #FF7C15;" styleClass="sidebar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="110.0" prefWidth="200.0" styleClass="HBox" stylesheets="@style.css">
+                     <children>
+                        <ImageView accessibleText="Logo" fitHeight="154.0" fitWidth="214.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="35.0" top="30.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../../../../../../../../Pictures/lewis.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="HBox" stylesheets="@style.css">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="menu-label" stylesheets="@style.css" text="Create Cards" textFill="#4a1b2a">
+                           <font>
+                              <Font name="Bell MT" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Library" textFill="#4a1b2a">
+                           <font>
+                              <Font name="Bell MT" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Create a quiz" textFill="#4a1b2a">
+                           <font>
+                              <Font name="Bell MT" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Study materials" textFill="#4a1b2a">
+                           <font>
+                              <Font name="Bell MT" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Profile" textFill="#4a1b2a">
+                           <font>
+                              <Font name="Bell MT" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+         </left>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </BorderPane>
+   </children>
+</AnchorPane>
