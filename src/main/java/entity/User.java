@@ -10,6 +10,14 @@ public class User {
         student,
         teacher
     }
+
+    public User(String userName, String email, String password, Role role) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -28,11 +36,9 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
     public Role getRole() {
         return role;
     }
-
     public void setRole(Role role) {
         this.role = role;
     }
