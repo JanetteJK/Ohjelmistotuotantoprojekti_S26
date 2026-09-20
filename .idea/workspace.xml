@@ -4,20 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="main toimii ja avaa loginin">
+    <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="katottu jutuja">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/createCard.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/signInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/signInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/initHomeGui.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/initHomeGui.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="39" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -110,7 +115,8 @@
       <workItem from="1789025589976" duration="4301000" />
       <workItem from="1789031170117" duration="11504000" />
       <workItem from="1789646428581" duration="11707000" />
-      <workItem from="1789741913191" duration="2129000" />
+      <workItem from="1789741913191" duration="2915000" />
+      <workItem from="1789893145978" duration="2441000" />
     </task>
     <task id="LOCAL-00001" summary="files">
       <option name="closed" value="true" />
@@ -168,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1789654475770</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="katottu jutuja">
+      <option name="closed" value="true" />
+      <created>1789744071347</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1789744071347</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,7 +202,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="files" />
     <MESSAGE value="main toimii ja avaa loginin" />
-    <option name="LAST_COMMIT_MESSAGE" value="main toimii ja avaa loginin" />
+    <MESSAGE value="katottu jutuja" />
+    <option name="LAST_COMMIT_MESSAGE" value="katottu jutuja" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

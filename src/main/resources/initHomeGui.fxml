@@ -10,18 +10,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" styleClass="anchorPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BorderPane layoutX="-3.0" layoutY="-1.0" prefHeight="700.0" prefWidth="906.0" styleClass="HBox" stylesheets="@style.css">
+      <BorderPane layoutX="-3.0" layoutY="-1.0" prefHeight="700.0" prefWidth="906.0" styleClass="HBox" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox fx:id="sideBar" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #FF7C15;" styleClass="sidebar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+            <VBox fx:id="sideBar" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FF7C15;" styleClass="sidebar" stylesheets="@style.css" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="110.0" prefWidth="200.0" styleClass="HBox" stylesheets="@style.css">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="HBox" stylesheets="@style.css">
                      <children>
-                        <ImageView accessibleText="Logo" fitHeight="154.0" fitWidth="214.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView accessibleText="Logo" fitHeight="154.0" fitWidth="214.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
-                              <Insets left="35.0" top="30.0" />
+                              <Insets />
                            </HBox.margin>
                            <image>
                               <Image url="@../../../../../../../../Pictures/lewis.png" />
