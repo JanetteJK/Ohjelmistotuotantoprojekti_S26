@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="katottu jutuja">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/createCard.fxml" afterDir="false" />
+    <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="kokeilkaa">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/initHomeGui.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/initHomeGui.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="39" />
+    <option name="cachedIndexableFilesCount" value="40" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -117,6 +115,7 @@
       <workItem from="1789646428581" duration="11707000" />
       <workItem from="1789741913191" duration="2915000" />
       <workItem from="1789893145978" duration="2441000" />
+      <workItem from="1789902677269" duration="706000" />
     </task>
     <task id="LOCAL-00001" summary="files">
       <option name="closed" value="true" />
@@ -182,7 +181,23 @@
       <option name="project" value="LOCAL" />
       <updated>1789744071347</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="kortti gui">
+      <option name="closed" value="true" />
+      <created>1789902711212</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1789902711212</updated>
+    </task>
+    <task id="LOCAL-00010" summary="kokeilkaa">
+      <option name="closed" value="true" />
+      <created>1789902978742</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1789902978742</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,7 +218,9 @@
     <MESSAGE value="files" />
     <MESSAGE value="main toimii ja avaa loginin" />
     <MESSAGE value="katottu jutuja" />
-    <option name="LAST_COMMIT_MESSAGE" value="katottu jutuja" />
+    <MESSAGE value="kortti gui" />
+    <MESSAGE value="kokeilkaa" />
+    <option name="LAST_COMMIT_MESSAGE" value="kokeilkaa" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
