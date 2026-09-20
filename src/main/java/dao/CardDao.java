@@ -6,7 +6,7 @@ import static datasource.MariaDBConnection.conn;
 
 public class CardDao {
 
-    public static void saveCard(Card c) {
+    public static void addCard(Card c) {
         if (conn == null) {
             System.out.println("Connection is null!");
             return;
