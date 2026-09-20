@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -85,6 +86,51 @@
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Create a study card">
+                           <font>
+                              <Font name="Bell MT" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="49.0" prefWidth="700.0" />
+                  <HBox alignment="CENTER" prefHeight="240.0" prefWidth="700.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="240.0" prefWidth="328.0">
+                           <children>
+                              <Label text="Write question">
+                                 <font>
+                                    <Font name="Bell MT" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextArea id="questionBox" fx:id="questionBox" prefHeight="200.0" prefWidth="170.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="49.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER" prefHeight="240.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="240.0" prefWidth="318.0">
+                           <children>
+                              <Label text="Write answer">
+                                 <font>
+                                    <Font name="Bell MT" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextArea id="answerBox" fx:id="answerBox" prefHeight="200.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
         </BorderPane>
     </children>
 </AnchorPane>
