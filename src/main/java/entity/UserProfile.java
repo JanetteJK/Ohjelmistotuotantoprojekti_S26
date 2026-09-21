@@ -9,7 +9,7 @@ public class UserProfile {
         this.userId = id;
     }
 
-    public String getCurrentUser(){
+    public String getCurrentUserName(){
         return username;
     }
 
