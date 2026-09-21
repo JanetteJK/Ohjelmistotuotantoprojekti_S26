@@ -1,21 +1,21 @@
 package entity;
 
 public class StudyMaterial {
-    private String materials;
+    private String material;
     private String category;
     private int userId;
 
-    public StudyMaterial(String materials, String category, int userId) {
-        this.materials = materials;
+    public StudyMaterial(String material, String category, int userId) {
+        this.material = material;
         this.category = category;
         this.userId = userId;
     }
 
-    public String getMaterials() {
-        return materials;
+    public String getMaterial() {
+        return material;
     }
-    public void setMaterials(String materials) {
-        this.materials = materials;
+    public void setMaterials(String material) {
+        this.material = material;
     }
 
     public String getCategory() {

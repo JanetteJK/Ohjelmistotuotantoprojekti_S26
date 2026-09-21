@@ -16,7 +16,7 @@ public class StudyMaterialDao {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, sm.getMaterials());
+            stmt.setString(1, sm.getMaterial());
             stmt.setString(2, sm.getCategory());
             stmt.setInt(3, sm.getUserId());
 
