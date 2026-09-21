@@ -11,7 +11,7 @@ import controller.cardController;
 
 
 public class SignIn extends Application {
-     cardController controller;
+     signInController controller;
 
     @Override
     public void init(){
