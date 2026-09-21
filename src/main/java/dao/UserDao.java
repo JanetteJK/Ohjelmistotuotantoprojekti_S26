@@ -22,7 +22,7 @@ public class UserDao {
             stmt.setString(3, u.getEmail());
             stmt.setString(4, u.getRole().name());
 
-            stmt.executeUpdate();
+            stmt.executeQuery();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,14 +35,15 @@ public class UserDao {
             return;
         }
 
-        String sql = "SELECT * FROM users WHERE username = ? AND passwd = PASSWORD(?)";
+        String sql = "SELECT (user_id, username, passwd, role) FROM users WHERE username = ? AND passwd = PASSWORD(?)";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, u.getUserName());
             stmt.setString(2, u.getPassword());
 
-            stmt.executeUpdate();
+            stmt.executeQuery();
+
 
         } catch (SQLException e) {
             e.printStackTrace();

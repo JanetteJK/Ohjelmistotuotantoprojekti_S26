@@ -12,18 +12,20 @@ public class CardDao {
             return;
         }
 
-        String sql = "INSERT INTO flashcards (question, answer, user_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO flashcards (question, answer, category, user_id) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, c.getQuestion());
             stmt.setString(2, c.getAnswer());
-            stmt.setInt(3, c.getUserId());
+            stmt.setString(3, c.getCategory());
+            stmt.setInt(4, c.getUserId());
 
-            stmt.executeUpdate();
+            stmt.executeQuery();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }
