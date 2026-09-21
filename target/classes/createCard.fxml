@@ -62,7 +62,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label text="Study materials" textFill="#4a1b2a">
+                                <Label fx:id="studyMButton" text="Study materials" textFill="#4a1b2a">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>
@@ -71,7 +71,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label text="Profile" textFill="#4a1b2a">
+                                <Label fx:id="profileButton" text="Profile" textFill="#4a1b2a">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>
