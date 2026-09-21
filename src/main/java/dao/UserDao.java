@@ -49,4 +49,33 @@ public class UserDao {
             e.printStackTrace();
         }
     }
+
+    public static int getCurrentUserId(User u) {
+        if (conn == null) {
+            System.out.println("Connection is null!");
+            return -1;
+        }
+
+        String sql = "SELECT id FROM users WHERE username = ? AND passwd = PASSWORD(?)";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, u.getUserName());
+            stmt.setString(2, u.getPassword());
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int userId = rs.getInt("id");
+                System.out.println("Current user ID: " + userId);
+                // You can store this userId in a session or return it as needed
+                return userId;
+            } else {
+                System.out.println("User not found or incorrect password.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
