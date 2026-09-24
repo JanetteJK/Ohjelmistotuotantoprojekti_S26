@@ -2,15 +2,21 @@
 
 ## Sprint Goal
 
-Create a fully functional prototype of the product and implement Jenkins.
+Create a fully functional prototype of the product and integrate Jenkins.
 
 ## Selected Product Backlog Items
-
-
+- Integrate Jenkins for CI/CD
+- Log in
+- Register user
+- Write, edit, delete flashcards
 
 ## Planned Tasks / Breakdown
-
-
+- Integrate Jenkins for CI/CD
+  - Emt
+- Log in/register user
+  - Make a function for user to be able to register and log in
+- Write, edit and delete flashcards
+  - Make necessary functions for users to be able to write, edit and delete flashcards
 
 ## Team Capacity & Assumptions
 
