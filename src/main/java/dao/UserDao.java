@@ -27,7 +27,7 @@ public class UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+}
 
     public static void logInUser(User u) {
         if (conn == null) {
@@ -56,7 +56,7 @@ public class UserDao {
             return -1;
         }
 
-        String sql = "SELECT id FROM users WHERE username = ? AND passwd = PASSWORD(?)";
+        String sql = "SELECT user_id FROM users WHERE username = ? AND passwd = PASSWORD(?)";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
