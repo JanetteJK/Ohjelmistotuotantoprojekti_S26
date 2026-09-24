@@ -33,13 +33,13 @@ public class cardController {
     public void submitCard() {
         String question = getQuestion();
         String answer = getAnswer();
-
-        //todo: get current user credentials to find user id and save card to that user
-        /*
-        int userId = userDao.getCurrentUserId(currentUser);
-        Card card = new Card(question, answer, userId);
-        cardDao.saveCard(card);
-        */
+        String category = "default"; // Placeholder for category, todo: implement category selection logic
+        //int userId = userDao.getCurrentUserId(currentUser);
+        int userId = 1; // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID§
+        Card card = new Card(question, answer, category ,userId);
+        CardDao.addCard(card);
+        questionBox.clear();
+        answerBox.clear();
     }
 
 }
