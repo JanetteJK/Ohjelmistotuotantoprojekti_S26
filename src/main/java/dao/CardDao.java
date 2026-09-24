@@ -21,7 +21,7 @@ public class CardDao {
             stmt.setString(3, c.getCategory());
             stmt.setInt(4, c.getUserId());
 
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,7 +56,7 @@ public class CardDao {
             return;
         }
 
-        String sql = "SELECT (question, answer, category) FROM flashcards WHERE user_id = ?";
+        String sql = "SELECT question, answer, category FROM flashcards WHERE user_id = ?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -75,7 +75,7 @@ public class CardDao {
             return;
         }
 
-        String sql = "SELECT (question, answer, category) FROM flashcards WHERE user_id = ? AND category = ?";
+        String sql = "SELECT question, answer, category FROM flashcards WHERE user_id = ? AND category = ?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
