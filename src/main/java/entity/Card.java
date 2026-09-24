@@ -8,7 +8,7 @@ public class Card {
     private int fcId;
 
 
-    public Card(String answer, String question, String category, int userId) {
+    public Card(String question, String answer, String category, int userId) {
         this.question = question;
         this.answer = answer;
         this.category = category;
