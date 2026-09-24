@@ -29,10 +29,10 @@ public class UserDao {
         }
     }
 
-    public static void logInUser(User u) {
+    public static boolean logInUser(User u) {
         if (conn == null) {
             System.out.println("Connection is null!");
-            return;
+            return false;
         }
 
         String sql = "SELECT user_id, username, passwd, role FROM users WHERE username = ? AND passwd = PASSWORD(?)";
@@ -42,12 +42,23 @@ public class UserDao {
             stmt.setString(1, u.getUserName());
             stmt.setString(2, u.getPassword());
 
-            stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
+            if (rs.next()) {
+                System.out.println("Login successful!");
+                System.out.println("Username: " + rs.getString("username"));
+                System.out.println("Role: " + rs.getString("role"));
+
+                return true;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Login failed!");
+        return false;
+
     }
 
     public static int getCurrentUserId(User u) {
@@ -56,7 +67,7 @@ public class UserDao {
             return -1;
         }
 
-        String sql = "SELECT id FROM users WHERE username = ? AND passwd = PASSWORD(?)";
+        String sql = "SELECT user_id FROM users WHERE username = ? AND passwd = PASSWORD(?)";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 

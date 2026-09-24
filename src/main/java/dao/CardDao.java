@@ -63,7 +63,13 @@ public class CardDao {
 
             stmt.setInt(1, c.getUserId());
 
-            stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                System.out.println(rs.getString("question"));
+                System.out.println(rs.getString("answer"));
+                System.out.println(rs.getString("category"));
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,7 +89,13 @@ public class CardDao {
             stmt.setInt(1, c.getUserId());
             stmt.setString(2, c.getCategory());
 
-            stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                System.out.println(rs.getString("question"));
+                System.out.println(rs.getString("answer"));
+                System.out.println(rs.getString("category"));
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
