@@ -27,7 +27,7 @@ public class UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+}
 
     public static boolean logInUser(User u) {
         if (conn == null) {
