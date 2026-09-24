@@ -42,6 +42,7 @@ public class CardDao {
             stmt.setString(1, c.getQuestion());
             stmt.setString(2, c.getAnswer());
             stmt.setString(3, c.getCategory());
+            stmt.setInt(4, c.getFcId());
 
             stmt.executeUpdate();
 

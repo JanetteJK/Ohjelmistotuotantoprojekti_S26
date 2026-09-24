@@ -5,6 +5,7 @@ public class Card {
     private String answer;
     private String category;
     private int userId;
+    private int fcId;
 
 
     public Card(String answer, String question, String category, int userId) {
@@ -33,4 +34,7 @@ public class Card {
 
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
+
+    public int getFcId() { return fcId; }
+    public void setFcId(int fcId) { this.fcId = fcId; }
 }
