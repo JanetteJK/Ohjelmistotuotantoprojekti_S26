@@ -51,6 +51,7 @@ public class createAccountController {
     public void createAccount(){
         User newUser = getUserCreationDetails();
         ud.registerUser(newUser);
+        System.out.println("toimiipas");
     }
 
 }

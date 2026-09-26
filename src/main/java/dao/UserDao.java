@@ -2,12 +2,16 @@ package dao;
 
 import java.sql.*;
 import static datasource.MariaDBConnection.conn;
+
+import datasource.MariaDBConnection;
 import entity.User;
 
 public class UserDao {
 
 
     public static void registerUser(User u) {
+        Connection conn = MariaDBConnection.connect();
+
         if (conn == null) {
             System.out.println("Connection is null!");
             return;
@@ -30,6 +34,8 @@ public class UserDao {
 }
 
     public static boolean logInUser(User u) {
+        Connection conn = MariaDBConnection.connect();
+
         if (conn == null) {
             System.out.println("Connection is null!");
             return false;
@@ -62,6 +68,8 @@ public class UserDao {
     }
 
     public static int getCurrentUserId(User u) {
+        Connection conn = MariaDBConnection.connect();
+
         if (conn == null) {
             System.out.println("Connection is null!");
             return -1;
