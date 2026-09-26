@@ -31,17 +31,20 @@ public class createAccountController {
         String un = newUsername.getText();
         User.Role role = null;
         String passw = newPassw.toString();
+        String email = null;
         if (teacherButton.isSelected()){
             role = User.Role.teacher;
+            email = "teacher@email.com";
         }
         else if (studentButton.isSelected()){
             role = User.Role.student;
+            email = "student@email.com";
         }
         else {
             System.out.println("no role selected");
         }
         role = User.Role.student;
-        User user = new User(un, "Malli@email.fi", passw, role);
+        User user = new User(un, email, passw, role);
         return user;
     }
 
