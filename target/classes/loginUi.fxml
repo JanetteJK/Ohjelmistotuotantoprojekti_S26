@@ -74,7 +74,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Label>
-                              <TextField id="tUsername" fx:id="tUsername" prefHeight="26.0" prefWidth="57.0" styleClass="shadow" text="kdlösöf">
+                              <TextField id="tUsername" fx:id="tUsername" prefHeight="26.0" prefWidth="57.0" styleClass="shadow">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
@@ -126,7 +126,7 @@
                               <Font name="Bell MT" size="24.0" />
                            </font>
                         </Label>
-                        <Hyperlink id="createAccount" fx:id="createAccount" onAction="#openCreateAccount" styleClass="shadow" stylesheets="@style.css" text="HERE">
+                        <Hyperlink id="createAccount" fx:id="createAccount" onAction="#switchToCreateAccount" onMouseClicked="#switchToCreateAccount" styleClass="shadow" stylesheets="@style.css" text="HERE">
                            <font>
                               <Font name="Bell MT Bold" size="24.0" />
                            </font>

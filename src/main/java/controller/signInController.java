@@ -3,6 +3,7 @@ import dao.UserDao;
 import entity.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,11 +20,13 @@ import javafx.stage.Stage;
 public class signInController {
 
 
-    UserDao ud;
+    private UserDao ud = new UserDao();
+    private Stage stage;
+    private Scene scene;
+    private createAccountController cac;
 
     @FXML
     private TextField tUsername;
-
     @FXML
     private PasswordField tPassw;
     @FXML
@@ -36,31 +39,6 @@ public class signInController {
     private Button sOk;
     @FXML
     private Hyperlink createAccount;
-    @FXML
-    private Button createAccountButton;
-    @FXML
-    private TextField newUsername;
-    @FXML
-    private PasswordField newPassw;
-    @FXML
-    private RadioButton teacherButton;
-    @FXML
-    private RadioButton studentButton;
-
-    public signInController(UserDao ud, TextField tUsername, PasswordField tPassw, Button tOk, TextField sUsername, PasswordField sPassw, Button sOk, Hyperlink createAccount, Button createAccountButton, RadioButton studentButton, RadioButton teacherButton) {
-        this.ud = ud;
-        this.tUsername = tUsername;
-        this.tPassw = tPassw;
-        this.tOk = tOk;
-        this.sUsername = sUsername;
-        this.sPassw = sPassw;
-        this.sOk = sOk;
-        this.createAccount = createAccount;
-        this.createAccountButton = createAccountButton;
-        this.teacherButton = teacherButton;
-        this.studentButton = studentButton;
-    }
-
 
     public String gettUsername() {
         return tUsername.getText();
@@ -83,8 +61,9 @@ public class signInController {
         if(actionEvent.getSource()==tOk) {
             String un = gettUsername();
             String ps = gettPassw().toString();
-            String email = "example@email.fi";
+            String email = "teacher@email.fi";
             User teacher = new User(un, email, ps, User.Role.teacher);
+            ud.logInUser(teacher);
 
         }
     }
@@ -92,35 +71,26 @@ public class signInController {
     public void sLogin(javafx.event.ActionEvent actionEvent) {
         if(actionEvent.getSource()==sOk) {
             String un = getSUsername();
-
+            String ps = getsPassw().toString();
+            String email = "student@email.fi";
+            User student = new User(un, email, ps, User.Role.student);
+            ud.logInUser(student);
         }
     }
 
-    public void openCreateAccount(){
-        System.out.println("ähän tulee sivu");
-    }
-
-    public User getUserCreationDetails(){
-        String un = newUsername.getText();
-        User.Role role = null;
-        String passw = newPassw.toString();
-        if (teacherButton.isSelected()){
-            role = User.Role.teacher;
-        }
-        else if (studentButton.isSelected()){
-            role = User.Role.student;
-        }
-        else {
-            System.out.println("no role selected");
-        }
-        User user = new User(un, "Malli@email.fi", passw, role);
-        return user;
-    }
-
-    public void createAccount(){
-        User newUser = getUserCreationDetails();
-        UserDao.registerUser(newUser);
+    public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+        Parent root = fxmlLoader.load();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
+
+
+
+
 
 
