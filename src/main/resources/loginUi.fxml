@@ -80,7 +80,7 @@
                                  </VBox.margin>
                               </TextField>
                               <Label text="Password" />
-                              <PasswordField id="tPassw" styleClass="shadow">
+                              <PasswordField id="tPassw" fx:id="tPassw" styleClass="shadow">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
@@ -109,7 +109,7 @@
                                  </VBox.margin>
                               </TextField>
                               <Label text="Password" />
-                              <PasswordField id="sPassw" styleClass="shadow">
+                              <PasswordField id="sPassw" fx:id="sPassw" styleClass="shadow">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
