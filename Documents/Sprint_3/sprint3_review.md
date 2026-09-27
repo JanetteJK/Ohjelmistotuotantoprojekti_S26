@@ -7,6 +7,7 @@ The goal of Sprint 3 was to create a functional prototype of the application and
 - Integrate Jenkins
 - Log in
 - Register user
+- Write and save flashcards
 
 ## What Went Well
 - 
