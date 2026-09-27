@@ -1,6 +1,8 @@
 package dao;
 import entity.Card;
 import java.sql.*;
+import java.util.ArrayList;
+
 import static datasource.MariaDBConnection.conn;
 
 
@@ -51,17 +53,20 @@ public class CardDao {
         }
     }
 
-    public static void showAllCards(Card c) {
+    public static ArrayList<Card> showAllCards(int userId) {
+
+        ArrayList<Card> cardList = new ArrayList<>();
+
         if (conn == null) {
             System.out.println("Connection is null!");
-            return;
+            return null;
         }
 
         String sql = "SELECT question, answer, category FROM flashcards WHERE user_id = ?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, c.getUserId());
+            stmt.setInt(1, userId);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -69,12 +74,22 @@ public class CardDao {
                 System.out.println(rs.getString("question"));
                 System.out.println(rs.getString("answer"));
                 System.out.println(rs.getString("category"));
+                // Create a new Card object and add it to the array
+                Card card = new Card(rs.getString("question"), rs.getString("answer"), rs.getString("category"), userId);
+                // Add the card to the array
+                cardList.add(card);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if (cardList.size() == 0) {
+            return null;
+        } else {
+            return cardList;
+        }
     }
+
 
     public static void showCardsBasedOnCategory(Card c) {
         if (conn == null) {
