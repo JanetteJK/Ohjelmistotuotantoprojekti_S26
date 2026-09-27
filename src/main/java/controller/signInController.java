@@ -106,7 +106,7 @@ public class signInController {
         stage.show();
     }
 
-    public void switchToCreateCards(MouseEvent actionEvent) throws IOException{
+    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"));
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
@@ -116,7 +116,7 @@ public class signInController {
         stage.show();
     }
 
-    public void switchToLibrary(MouseEvent actionEvent) throws IOException{
+    public void switchToLibrary(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
@@ -126,7 +126,7 @@ public class signInController {
         stage.show();
     }
 
-    public void switchToCreateQuiz(MouseEvent actionEvent) throws IOException{
+    public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"));
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
@@ -136,7 +136,7 @@ public class signInController {
         stage.show();
     }
 
-    public void switchToStudyMaterials(javafx.event.ActionEvent actionEvent) throws IOException{
+    public void switchToStudyMaterials(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
@@ -146,7 +146,7 @@ public class signInController {
         stage.show();
     }
 
-    public void switchToProfile(javafx.event.ActionEvent actionEvent) throws IOException{
+    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
@@ -155,6 +155,7 @@ public class signInController {
         stage.setScene(scene);
         stage.show();
     }
+
 }
 
 
