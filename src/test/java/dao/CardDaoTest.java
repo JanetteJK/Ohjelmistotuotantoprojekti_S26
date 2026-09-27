@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import static datasource.MariaDBConnection.conn;
 import static org.mockito.Mockito.*;
@@ -74,5 +75,47 @@ class CardDaoTest {
         verify(mockStatement).setInt(4, 5);
 
         verify(mockStatement).executeUpdate();
+    }
+
+    @Test
+    void showAllCardsShouldShowAllCards() throws Exception {
+
+        Connection mockConnection = mock(Connection.class);
+        PreparedStatement mockStatement = mock(PreparedStatement.class);
+        ResultSet mockResultSet = mock(ResultSet.class);
+
+        conn = mockConnection;
+
+        when(mockConnection.prepareStatement(anyString()))
+                .thenReturn(mockStatement);
+
+        when(mockStatement.executeQuery())
+                .thenReturn(mockResultSet);
+
+        when(mockResultSet.next())
+                .thenReturn(true)
+                .thenReturn(true)
+                .thenReturn(false);
+
+        Card card = new Card(
+                "Question",
+                "Answer",
+                "Test",
+                5
+        );
+
+        CardDao.showAllCards(card);
+
+        verify(mockConnection).prepareStatement(
+                "SELECT question, answer, category FROM flashcards WHERE user_id = ?"
+        );
+
+        verify(mockStatement).setInt(1, 5);
+
+        verify(mockStatement).executeQuery();
+
+        verify(mockResultSet, times(3)).next();
+
+
     }
 }
