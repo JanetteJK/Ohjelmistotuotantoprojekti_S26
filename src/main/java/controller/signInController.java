@@ -44,16 +44,16 @@ public class signInController {
         return tUsername.getText();
     }
 
-    public PasswordField gettPassw(){
-        return tPassw;
+    public String gettPassw(){
+        return tPassw.getText();
     }
 
     public String getSUsername(){
         return sUsername.getText();
     }
 
-    public PasswordField getsPassw(){
-        return sPassw;
+    public String getsPassw(){
+        return sPassw.getText();
     }
 
     // todo: see how to get the password value, create login handler for dao, repeat with sLogin
