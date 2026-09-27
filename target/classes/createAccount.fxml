@@ -62,13 +62,13 @@
                                 <VBox alignment="CENTER" prefHeight="306.0" prefWidth="186.0">
                            <children>
                               <Label text="Username" />
-                              <TextField fx:id="newUsername">
+                              <TextField fx:id="newUsername" styleClass="shadow">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                               </TextField>
                               <Label text="Password" />
-                              <PasswordField fx:id="newPassw">
+                              <PasswordField fx:id="newPassw" styleClass="shadow">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
@@ -83,15 +83,31 @@
                                     <Insets bottom="30.0" />
                                  </VBox.margin>
                               </RadioButton>
-                              <Button id="createAccountButton" fx:id="createAccountButton" mnemonicParsing="false" onAction="#createAccount" text="Create Account">
+                              <Button id="createAccountButton" fx:id="createAccountButton" mnemonicParsing="false" onAction="#createAccount" styleClass="shadow" text="Create Account">
                                  <font>
                                     <Font name="Bell MT" size="14.0" />
                                  </font>
                               </Button>
+                              <Button id="backButton" fx:id="backButton" mnemonicParsing="false" onAction="#switchToStart" styleClass="shadow" text="Back">
+                                 <font>
+                                    <Font name="Bell MT" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Button>
                            </children></VBox>
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="165.0" prefWidth="637.0" />
+                        <HBox alignment="CENTER" prefHeight="165.0" prefWidth="637.0">
+                     <children>
+                        <Label fx:id="createAccountInfo">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                        </HBox>
                     </children>
                 </VBox>
             </center>
