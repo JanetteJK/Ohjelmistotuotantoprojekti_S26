@@ -4,6 +4,7 @@ import dao.*;
 import javafx.fxml.FXML;
 import entity.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class cardController {
@@ -19,7 +21,7 @@ public class cardController {
     UserDao userDao = new UserDao();
     private Stage stage;
     private Scene scene;
-    private cardController cc;
+    private cardController cac;
 
 
 
@@ -50,11 +52,61 @@ public class cardController {
         answerBox.clear();
     }
 
-    public void switchToCreateCards() throws IOException {
+    public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+        Parent root = fxmlLoader.load();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToCreateCard(MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"));
         Parent root = fxmlLoader.load();
-        cc = fxmlLoader.getController();
-        stage = (Stage) submitCard.getScene().getWindow();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToLibrary(MouseEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
+        Parent root = fxmlLoader.load();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToCreateQuiz(MouseEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"));
+        Parent root = fxmlLoader.load();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToStudyMaterials(javafx.event.ActionEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+        Parent root = fxmlLoader.load();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToProfile(javafx.event.ActionEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+        Parent root = fxmlLoader.load();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
