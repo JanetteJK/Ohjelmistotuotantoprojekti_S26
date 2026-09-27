@@ -40,7 +40,7 @@ public class cardController {
         return answerBox.getText();
     }
 
-    public void submitCard(User u) {
+    public void submitCard() {
         String question = getQuestion();
         String answer = getAnswer();
         String category = "default"; // Placeholder for category, todo: implement category selection logic
