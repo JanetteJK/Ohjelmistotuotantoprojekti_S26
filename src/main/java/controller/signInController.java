@@ -60,7 +60,7 @@ public class signInController {
     public void tLogin(javafx.event.ActionEvent actionEvent) {
         if(actionEvent.getSource()==tOk) {
             String un = gettUsername();
-            String ps = gettPassw().toString();
+            String ps = gettPassw();
             String email = "teacher@email.fi";
             User teacher = new User(un, email, ps, User.Role.teacher);
             ud.logInUser(teacher);
@@ -71,7 +71,7 @@ public class signInController {
     public void sLogin(javafx.event.ActionEvent actionEvent) {
         if(actionEvent.getSource()==sOk) {
             String un = getSUsername();
-            String ps = getsPassw().toString();
+            String ps = getsPassw();
             String email = "student@email.fi";
             User student = new User(un, email, ps, User.Role.student);
             ud.logInUser(student);

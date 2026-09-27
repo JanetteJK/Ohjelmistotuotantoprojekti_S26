@@ -45,9 +45,9 @@ public class UserDao {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            System.out.println("Username: " + u.getUserName());
+            //System.out.println("Username: " + u.getUserName());
             stmt.setString(1, u.getUserName());
-            System.out.println("Password: " + u.getPassword());
+            //System.out.println("Password: " + u.getPassword());
             stmt.setString(2, u.getPassword());
 
             ResultSet rs = stmt.executeQuery();
