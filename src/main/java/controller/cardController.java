@@ -50,6 +50,7 @@ public class cardController {
         CardDao.addCard(card);
         questionBox.clear();
         answerBox.clear();
+        System.out.println("Card submitted: " + question + " - " + answer);
     }
 
     public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{
