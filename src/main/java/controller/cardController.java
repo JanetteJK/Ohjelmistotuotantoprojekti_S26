@@ -40,12 +40,12 @@ public class cardController {
         return answerBox.getText();
     }
 
-    public void submitCard() {
+    public void submitCard(User u) {
         String question = getQuestion();
         String answer = getAnswer();
         String category = "default"; // Placeholder for category, todo: implement category selection logic
-        //int userId = userDao.getCurrentUserId(currentUser);
         int userId = 1; // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID§
+        //int userId = u.getUserId(); // Assuming User class has a method to get the user ID
         Card card = new Card(question, answer, category, userId);
         CardDao.addCard(card);
         questionBox.clear();
