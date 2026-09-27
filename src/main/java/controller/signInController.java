@@ -108,7 +108,6 @@ public class signInController {
     public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"));
         Parent root = fxmlLoader.load();
-        cac = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -118,7 +117,6 @@ public class signInController {
     public void switchToLibrary(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
         Parent root = fxmlLoader.load();
-        cac = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -128,7 +126,6 @@ public class signInController {
     public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"));
         Parent root = fxmlLoader.load();
-        cac = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -138,7 +135,6 @@ public class signInController {
     public void switchToStudyMaterials(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
         Parent root = fxmlLoader.load();
-        cac = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -148,7 +144,6 @@ public class signInController {
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
         Parent root = fxmlLoader.load();
-        cac = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
