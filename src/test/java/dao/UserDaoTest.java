@@ -71,7 +71,4 @@ class UserDaoTest {
         verify(mockResultSet).next();
     }
 
-    @Test
-    void getCurrentUserId() {
-    }
 }
