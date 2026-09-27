@@ -140,7 +140,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button id="submitCard" fx:id="submitCard" mnemonicParsing="false" styleClass="shadow" stylesheets="@style.css" text="Submit card">
+                        <Button id="submitCard" fx:id="submitCard" mnemonicParsing="false" onAction="#submitCard" styleClass="shadow" stylesheets="@style.css" text="Submit card">
                            <font>
                               <Font name="Bell MT" size="14.0" />
                            </font>
