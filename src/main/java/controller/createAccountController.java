@@ -30,7 +30,7 @@ public class createAccountController {
     public User getUserCreationDetails(){
         String un = newUsername.getText();
         User.Role role = null;
-        String passw = newPassw.toString();
+        String passw = newPassw.getText();
         String email = null;
         if (teacherButton.isSelected()){
             role = User.Role.teacher;
