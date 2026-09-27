@@ -57,24 +57,41 @@ public class signInController {
     }
 
     // todo: see how to get the password value, create login handler for dao, repeat with sLogin
-    public void tLogin(javafx.event.ActionEvent actionEvent) {
+    public void tLogin(javafx.event.ActionEvent actionEvent) throws IOException {
         if(actionEvent.getSource()==tOk) {
             String un = gettUsername();
             String ps = gettPassw();
             String email = "teacher@email.fi";
             User teacher = new User(un, email, ps, User.Role.teacher);
             ud.logInUser(teacher);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
+            Parent root = fxmlLoader.load();
+            cac = fxmlLoader.getController();
+            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
 
         }
     }
 
-    public void sLogin(javafx.event.ActionEvent actionEvent) {
+    public void sLogin(javafx.event.ActionEvent actionEvent) throws IOException {
         if(actionEvent.getSource()==sOk) {
             String un = getSUsername();
             String ps = getsPassw();
             String email = "student@email.fi";
             User student = new User(un, email, ps, User.Role.student);
             ud.logInUser(student);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
+            Parent root = fxmlLoader.load();
+            cac = fxmlLoader.getController();
+            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+
         }
     }
 
