@@ -67,7 +67,7 @@ public class signInController {
             ud.logInUser(teacher);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
             Parent root = fxmlLoader.load();
-            cac = fxmlLoader.getController();
+
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -86,7 +86,6 @@ public class signInController {
             ud.logInUser(student);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
             Parent root = fxmlLoader.load();
-            cac = fxmlLoader.getController();
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
