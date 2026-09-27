@@ -104,7 +104,6 @@ public class signInController {
         stage.setScene(scene);
         stage.show();
     }
-
 }
 
 
