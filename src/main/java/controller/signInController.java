@@ -14,17 +14,18 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 
 public class signInController {
-
-
     private UserDao ud = new UserDao();
     private Stage stage;
     private Scene scene;
     private createAccountController cac;
+    private User currentUser;
 
     @FXML
     private TextField tUsername;
@@ -40,6 +41,8 @@ public class signInController {
     private Button sOk;
     @FXML
     private Hyperlink createAccount;
+    @FXML
+    private Label nameTag;
 
     public String gettUsername() {
         return tUsername.getText();
@@ -57,6 +60,10 @@ public class signInController {
         return sPassw.getText();
     }
 
+    public void setCurrentUser(User cu){
+        this.currentUser = cu;
+    }
+
     // todo: see how to get the password value, create login handler for dao, repeat with sLogin
     public void tLogin(javafx.event.ActionEvent actionEvent) throws IOException {
         if(actionEvent.getSource()==tOk) {
@@ -65,9 +72,11 @@ public class signInController {
             String email = "teacher@email.fi";
             User teacher = new User(un, email, ps, User.Role.teacher);
             ud.logInUser(teacher);
+            setCurrentUser(teacher);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
             Parent root = fxmlLoader.load();
-
+            signInController controller = fxmlLoader.getController();
+            controller.setUserGreeting(currentUser.getUserName());
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -84,8 +93,11 @@ public class signInController {
             String email = "student@email.fi";
             User student = new User(un, email, ps, User.Role.student);
             ud.logInUser(student);
+            setCurrentUser(student);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
             Parent root = fxmlLoader.load();
+            signInController controller = fxmlLoader.getController();
+            controller.setUserGreeting(currentUser.getUserName());
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -141,13 +153,21 @@ public class signInController {
         stage.show();
     }
 
-    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
         Parent root = fxmlLoader.load();
+
+        signInController controller = fxmlLoader.getController();
+        controller.setUserGreeting(currentUser.getUserName());
+
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void setUserGreeting(String un){
+        nameTag.setText(un);
     }
 
 }

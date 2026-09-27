@@ -9,6 +9,7 @@ import entity.User;
 public class UserDao {
 
 
+
     public static void registerUser(User u) {
         Connection conn = MariaDBConnection.connect();
 
