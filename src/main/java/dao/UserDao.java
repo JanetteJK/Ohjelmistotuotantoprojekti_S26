@@ -56,6 +56,7 @@ public class UserDao {
                 System.out.println("Login successful!");
                 System.out.println("Username: " + rs.getString("username"));
                 System.out.println("Role: " + rs.getString("role"));
+                System.out.println("UserId: " + rs.getInt("user_id"));
 
                 return true;
             }
