@@ -5,6 +5,7 @@ public class User {
     private String email;
     private String password;
     private Role role;
+    private int userId;
 
     public enum Role {
         student,
@@ -41,6 +42,12 @@ public class User {
     }
     public void setRole(Role role) {
         this.role = role;
+    }
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
 }
