@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javafx.scene.control.Button;
@@ -96,6 +97,56 @@ public class signInController {
     }
 
     public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+        Parent root = fxmlLoader.load();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToCreateCards(MouseEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"));
+        Parent root = fxmlLoader.load();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToLibrary(MouseEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
+        Parent root = fxmlLoader.load();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToCreateQuiz(MouseEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"));
+        Parent root = fxmlLoader.load();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToStudyMaterials(javafx.event.ActionEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+        Parent root = fxmlLoader.load();
+        cac = fxmlLoader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToProfile(javafx.event.ActionEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
