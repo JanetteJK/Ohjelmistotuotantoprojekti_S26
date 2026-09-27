@@ -43,7 +43,6 @@ public class createAccountController {
         else {
             System.out.println("no role selected");
         }
-        role = User.Role.student;
         User user = new User(un, email, passw, role);
         return user;
     }
