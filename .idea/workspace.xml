@@ -6,6 +6,33 @@
   <component name="ChangeListManager">
     <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="kokeilkaa">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/createAccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/createAccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/signInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/signInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/createAccount.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/createAccount.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/cardController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/createAccountController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/signInController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/createAccount.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/createCard.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/createQuizUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/CardDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/StudyMaterialDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/UserDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/datasource/MariaDBConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entity/Card.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entity/StudyMaterial.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entity/User$Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entity/UserProfile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/initHomeGui.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/libraryUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/loginUi.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/CardGetter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/CardReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/CardWriter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/SignIn.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +40,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="40" />
+    <option name="cachedIndexableFilesCount" value="65" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
