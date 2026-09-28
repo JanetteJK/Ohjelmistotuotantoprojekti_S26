@@ -5,6 +5,7 @@ import entity.Card;
 import entity.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,6 +16,7 @@ import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.Button;
@@ -32,8 +34,8 @@ public class signInController {
     private Stage stage;
     private Scene scene;
     private createAccountController cac;
-    private User currentUser;
-    private List<Card> cards;
+    private static User currentUser;
+    private List<Card> cards = new ArrayList<>();
 
     @FXML
     private TextField tUsername;
@@ -73,7 +75,7 @@ public class signInController {
     }
 
     public void setCurrentUser(User cu){
-        this.currentUser = cu;
+        currentUser = cu;
     }
 
     // todo: see how to get the password value, create login handler for dao, repeat with sLogin
@@ -89,6 +91,7 @@ public class signInController {
             Parent root = fxmlLoader.load();
             signInController controller = fxmlLoader.getController();
             controller.setUserGreeting(currentUser.getUserName());
+            controller.getAllCards(); // todo: id shit
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -110,11 +113,12 @@ public class signInController {
             Parent root = fxmlLoader.load();
             signInController controller = fxmlLoader.getController();
             controller.setUserGreeting(currentUser.getUserName());
+            controller.getAllCards();//todo: id shit
+            System.out.println(cards);
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-
 
         }
     }
@@ -142,6 +146,7 @@ public class signInController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
         Parent root = fxmlLoader.load();
         // todo: add cards to library
+        System.out.println(cards);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -183,24 +188,31 @@ public class signInController {
         nameTag.setText(un);
     }
 
-    public void getAllCards(int id) {
-        cards = CardDao.showAllCards(id);
+    public void getAllCards() {
+        cards.addAll(CardDao.showAllCards(1));
     }
 
     public void addCardsToLibrary() throws IOException{
         int column = 0;
         int row = 0;
-        for (Card card : cards) {
+        for (int i = 0; i < cards.size(); i++) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/card.fxml"));
+
             AnchorPane anchorPane = fxmlLoader.load();
-            for (Card c : cards) {
-                grid.add(anchorPane, column++, row);
-                if (column == 3) {
-                    column = 0;
-                    row++;
-                }
+
+            cardController cc = fxmlLoader.getController();
+            cc.setCardQuestion(cards.get(i));
+
+            if(column == 3) {
+                column = 0;
+                row++;
             }
+
+            grid.add(anchorPane, column++, row);
+            GridPane.setMargin(anchorPane, new Insets(10, 10, 10, 10));
+
+
 
         }
     }

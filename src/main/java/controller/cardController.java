@@ -19,12 +19,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 public class cardController {
+
     CardDao cardDao = new CardDao();
     UserDao userDao = new UserDao();
     private Stage stage;
     private Scene scene;
     private cardController cac;
     private List<Card> cards = new ArrayList<>();
+    private Card card;
 
     @FXML
     private TextArea questionBox;
@@ -46,6 +48,9 @@ public class cardController {
     private ScrollPane scrollPane;
     @FXML
     private GridPane gridPane;
+    @FXML
+    private javafx.scene.control.TextField cardText;
+
 
     public String getQuestion() {
         return questionBox.getText();
@@ -140,6 +145,16 @@ public class cardController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void setCardQuestion(Card card) {
+        this.card = card;
+        cardText.setText(card.getQuestion());
+    }
+
+    public void setCardAnswer(Card card) {
+        this.card = card;
+        cardText.setText(card.getAnswer());
     }
 
 }
