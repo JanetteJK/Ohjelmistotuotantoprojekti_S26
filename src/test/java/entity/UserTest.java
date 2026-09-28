@@ -23,6 +23,9 @@ public class UserTest {
     assertEquals("testiakka@email.fi", u.getEmail());
     assertEquals("testiakansalasana", u.getPassword());
     assertEquals(teacher, u.getRole());
+
+    u.setUserId(1);
+    assertEquals(1, u.getUserId());
     }
 
 }
