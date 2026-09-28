@@ -11,8 +11,6 @@ public class UserDao {
 
 
     public static void registerUser(User u) {
-        Connection conn = MariaDBConnection.connect();
-
         if (conn == null) {
             System.out.println("Connection is null!");
             return;
@@ -35,8 +33,6 @@ public class UserDao {
 }
 
     public static boolean logInUser(User u) {
-        Connection conn = MariaDBConnection.connect();
-
         if (conn == null) {
             System.out.println("Connection is null!");
             return false;
