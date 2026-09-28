@@ -38,6 +38,15 @@ class UserDaoTest {
     }
 
     @Test
+    void registerUserDoesNothingWhenConnectionIsNull() {
+        conn = null;
+
+        User user = new User("Veela", "Veela@student.com", "salasana", User.Role.student);
+
+        UserDao.registerUser(user);
+    }
+
+    @Test
     void logInUserLoggedIn() throws SQLException {
         Connection mockConnection = mock(Connection.class);
         PreparedStatement mockStatement = mock(PreparedStatement.class);
@@ -69,6 +78,15 @@ class UserDaoTest {
         verify(mockStatement).executeQuery();
 
         verify(mockResultSet).next();
+    }
+
+    @Test
+    void loginUserDoesNothingWhenConnectionIsNull() {
+        conn = null;
+
+        User user = new User("Veela", "Veela@student.com", "salasana", User.Role.student);
+
+        UserDao.logInUser(user);
     }
 
 }

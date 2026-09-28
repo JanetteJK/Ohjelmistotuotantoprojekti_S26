@@ -146,6 +146,8 @@ class CardDaoTest {
     void showAllCardsShouldDoNothingWhenConnectionIsNull() {
         conn = null;
 
+        Card card = new Card("Test question", "Test answer", "Animals", 1);
+
         CardDao.showAllCards(1);
     }
 
@@ -208,7 +210,10 @@ class CardDaoTest {
     @Test
     void showCardsBasedOnCategoryShouldDoNothingWhenConnectionIsNull() {
         conn = null;
-        CardDao.showCardsBasedOnCategory(null);
+
+        Card card = new Card("Test question", "Test answer", "Animals", 5);
+
+        CardDao.showCardsBasedOnCategory(card);
     }
 
 }
