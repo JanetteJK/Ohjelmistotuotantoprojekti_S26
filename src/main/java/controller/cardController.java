@@ -14,9 +14,9 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class cardController {
-
     CardDao cardDao = new CardDao();
     UserDao userDao = new UserDao();
     private Stage stage;
@@ -45,12 +45,25 @@ public class cardController {
         String answer = getAnswer();
         String category = "default"; // Placeholder for category, todo: implement category selection logic
         int userId = 1; // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID§
-        //int userId = u.getUserId(); // Assuming User class has a method to get the user ID
+        //int userId = this.user.getUserId(); // Assuming User class has a method to get the user ID
         Card card = new Card(question, answer, category, userId);
         CardDao.addCard(card);
         questionBox.clear();
         answerBox.clear();
         System.out.println("Card submitted: " + question + " - " + answer);
+    }
+
+    public void showAllCards() {
+        // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID
+        //int userId = this.user.getUserId(); // Assuming User class has a method to get the user ID
+        ArrayList<Card> cards = CardDao.showAllCards(1); // Replace 1 with the actual user ID
+        if (cards != null) {
+            for (Card card : cards) {
+                System.out.println("Question: " + card.getQuestion() + ", Answer: " + card.getAnswer() + ", Category: " + card.getCategory());
+            }
+        } else {
+            System.out.println("No cards found.");
+        }
     }
 
     public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{

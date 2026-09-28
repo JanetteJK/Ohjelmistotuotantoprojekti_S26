@@ -1,6 +1,8 @@
 package dao;
 import entity.Card;
 import java.sql.*;
+import java.util.ArrayList;
+
 import static datasource.MariaDBConnection.conn;
 
 
@@ -51,30 +53,53 @@ public class CardDao {
         }
     }
 
-    public static void showAllCards(Card c) {
+    public static ArrayList<Card> showAllCards(int userId) {
+
+        ArrayList<Card> cardList = new ArrayList<>();
+
         if (conn == null) {
             System.out.println("Connection is null!");
-            return;
+            return null;
         }
 
         String sql = "SELECT question, answer, category FROM flashcards WHERE user_id = ?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, c.getUserId());
+            stmt.setInt(1, userId);
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                System.out.println(rs.getString("question"));
-                System.out.println(rs.getString("answer"));
-                System.out.println(rs.getString("category"));
+
+                String question = rs.getString("question");
+                String answer = rs.getString("answer");
+                String category = rs.getString("category");
+
+                System.out.println(question);
+                System.out.println(answer);
+                System.out.println(category);
+
+                Card card = new Card(
+                        question,
+                        answer,
+                        category,
+                        userId
+                );
+
+                cardList.add(card);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if (cardList.size() == 0) {
+            return null;
+        } else {
+            return cardList;
+        }
     }
+
 
     public static void showCardsBasedOnCategory(Card c) {
         if (conn == null) {
