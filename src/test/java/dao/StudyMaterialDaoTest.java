@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.*;
 
 import static datasource.MariaDBConnection.conn;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
 
 public class StudyMaterialDaoTest {
@@ -41,6 +42,7 @@ public class StudyMaterialDaoTest {
 
         StudyMaterial sm = new StudyMaterial("test.pdf", "test", 2);
 
-        StudyMaterialDao.uploadStudyMaterial(sm);
+        assertDoesNotThrow(() ->
+                StudyMaterialDao.uploadStudyMaterial(sm));
     }
 }

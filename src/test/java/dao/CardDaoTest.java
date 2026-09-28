@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import static datasource.MariaDBConnection.conn;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
 
 class CardDaoTest {
@@ -45,7 +46,8 @@ class CardDaoTest {
 
         Card card = new Card("Who is Kiri?", "Kiri is my cat.", "Animals", 1);
 
-        CardDao.addCard(card);
+        assertDoesNotThrow(() ->
+                CardDao.addCard(card));
 
     }
 
@@ -84,7 +86,8 @@ class CardDaoTest {
 
         Card card = new Card("Who is Veela?", "Veela is my dog", "Animals", 1);
 
-        CardDao.modifyCard(card);
+        assertDoesNotThrow(() ->
+                CardDao.modifyCard(card));
 
     }
 
@@ -148,7 +151,8 @@ class CardDaoTest {
 
         Card card = new Card("Test question", "Test answer", "Animals", 1);
 
-        CardDao.showAllCards(1);
+        assertDoesNotThrow(() ->
+                CardDao.showAllCards(1));
     }
 
     @Test
@@ -213,7 +217,8 @@ class CardDaoTest {
 
         Card card = new Card("Test question", "Test answer", "Animals", 5);
 
-        CardDao.showCardsBasedOnCategory(card);
+        assertDoesNotThrow(() ->
+                CardDao.showCardsBasedOnCategory(card));
     }
 
 }

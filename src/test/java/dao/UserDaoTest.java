@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.*;
 
 import static datasource.MariaDBConnection.conn;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -43,7 +44,8 @@ class UserDaoTest {
 
         User user = new User("Veela", "Veela@student.com", "salasana", User.Role.student);
 
-        UserDao.registerUser(user);
+        assertDoesNotThrow(() ->
+                UserDao.registerUser(user));
     }
 
     @Test
@@ -86,7 +88,8 @@ class UserDaoTest {
 
         User user = new User("Veela", "Veela@student.com", "salasana", User.Role.student);
 
-        UserDao.logInUser(user);
+        assertDoesNotThrow(() ->
+                UserDao.logInUser(user));
     }
 
 }
