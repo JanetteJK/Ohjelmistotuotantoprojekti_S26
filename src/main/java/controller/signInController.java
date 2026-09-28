@@ -19,6 +19,7 @@ import java.util.List;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -180,6 +181,16 @@ public class signInController {
         cards = CardDao.showAllCards(id);
     }
 
+    public void addCardsToLibrary() throws IOException{
+        for (Card card : cards) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/card.fxml"));
+            AnchorPane anchorPane = fxmlLoader.load();
+
+            cardController cc = new cardController();
+
+        }
+    }
 }
 
 
