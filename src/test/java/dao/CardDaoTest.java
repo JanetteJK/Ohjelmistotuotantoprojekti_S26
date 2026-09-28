@@ -8,8 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import static datasource.MariaDBConnection.conn;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class CardDaoTest {
@@ -80,6 +78,17 @@ class CardDaoTest {
     }
 
     @Test
+    void modifyCardShouldDoNothingWhenConnectionIsNull() {
+
+        conn = null;
+
+        Card card = new Card("Who is Veela?", "Veela is my dog", "Animals", 1);
+
+        CardDao.modifyCard(card);
+
+    }
+
+    @Test
     void showAllCardsShouldShowAllCards() throws Exception {
 
         Connection mockConnection = mock(Connection.class);
@@ -132,4 +141,74 @@ class CardDaoTest {
         verify(mockResultSet, times(2))
                 .getString("category");
     }
+
+    @Test
+    void showAllCardsShouldDoNothingWhenConnectionIsNull() {
+        conn = null;
+
+        CardDao.showAllCards(1);
+    }
+
+    @Test
+    void showAllCardsBasedOnCategoryShouldShowCardsBasedOnCategories() throws Exception {
+        Connection mockConnection = mock(Connection.class);
+        PreparedStatement mockStatement = mock(PreparedStatement.class);
+        ResultSet mockResultSet = mock(ResultSet.class);
+
+        conn = mockConnection;
+
+        when(mockConnection.prepareStatement(anyString()))
+                .thenReturn(mockStatement);
+
+        when(mockStatement.executeQuery())
+                .thenReturn(mockResultSet);
+
+        when(mockResultSet.next())
+                .thenReturn(true)
+                .thenReturn(true)
+                .thenReturn(false);
+
+        when(mockResultSet.getString("category"))
+                .thenReturn("Animals")
+                .thenReturn("Animals");
+
+        when(mockResultSet.getString("question"))
+                .thenReturn("Who is Kiri?")
+                .thenReturn("Who is Veela?");
+
+        when(mockResultSet.getString("answer"))
+                .thenReturn("My cat.")
+                .thenReturn("My dog");
+
+        Card card = new Card(
+                "Test question",
+                "Test answer",
+                "Animals",
+                5
+        );
+
+        CardDao.showCardsBasedOnCategory(card);
+
+        verify(mockConnection).prepareStatement(
+                "SELECT question, answer, category FROM flashcards WHERE user_id = ? AND category = ?"
+        );
+
+        verify(mockStatement).setInt(1, 5);
+        verify(mockStatement).setString(2, "Animals");
+
+        verify(mockStatement).executeQuery();
+
+        verify(mockResultSet, times(3)).next();
+
+        verify(mockResultSet, times(2)).getString("question");
+        verify(mockResultSet, times(2)).getString("answer");
+        verify(mockResultSet, times(2)).getString("category");
+    }
+
+    @Test
+    void showCardsBasedOnCategoryShouldDoNothingWhenConnectionIsNull() {
+        conn = null;
+        CardDao.showCardsBasedOnCategory(null);
+    }
+
 }
