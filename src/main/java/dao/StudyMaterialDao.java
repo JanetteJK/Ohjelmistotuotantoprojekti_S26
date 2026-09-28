@@ -20,7 +20,7 @@ public class StudyMaterialDao {
             stmt.setString(2, sm.getCategory());
             stmt.setInt(3, sm.getUserId());
 
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
