@@ -22,5 +22,8 @@ public class CardTest {
         assertEquals("Testing setters", c.getAnswer());
         assertEquals("test", c.getCategory());
         assertEquals(1, c.getUserId());
+
+        c.setFcId(2);
+        assertEquals(2, c.getFcId());
     }
 }
