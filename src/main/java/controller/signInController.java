@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import java.awt.*;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -20,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -49,6 +51,10 @@ public class signInController {
     private Hyperlink createAccount;
     @FXML
     private Label nameTag;
+    @FXML
+    private GridPane grid;
+    @FXML
+    private ScrollPane scroll;
 
     public String gettUsername() {
         return tUsername.getText();
@@ -182,12 +188,19 @@ public class signInController {
     }
 
     public void addCardsToLibrary() throws IOException{
+        int column = 0;
+        int row = 0;
         for (Card card : cards) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/card.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
-
-            cardController cc = new cardController();
+            for (Card c : cards) {
+                grid.add(anchorPane, column++, row);
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+            }
 
         }
     }
