@@ -8,22 +8,23 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.List;
 public class cardController {
     CardDao cardDao = new CardDao();
     UserDao userDao = new UserDao();
     private Stage stage;
     private Scene scene;
     private cardController cac;
-
-
+    private List<Card> cards = new ArrayList<>();
 
     @FXML
     private TextArea questionBox;
@@ -31,6 +32,20 @@ public class cardController {
     private TextArea answerBox;
     @FXML
     private Button submitCard;
+    @FXML
+    private Label LibraryMenu;
+    @FXML
+    private Label StudyMaterialsMenu;
+    @FXML
+    private Label ProfileMenu;
+    @FXML
+    private Label CreateQuizMenu;
+    @FXML
+    private Label CreateCardMenu;
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private GridPane gridPane;
 
     public String getQuestion() {
         return questionBox.getText();
@@ -53,13 +68,14 @@ public class cardController {
         System.out.println("Card submitted: " + question + " - " + answer);
     }
 
-    public void showAllCards() {
+    public void showAllCards(int userId) {
         // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID
         //int userId = this.user.getUserId(); // Assuming User class has a method to get the user ID
-        ArrayList<Card> cards = CardDao.showAllCards(1); // Replace 1 with the actual user ID
+        ArrayList<Card> cards = CardDao.showAllCards(userId); // Replace 1 with the actual user ID
         if (cards != null) {
             for (Card card : cards) {
                 System.out.println("Question: " + card.getQuestion() + ", Answer: " + card.getAnswer() + ", Category: " + card.getCategory());
+                cards.add(card);
             }
         } else {
             System.out.println("No cards found.");
@@ -125,6 +141,5 @@ public class cardController {
         stage.setScene(scene);
         stage.show();
     }
-
 
 }

@@ -1,5 +1,7 @@
 package controller;
+import dao.CardDao;
 import dao.UserDao;
+import entity.Card;
 import entity.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.List;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,10 +25,12 @@ import javafx.stage.Stage;
 
 public class signInController {
     private UserDao ud = new UserDao();
+    private CardDao cd = new CardDao();
     private Stage stage;
     private Scene scene;
     private createAccountController cac;
     private User currentUser;
+    private List<Card> cards;
 
     @FXML
     private TextField tUsername;
@@ -129,6 +134,7 @@ public class signInController {
     public void switchToLibrary(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
         Parent root = fxmlLoader.load();
+        // todo: add cards to library
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -170,6 +176,9 @@ public class signInController {
         nameTag.setText(un);
     }
 
+    public void getAllCards(int id) {
+        cards = CardDao.showAllCards(id);
+    }
 
 }
 
