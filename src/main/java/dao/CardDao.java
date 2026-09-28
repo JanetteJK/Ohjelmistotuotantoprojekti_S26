@@ -71,12 +71,22 @@ public class CardDao {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                System.out.println(rs.getString("question"));
-                System.out.println(rs.getString("answer"));
-                System.out.println(rs.getString("category"));
-                // Create a new Card object and add it to the array
-                Card card = new Card(rs.getString("question"), rs.getString("answer"), rs.getString("category"), userId);
-                // Add the card to the array
+
+                String question = rs.getString("question");
+                String answer = rs.getString("answer");
+                String category = rs.getString("category");
+
+                System.out.println(question);
+                System.out.println(answer);
+                System.out.println(category);
+
+                Card card = new Card(
+                        question,
+                        answer,
+                        category,
+                        userId
+                );
+
                 cardList.add(card);
             }
 

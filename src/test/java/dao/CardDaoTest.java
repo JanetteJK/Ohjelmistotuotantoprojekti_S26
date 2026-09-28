@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import static datasource.MariaDBConnection.conn;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class CardDaoTest {
@@ -97,25 +99,37 @@ class CardDaoTest {
                 .thenReturn(true)
                 .thenReturn(false);
 
-        Card card = new Card(
-                "Question",
-                "Answer",
-                "Test",
-                5
-        );
+        when(mockResultSet.getString("question"))
+                .thenReturn("Question 1")
+                .thenReturn("Question 2");
 
-        CardDao.showAllCards(card);
+        when(mockResultSet.getString("answer"))
+                .thenReturn("Answer 1")
+                .thenReturn("Answer 2");
+
+        when(mockResultSet.getString("category"))
+                .thenReturn("Test")
+                .thenReturn("Test");
+
+        CardDao.showAllCards(1);
 
         verify(mockConnection).prepareStatement(
                 "SELECT question, answer, category FROM flashcards WHERE user_id = ?"
         );
 
-        verify(mockStatement).setInt(1, 5);
+        verify(mockStatement).setInt(1, 1);
 
         verify(mockStatement).executeQuery();
 
         verify(mockResultSet, times(3)).next();
 
+        verify(mockResultSet, times(2))
+                .getString("question");
 
+        verify(mockResultSet, times(2))
+                .getString("answer");
+
+        verify(mockResultSet, times(2))
+                .getString("category");
     }
 }
