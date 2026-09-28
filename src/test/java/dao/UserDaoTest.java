@@ -49,6 +49,34 @@ class UserDaoTest {
     }
 
     @Test
+    void registerUserShouldHandleSQLException() throws SQLException {
+        Connection mockConnection = mock(Connection.class);
+        PreparedStatement mockStatement = mock(PreparedStatement.class);
+
+        conn = mockConnection;
+
+        when(mockConnection.prepareStatement(anyString()))
+                .thenReturn(mockStatement);
+
+        doThrow(new SQLException("Test database error"))
+                .when(mockStatement)
+                .executeUpdate();
+
+        User user = new User(
+                "Veela",
+                "test@veela.com",
+                "salasana",
+                User.Role.student
+        );
+
+        assertDoesNotThrow(() ->
+                UserDao.registerUser(user)
+        );
+
+        verify(mockStatement).executeUpdate();
+    }
+
+    @Test
     void logInUserLoggedIn() throws SQLException {
         Connection mockConnection = mock(Connection.class);
         PreparedStatement mockStatement = mock(PreparedStatement.class);
@@ -90,6 +118,27 @@ class UserDaoTest {
 
         assertDoesNotThrow(() ->
                 UserDao.logInUser(user));
+    }
+
+    @Test
+    void loginUserShouldHandleSQLException() throws SQLException {
+        Connection mockConnection = mock(Connection.class);
+
+        conn = mockConnection;
+
+        when(mockConnection.prepareStatement(anyString()))
+                .thenThrow(new SQLException("Test database error"));
+
+        User user = new User(
+                "Veela",
+                "Veela@student.com",
+                "Salasana",
+                User.Role.student
+        );
+
+        assertDoesNotThrow(() ->
+                UserDao.logInUser(user)
+        );
     }
 
 }

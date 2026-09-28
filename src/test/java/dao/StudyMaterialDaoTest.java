@@ -45,4 +45,31 @@ public class StudyMaterialDaoTest {
         assertDoesNotThrow(() ->
                 StudyMaterialDao.uploadStudyMaterial(sm));
     }
+
+    @Test
+    void uploadStudyMaterialShouldHandleSQLException() throws SQLException {
+        Connection mockConnection = mock(Connection.class);
+        PreparedStatement mockStatement = mock(PreparedStatement.class);
+
+        conn = mockConnection;
+
+        when(mockConnection.prepareStatement(anyString()))
+                .thenReturn(mockStatement);
+
+        doThrow(new SQLException("Test database error"))
+                .when(mockStatement)
+                .executeUpdate();
+
+        StudyMaterial sm = new StudyMaterial(
+                "test.pdf",
+                "test",
+                2
+        );
+
+        assertDoesNotThrow(() ->
+                StudyMaterialDao.uploadStudyMaterial(sm)
+        );
+
+        verify(mockStatement).executeUpdate();
+    }
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import static datasource.MariaDBConnection.conn;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -14,7 +15,7 @@ import static org.mockito.Mockito.*;
 class CardDaoTest {
 
     @Test
-    void addCardShouldInsertCard() throws Exception {
+    void addCardShouldInsertCard() throws SQLException {
         Connection mockConnection = mock(Connection.class);
         PreparedStatement mockStatement = mock(PreparedStatement.class);
 
@@ -49,6 +50,29 @@ class CardDaoTest {
         assertDoesNotThrow(() ->
                 CardDao.addCard(card));
 
+    }
+
+    @Test
+    void addCardShouldHandleSQLException() throws SQLException {
+        Connection mockConnection = mock(Connection.class);
+        PreparedStatement mockStatement = mock(PreparedStatement.class);
+
+        conn = mockConnection;
+
+        when(mockConnection.prepareStatement(anyString()))
+                .thenReturn(mockStatement);
+
+        doThrow(new SQLException("Test database error"))
+                .when(mockStatement)
+                .executeUpdate();
+
+        Card c = new Card("Who is Kiri?", "Kiri is my cat.", "Animals", 1);
+
+        assertDoesNotThrow(() ->
+                CardDao.addCard(c)
+        );
+
+        verify(mockStatement).executeUpdate();
     }
 
     @Test
@@ -89,6 +113,29 @@ class CardDaoTest {
         assertDoesNotThrow(() ->
                 CardDao.modifyCard(card));
 
+    }
+
+    @Test
+    void modifyCardShouldHandleSQLException() throws SQLException {
+        Connection mockConnection = mock(Connection.class);
+        PreparedStatement mockStatement = mock(PreparedStatement.class);
+
+        conn = mockConnection;
+
+        when(mockConnection.prepareStatement(anyString()))
+                .thenReturn(mockStatement);
+
+        doThrow(new SQLException("Test database error"))
+                .when(mockStatement)
+                .executeUpdate();
+
+        Card c = new Card("Who is Kiri?", "Kiri is my cat.", "Animals", 1);
+
+        assertDoesNotThrow(() ->
+                CardDao.modifyCard(c)
+        );
+
+        verify(mockStatement).executeUpdate();
     }
 
     @Test
@@ -156,6 +203,27 @@ class CardDaoTest {
     }
 
     @Test
+    void showAllCardsShouldHandleSQLException() throws SQLException {
+        Connection mockConnection = mock(Connection.class);
+
+        conn = mockConnection;
+
+        when(mockConnection.prepareStatement(anyString()))
+                .thenThrow(new SQLException("Test database error"));
+
+        Card card = new Card(
+                "Question",
+                "Answer",
+                "Animals",
+                5
+        );
+
+        assertDoesNotThrow(() ->
+                CardDao.showAllCards(1)
+        );
+    }
+
+    @Test
     void showAllCardsBasedOnCategoryShouldShowCardsBasedOnCategories() throws Exception {
         Connection mockConnection = mock(Connection.class);
         PreparedStatement mockStatement = mock(PreparedStatement.class);
@@ -219,6 +287,27 @@ class CardDaoTest {
 
         assertDoesNotThrow(() ->
                 CardDao.showCardsBasedOnCategory(card));
+    }
+
+    @Test
+    void showCardsBasedOnCategoryShouldHandleSQLException() throws SQLException {
+        Connection mockConnection = mock(Connection.class);
+
+        conn = mockConnection;
+
+        when(mockConnection.prepareStatement(anyString()))
+                .thenThrow(new SQLException("Test database error"));
+
+        Card card = new Card(
+                "Question",
+                "Answer",
+                "Animals",
+                5
+        );
+
+        assertDoesNotThrow(() ->
+                CardDao.showCardsBasedOnCategory(card)
+        );
     }
 
 }
