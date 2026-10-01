@@ -46,6 +46,12 @@ class signInControllerTest {
         }
     }
 
+    private static void setPrivateField(Object target, String fieldName, Object value) throws Exception {
+        Field field = target.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(target, value);
+    }
+
     @BeforeEach
     void setUp() throws Exception {
         controller = new signInController();
@@ -121,11 +127,5 @@ class signInControllerTest {
         ActionEvent event = new ActionEvent(otherButton, null);
 
         assertDoesNotThrow(() -> controller.sLogin(event));
-    }
-
-    private static void setPrivateField(Object target, String fieldName, Object value) throws Exception {
-        Field field = target.getClass().getDeclaredField(fieldName);
-        field.setAccessible(true);
-        field.set(target, value);
     }
 }

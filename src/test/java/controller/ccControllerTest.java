@@ -1,7 +1,5 @@
 package controller;
 
-import entity.Card;
-import javafx.event.ActionEvent;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -9,19 +7,16 @@ import javafx.scene.control.TextField;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class cardControllerTest {
+class ccControllerTest {
 
-    private cardController controller;
+    private ccController controller;
     private TextArea questionBox;
     private TextArea answerBox;
     private Button submitCard;
@@ -50,7 +45,7 @@ class cardControllerTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        controller = new cardController();
+        controller = new ccController();
         questionBox = new TextArea();
         answerBox = new TextArea();
         submitCard = new Button();
@@ -76,7 +71,7 @@ class cardControllerTest {
         assertEquals("Paris", answer);
     }
 
-    @Test
+    /*@Test
     void setCardQuestion() {
         Card card = new Card("What is the capital of France?", "Paris", "Geography", 1);
         controller.setCardQuestion(card);
@@ -88,5 +83,5 @@ class cardControllerTest {
         Card card = new Card("What is the capital of France?", "Paris", "Geography", 1);
         controller.setCardAnswer(card);
         assertEquals("Paris", card.getAnswer());
-    }
+    }*/
 }

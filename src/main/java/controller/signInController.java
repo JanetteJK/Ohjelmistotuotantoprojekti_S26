@@ -11,10 +11,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
-import java.awt.*;
-import java.awt.ScrollPane;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
+
+
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -138,13 +137,12 @@ public class signInController {
         stage.show();
     }
 
-    public void switchToLibrary(javafx.scene.input.MouseEvent actionEvent) throws IOException{
+    public void switchToLibrary(MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
         Parent root = fxmlLoader.load();
         // todo: add cards to library
         libraryController lc = fxmlLoader.getController();
-        lc.getAllCards();
-        lc.addCardsToLibrary();
+        lc.initialize(null, null);
         System.out.println(cards);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);

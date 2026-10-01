@@ -4,15 +4,20 @@ import dao.CardDao;
 import entity.Card;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Region;
 
-import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class libraryController {
+public class libraryController implements Initializable {
 
     libraryController lc;
     Card card;
@@ -22,45 +27,48 @@ public class libraryController {
     private ScrollPane scrollPane;
     @FXML
     private GridPane grid;
-    @FXML
-    private javafx.scene.control.TextField cardText;
-
-    public void setCardQuestion(Card card) {
-        this.card = card;
-        cardText.setText(card.getQuestion());
-    }
-
-    public void setCardAnswer(Card card) {
-        this.card = card;
-        cardText.setText(card.getAnswer());
-    }
 
     public void getAllCards() {
         cards = (CardDao.showAllCards(1));
     }
 
-    public void addCardsToLibrary() throws IOException {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        libraryController lc = new libraryController();
+        cards = CardDao.showAllCards(1);
         int column = 0;
         int row = 0;
-        for (int i = 0; i < cards.size(); i++) {
-            System.out.println("Adding card: " + cards.get(i).getQuestion() + " to library");
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/card.fxml"));
-            // Load the FXML file
-            fxmlLoader.load();
-            AnchorPane anchorPane = fxmlLoader.getRoot();
-            System.out.println("Loaded card: " + cards.get(i).getQuestion() + " to library");
+        try {
+            for (Card card : cards) {
+                FXMLLoader cardFxmlLoader = new FXMLLoader();
+                System.out.println("Adding card: " + card.getQuestion() + " to library");
+                cardFxmlLoader.setLocation(getClass().getResource("/card.fxml"));
+                // Load the FXML file
 
-            //lc.setCardQuestion(cards.get(i));
+                AnchorPane anchorPane = cardFxmlLoader.load();
+                System.out.println("Loaded card: " + card.getQuestion() + " to library");
+                cardController cc = cardFxmlLoader.getController();
+                cc.setCardQuestion(card.getQuestion());
 
-            if(column == 3) {
-                column = 0;
-                row++;
+                if(column == 2) {
+                    column = 0;
+                    row++;
+                }
+
+                grid.add(anchorPane, column++, row);
+
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10, 10, 10, 10));
+
             }
-
-            grid.add(anchorPane, column++, row);
-            GridPane.setMargin(anchorPane, new Insets(10, 10, 10, 10));
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

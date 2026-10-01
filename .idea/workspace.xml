@@ -3,14 +3,56 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="login user toimii ja heittää userin omalle mainpagelle">
+    <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="feat: refactor card and library controllers for improved card management and UI updates">
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/ccController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/cardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/cardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/libraryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/libraryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/signInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/signInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/card.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/card.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/createCard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/createCard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/libraryUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/libraryUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/controller/cardControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/controller/ccControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/controller/signInControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/controller/signInControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/cardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/cardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/signInController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/signInController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/createCard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/createCard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/createQuizUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/createQuizUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/CardDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/CardDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/StudyMaterialDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/StudyMaterialDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/UserDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entity/User$Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entity/User$Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/initHomeGui.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/initHomeGui.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/CardGetter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/CardReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/CardWriter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/QuizGetter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/QuizMaker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/SetGetter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/SignIn.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/SignIn.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/controller/cardControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/cardControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/controller/createAccountControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/createAccountControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/controller/signInControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/signInControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/dao/CardDaoTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/dao/CardDaoTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/dao/UserDaoTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/dao/UserDaoTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/entity/CardTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/entity/CardTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/entity/UserTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/entity/UserTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/aatus/Documents/Ohjelmistotuotantoprojekti_S26" value="3K5X5yO5GR2utHgT2DZbYKWVFkR" />
+    </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
     <option name="cachedIndexableFilesCount" value="65" />
@@ -19,12 +61,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -36,7 +83,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/JanetteJK/Ohjelmistotuotantoprojekti_S26.git&quot;,
-    &quot;accountId&quot;: &quot;8206e83e-c032-4d41-8787-87b3bbeeeab7&quot;
+    &quot;accountId&quot;: &quot;5c6bb8cc-ef2c-46ad-9a0b-b2bcb101e14d&quot;
   }
 }</component>
   <component name="KubernetesApiPersistence">{}</component>
@@ -51,38 +98,86 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="3IUVBdyEOn6aSut7X8ershpGeRE" />
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="modeId" value="Agent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.SignIn.executor": "Run",
-    "Application.UI_dummy.executor": "Run",
-    "JUnit.signInControllerTest.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SignIn.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UI_dummy.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.cardControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.signInControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;library1&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="dao" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="ohjelmistotuotantoprojekti" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ccControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ohjelmistotuotantoprojekti" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="controller" />
+      <option name="MAIN_CLASS_NAME" value="controller.ccControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -92,12 +187,18 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.ccControllerTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.240" />
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
       </set>
     </attachedChunks>
   </component>
@@ -117,6 +218,8 @@
       <workItem from="1789741913191" duration="2915000" />
       <workItem from="1789893145978" duration="2441000" />
       <workItem from="1789902677269" duration="706000" />
+      <workItem from="1790794640296" duration="9404000" />
+      <workItem from="1790848705032" duration="1174000" />
     </task>
     <task id="LOCAL-00001" summary="files">
       <option name="closed" value="true" />
@@ -222,7 +325,87 @@
       <option name="project" value="LOCAL" />
       <updated>1790519609584</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="feat: add method to switch to create cards scene in cardController">
+      <option name="closed" value="true" />
+      <created>1790521238817</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1790521238817</updated>
+    </task>
+    <task id="LOCAL-00015" summary="feat: add methods to switch between various scenes in cardController">
+      <option name="closed" value="true" />
+      <created>1790522812129</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1790522812129</updated>
+    </task>
+    <task id="LOCAL-00016" summary="feat: log card submission details in cardController">
+      <option name="closed" value="true" />
+      <created>1790523848237</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1790523848237</updated>
+    </task>
+    <task id="LOCAL-00017" summary="feat: add onAction handler for submit card button in createCard.fxml">
+      <option name="closed" value="true" />
+      <created>1790523959258</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1790523959258</updated>
+    </task>
+    <task id="LOCAL-00018" summary="feat: update submitCard method to accept User parameter for user ID">
+      <option name="closed" value="true" />
+      <created>1790524254411</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1790524254411</updated>
+    </task>
+    <task id="LOCAL-00019" summary="feat: update submitCard method to accept User parameter for user ID">
+      <option name="closed" value="true" />
+      <created>1790524546672</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1790524546672</updated>
+    </task>
+    <task id="LOCAL-00020" summary="feat: implement showAllCards method to retrieve and display cards for a specific user">
+      <option name="closed" value="true" />
+      <created>1790530243904</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1790530243904</updated>
+    </task>
+    <task id="LOCAL-00021" summary="feat: enhance cardController with additional methods and refactor UI components">
+      <option name="closed" value="true" />
+      <created>1790840530164</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1790840530164</updated>
+    </task>
+    <task id="LOCAL-00022" summary="feat: enhance cardController with additional methods and refactor UI components">
+      <option name="closed" value="true" />
+      <created>1790841676375</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1790841676375</updated>
+    </task>
+    <task id="LOCAL-00023" summary="feat: refactor card and library controllers for improved card management and UI updates">
+      <option name="closed" value="true" />
+      <created>1790843367515</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1790843367515</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,7 +430,15 @@
     <MESSAGE value="kokeilkaa" />
     <MESSAGE value="create account toimii ja osaa palata takaisin etusivulle" />
     <MESSAGE value="login user toimii ja heittää userin omalle mainpagelle" />
-    <option name="LAST_COMMIT_MESSAGE" value="login user toimii ja heittää userin omalle mainpagelle" />
+    <MESSAGE value="feat: add method to switch to create cards scene in cardController" />
+    <MESSAGE value="feat: add methods to switch between various scenes in cardController" />
+    <MESSAGE value="feat: log card submission details in cardController" />
+    <MESSAGE value="feat: add onAction handler for submit card button in createCard.fxml" />
+    <MESSAGE value="feat: update submitCard method to accept User parameter for user ID" />
+    <MESSAGE value="feat: implement showAllCards method to retrieve and display cards for a specific user" />
+    <MESSAGE value="feat: enhance cardController with additional methods and refactor UI components" />
+    <MESSAGE value="feat: refactor card and library controllers for improved card management and UI updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: refactor card and library controllers for improved card management and UI updates" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
