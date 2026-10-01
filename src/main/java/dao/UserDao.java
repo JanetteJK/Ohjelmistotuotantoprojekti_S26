@@ -38,7 +38,7 @@ public class UserDao {
             return false;
         }
 
-        String sql = "SELECT user_id, username, passwd, role FROM users WHERE username = ? AND passwd = PASSWORD(?)";
+        String sql = "SELECT user_id, username, passwd, role FROM users WHERE username = ? AND passwd = PASSWORD(?) AND role = ?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -46,6 +46,7 @@ public class UserDao {
             stmt.setString(1, u.getUserName());
             //System.out.println("Password: " + u.getPassword());
             stmt.setString(2, u.getPassword());
+            stmt.setString(3, u.getRole().name());
 
             ResultSet rs = stmt.executeQuery();
 

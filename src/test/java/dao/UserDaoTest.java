@@ -100,11 +100,12 @@ class UserDaoTest {
         assertTrue(result);
 
         verify(mockConnection).prepareStatement(
-                "SELECT user_id, username, passwd, role FROM users WHERE username = ? AND passwd = PASSWORD(?)"
+                "SELECT user_id, username, passwd, role FROM users WHERE username = ? AND passwd = PASSWORD(?) AND role = ?"
         );
 
         verify(mockStatement).setString(1, "Veela");
         verify(mockStatement).setString(2, "salasana");
+        verify(mockStatement).setString(3, User.Role.student.toString());
         verify(mockStatement).executeQuery();
 
         verify(mockResultSet).next();

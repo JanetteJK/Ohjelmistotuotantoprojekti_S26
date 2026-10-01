@@ -85,17 +85,26 @@ public class signInController {
             String ps = gettPassw();
             String email = "teacher@email.fi";
             User teacher = new User(un, email, ps, User.Role.teacher);
-            ud.logInUser(teacher);
-            setCurrentUser(teacher);
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
-            Parent root = fxmlLoader.load();
-            signInController controller = fxmlLoader.getController();
-            controller.setUserGreeting(currentUser.getUserName());
-            controller.getAllCards(); // todo: id shit
-            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            if (UserDao.logInUser(teacher)) {
+                ud.logInUser(teacher);
+                setCurrentUser(teacher);
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
+                Parent root = fxmlLoader.load();
+                signInController controller = fxmlLoader.getController();
+                controller.setUserGreeting(currentUser.getUserName());
+                controller.getAllCards(); // todo: id shit
+                stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Login failed");
+                alert.setHeaderText("Login failed!");
+                alert.setContentText("Wrong password or username.");
+                alert.showAndWait();
+            }
+
 
 
         }
@@ -107,18 +116,26 @@ public class signInController {
             String ps = getsPassw();
             String email = "student@email.fi";
             User student = new User(un, email, ps, User.Role.student);
-            ud.logInUser(student);
-            setCurrentUser(student);
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
-            Parent root = fxmlLoader.load();
-            signInController controller = fxmlLoader.getController();
-            controller.setUserGreeting(currentUser.getUserName());
-            controller.getAllCards();//todo: id shit
-            System.out.println(cards);
-            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            if (UserDao.logInUser(student)) {
+                ud.logInUser(student);
+                setCurrentUser(student);
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
+                Parent root = fxmlLoader.load();
+                signInController controller = fxmlLoader.getController();
+                controller.setUserGreeting(currentUser.getUserName());
+                controller.getAllCards();//todo: id shit
+                System.out.println(cards);
+                stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Login failed");
+                alert.setHeaderText("Login failed!");
+                alert.setContentText("Wrong password or username.");
+                alert.showAndWait();
+            }
 
         }
     }
