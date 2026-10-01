@@ -4,6 +4,7 @@ import dao.*;
 import javafx.fxml.FXML;
 import entity.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextField;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,13 +26,13 @@ public class cardController {
     private Stage stage;
     private Scene scene;
     private cardController cac;
-    private List<Card> cards = new ArrayList<>();
+    List<Card> cards = new ArrayList<>();
     private Card card;
 
     @FXML
-    private TextArea questionBox;
+    TextArea questionBox;
     @FXML
-    private TextArea answerBox;
+    TextArea answerBox;
     @FXML
     private Button submitCard;
     @FXML
@@ -49,9 +50,9 @@ public class cardController {
     @FXML
     private GridPane gridPane;
     @FXML
-    private javafx.scene.control.TextField cardText;
+    private TextField cardText;
 
-
+    // cardCreation functions
     public String getQuestion() {
         return questionBox.getText();
     }
@@ -73,6 +74,7 @@ public class cardController {
         System.out.println("Card submitted: " + question + " - " + answer);
     }
 
+    //switch funtions
     public void showAllCards(int userId) {
         // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID
         //int userId = this.user.getUserId(); // Assuming User class has a method to get the user ID
@@ -147,6 +149,7 @@ public class cardController {
         stage.show();
     }
 
+    // Library functions
     public void setCardQuestion(Card card) {
         this.card = card;
         cardText.setText(card.getQuestion());
