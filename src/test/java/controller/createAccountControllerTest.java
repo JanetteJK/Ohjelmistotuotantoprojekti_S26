@@ -126,15 +126,10 @@ class CreateAccountControllerTest {
 
     @Test
     void switchToStartChangesScene() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
-        AtomicReference<Throwable> error = new AtomicReference<>();
-
-        Platform.runLater(() -> {
+        runOnFxThread(() -> {
             Stage stage = new Stage();
 
             try {
-                System.out.println("1. Creating button");
-
                 Button button = new Button();
                 StackPane root = new StackPane(button);
 
@@ -142,37 +137,55 @@ class CreateAccountControllerTest {
                 stage.setScene(oldScene);
                 stage.show();
 
-                System.out.println("2. Before switchToStart");
-
                 ActionEvent event = new ActionEvent(button, null);
 
                 controller.switchToStart(event);
-
-                System.out.println("3. After switchToStart");
 
                 assertNotNull(stage.getScene());
                 assertNotSame(oldScene, stage.getScene());
                 assertNotNull(stage.getScene().getRoot());
 
-                System.out.println("4. Assertions passed");
+            } finally {
+                stage.close();
+            }
+        });
+    }
 
+    @FunctionalInterface
+    private interface ThrowingRunnable {
+        void run() throws Exception;
+    }
+
+    private static void runOnFxThread(ThrowingRunnable action) throws Exception {
+        if (Platform.isFxApplicationThread()) {
+            action.run();
+            return;
+        }
+
+        CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<Throwable> error = new AtomicReference<>();
+
+        Platform.runLater(() -> {
+            try {
+                action.run();
             } catch (Throwable t) {
-                t.printStackTrace();
                 error.set(t);
             } finally {
-                System.out.println("5. Closing stage");
-                stage.close();
                 latch.countDown();
             }
         });
 
-        assertTrue(
-                latch.await(10, TimeUnit.SECONDS),
-                "JavaFX action did not finish in time"
-        );
+        if (!latch.await(10, TimeUnit.SECONDS)) {
+            throw new IllegalStateException(
+                    "JavaFX action did not finish in time."
+            );
+        }
 
         if (error.get() != null) {
-            fail(error.get());
+            throw new RuntimeException(
+                    "JavaFX action failed.",
+                    error.get()
+            );
         }
     }
 }
