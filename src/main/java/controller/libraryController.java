@@ -1,0 +1,66 @@
+package controller;
+
+import dao.CardDao;
+import entity.Card;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.List;
+
+public class libraryController {
+
+    libraryController lc;
+    Card card;
+    List<Card> cards;
+
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private GridPane gridPane;
+    @FXML
+    private javafx.scene.control.TextField cardText;
+
+    // Library functions
+    public void setCardQuestion(Card card) {
+        this.card = card;
+        cardText.setText(card.getQuestion());
+    }
+
+    public void setCardAnswer(Card card) {
+        this.card = card;
+        cardText.setText(card.getAnswer());
+    }
+
+    public void getAllCards() {
+        cards.addAll(CardDao.showAllCards(1));
+    }
+
+    public void addCardsToLibrary() throws IOException {
+        int column = 0;
+        int row = 0;
+        for (int i = 0; i < cards.size(); i++) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/card.fxml"));
+
+            AnchorPane anchorPane = fxmlLoader.load();
+
+            lc.setCardQuestion(cards.get(i));
+
+            if(column == 3) {
+                column = 0;
+                row++;
+            }
+
+            gridPane.add(anchorPane, column++, row);
+            GridPane.setMargin(anchorPane, new Insets(10, 10, 10, 10));
+
+
+
+        }
+    }
+}
