@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -125,22 +126,20 @@ class CreateAccountControllerTest {
 
     @Test
     void switchToStartChangesScene() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
         AtomicReference<Throwable> error = new AtomicReference<>();
+        CountDownLatch latch = new CountDownLatch(1);
 
         Platform.runLater(() -> {
             Stage stage = new Stage();
 
             try {
                 StackPane root = new StackPane();
-                javafx.scene.control.Button button =
-                        new javafx.scene.control.Button();
+                Button button = new Button();
 
                 root.getChildren().add(button);
 
                 Scene oldScene = new Scene(root);
                 stage.setScene(oldScene);
-                stage.show();
 
                 ActionEvent event = new ActionEvent(button, null);
 
