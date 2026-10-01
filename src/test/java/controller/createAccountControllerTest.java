@@ -10,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -124,6 +126,7 @@ class createAccountControllerTest {
     @Test
     void switchToStartChangesScene() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<Throwable> error = new AtomicReference<>();
 
         Platform.runLater(() -> {
             Stage stage = new Stage();
@@ -147,14 +150,18 @@ class createAccountControllerTest {
                 assertNotSame(oldScene, stage.getScene());
                 assertNotNull(stage.getScene().getRoot());
 
-            } catch (Exception e) {
-                fail(e);
+            } catch (Throwable e) {
+                error.set(e);
             } finally {
                 stage.close();
                 latch.countDown();
             }
         });
 
-        latch.await();
+        assertTrue(latch.await(5, TimeUnit.SECONDS));
+
+        if (error.get() != null) {
+            fail(error.get());
+        }
     }
 }
