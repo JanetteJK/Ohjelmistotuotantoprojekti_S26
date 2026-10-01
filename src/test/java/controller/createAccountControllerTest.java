@@ -6,6 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.event.ActionEvent;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -115,5 +119,42 @@ class createAccountControllerTest {
         Field field = createAccountController.class.getDeclaredField(fieldName);
         field.setAccessible(true);
         field.set(controller, value);
+    }
+
+    @Test
+    void switchToStartChangesScene() throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        Platform.runLater(() -> {
+            Stage stage = new Stage();
+
+            try {
+                StackPane root = new StackPane();
+                javafx.scene.control.Button button =
+                        new javafx.scene.control.Button();
+
+                root.getChildren().add(button);
+
+                Scene oldScene = new Scene(root);
+                stage.setScene(oldScene);
+                stage.show();
+
+                ActionEvent event = new ActionEvent(button, null);
+
+                controller.switchToStart(event);
+
+                assertNotNull(stage.getScene());
+                assertNotSame(oldScene, stage.getScene());
+                assertNotNull(stage.getScene().getRoot());
+
+            } catch (Exception e) {
+                fail(e);
+            } finally {
+                stage.close();
+                latch.countDown();
+            }
+        });
+
+        latch.await();
     }
 }
