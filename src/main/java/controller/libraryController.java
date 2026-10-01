@@ -21,11 +21,10 @@ public class libraryController {
     @FXML
     private ScrollPane scrollPane;
     @FXML
-    private GridPane gridPane;
+    private GridPane grid;
     @FXML
     private javafx.scene.control.TextField cardText;
 
-    // Library functions
     public void setCardQuestion(Card card) {
         this.card = card;
         cardText.setText(card.getQuestion());
@@ -37,29 +36,30 @@ public class libraryController {
     }
 
     public void getAllCards() {
-        cards.addAll(CardDao.showAllCards(1));
+        cards = (CardDao.showAllCards(1));
     }
 
     public void addCardsToLibrary() throws IOException {
         int column = 0;
         int row = 0;
         for (int i = 0; i < cards.size(); i++) {
+            System.out.println("Adding card: " + cards.get(i).getQuestion() + " to library");
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/card.fxml"));
+            // Load the FXML file
+            fxmlLoader.load();
+            AnchorPane anchorPane = fxmlLoader.getRoot();
+            System.out.println("Loaded card: " + cards.get(i).getQuestion() + " to library");
 
-            AnchorPane anchorPane = fxmlLoader.load();
-
-            lc.setCardQuestion(cards.get(i));
+            //lc.setCardQuestion(cards.get(i));
 
             if(column == 3) {
                 column = 0;
                 row++;
             }
 
-            gridPane.add(anchorPane, column++, row);
+            grid.add(anchorPane, column++, row);
             GridPane.setMargin(anchorPane, new Insets(10, 10, 10, 10));
-
-
 
         }
     }

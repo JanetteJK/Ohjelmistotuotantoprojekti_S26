@@ -45,12 +45,7 @@ public class cardController {
     private Label CreateQuizMenu;
     @FXML
     private Label CreateCardMenu;
-    @FXML
-    private ScrollPane scrollPane;
-    @FXML
-    private GridPane gridPane;
-    @FXML
-    private TextField cardText;
+
 
     // cardCreation functions
     public String getQuestion() {
@@ -74,8 +69,7 @@ public class cardController {
         System.out.println("Card submitted: " + question + " - " + answer);
     }
 
-    //switch funtions
-    public void showAllCards(int userId) {
+    /*public void showAllCards(int userId) {
         // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID
         //int userId = this.user.getUserId(); // Assuming User class has a method to get the user ID
         ArrayList<Card> cards = CardDao.showAllCards(userId); // Replace 1 with the actual user ID
@@ -88,7 +82,9 @@ public class cardController {
             System.out.println("No cards found.");
         }
     }
+    */
 
+    //switch funtions
     public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
         Parent root = fxmlLoader.load();
@@ -109,10 +105,14 @@ public class cardController {
         stage.show();
     }
 
-    public void switchToLibrary(MouseEvent actionEvent) throws IOException{
+    public void switchToLibrary(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
         Parent root = fxmlLoader.load();
-        cac = fxmlLoader.getController();
+        // todo: add cards to library
+        libraryController lc = fxmlLoader.getController();
+        lc.getAllCards();
+        lc.addCardsToLibrary();
+        System.out.println(cards);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -147,17 +147,6 @@ public class cardController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    // Library functions
-    public void setCardQuestion(Card card) {
-        this.card = card;
-        cardText.setText(card.getQuestion());
-    }
-
-    public void setCardAnswer(Card card) {
-        this.card = card;
-        cardText.setText(card.getAnswer());
     }
 
 }

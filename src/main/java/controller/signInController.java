@@ -53,10 +53,6 @@ public class signInController {
     private Hyperlink createAccount;
     @FXML
     private Label nameTag;
-    @FXML
-    private GridPane grid;
-    @FXML
-    private ScrollPane scroll;
 
     public String gettUsername() {
         return tUsername.getText();
@@ -91,7 +87,7 @@ public class signInController {
             Parent root = fxmlLoader.load();
             signInController controller = fxmlLoader.getController();
             controller.setUserGreeting(currentUser.getUserName());
-            controller.getAllCards(); // todo: id shit
+            //controller.getAllCards(); // todo: id shit
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -113,7 +109,7 @@ public class signInController {
             Parent root = fxmlLoader.load();
             signInController controller = fxmlLoader.getController();
             controller.setUserGreeting(currentUser.getUserName());
-            controller.getAllCards();//todo: id shit
+            //controller.getAllCards();//todo: id shit
             System.out.println(cards);
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -146,6 +142,9 @@ public class signInController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
         Parent root = fxmlLoader.load();
         // todo: add cards to library
+        libraryController lc = fxmlLoader.getController();
+        lc.getAllCards();
+        lc.addCardsToLibrary();
         System.out.println(cards);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -188,34 +187,7 @@ public class signInController {
         nameTag.setText(un);
     }
 
-    public void getAllCards() {
-        cards.addAll(CardDao.showAllCards(1));
-    }
 
-    public void addCardsToLibrary() throws IOException{
-        int column = 0;
-        int row = 0;
-        for (int i = 0; i < cards.size(); i++) {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/card.fxml"));
-
-            AnchorPane anchorPane = fxmlLoader.load();
-
-            cardController cc = fxmlLoader.getController();
-            cc.setCardQuestion(cards.get(i));
-
-            if(column == 3) {
-                column = 0;
-                row++;
-            }
-
-            grid.add(anchorPane, column++, row);
-            GridPane.setMargin(anchorPane, new Insets(10, 10, 10, 10));
-
-
-
-        }
-    }
 }
 
 
