@@ -2,6 +2,7 @@ package view;
 
 import javafx.application.Platform;
 import javafx.stage.Stage;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -20,11 +21,14 @@ class SignInTest {
         try {
             Platform.startup(latch::countDown);
         } catch (IllegalStateException alreadyStarted) {
+            // JavaFX toolkit was already started.
             latch.countDown();
         }
 
         if (!latch.await(5, TimeUnit.SECONDS)) {
-            throw new IllegalStateException("JavaFX runtime did not start in time.");
+            throw new IllegalStateException(
+                    "JavaFX runtime did not start in time."
+            );
         }
     }
 
@@ -37,13 +41,12 @@ class SignInTest {
 
     @Test
     void startLoadsLoginSceneAndSetsStageTitle() throws Exception {
-        AtomicReference<Throwable> thrown = new AtomicReference<>();
 
         runOnFxThread(() -> {
-            try {
-                SignIn signIn = new SignIn();
-                Stage stage = new Stage();
+            SignIn signIn = new SignIn();
+            Stage stage = new Stage();
 
+            try {
                 signIn.start(stage);
 
                 assertEquals("Flashers", stage.getTitle());
@@ -51,30 +54,49 @@ class SignInTest {
                 assertNotNull(stage.getScene().getRoot());
                 assertNotNull(signIn.controller);
 
+            } finally {
                 stage.close();
-            } catch (Throwable e) {
-                thrown.set(e);
             }
         });
-
-        if (thrown.get() != null) {
-            fail(thrown.get());
-        }
     }
 
-    private static void runOnFxThread(Runnable action) throws Exception {
+    @FunctionalInterface
+    private interface ThrowingRunnable {
+        void run() throws Exception;
+    }
+
+    private static void runOnFxThread(ThrowingRunnable action)
+            throws Exception {
+
+        if (Platform.isFxApplicationThread()) {
+            action.run();
+            return;
+        }
+
         CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<Throwable> error = new AtomicReference<>();
 
         Platform.runLater(() -> {
             try {
                 action.run();
+            } catch (Throwable e) {
+                error.set(e);
             } finally {
                 latch.countDown();
             }
         });
 
-        if (!latch.await(5, TimeUnit.SECONDS)) {
-            throw new IllegalStateException("JavaFX action did not finish in time.");
+        if (!latch.await(10, TimeUnit.SECONDS)) {
+            throw new IllegalStateException(
+                    "JavaFX action did not finish in time."
+            );
+        }
+
+        if (error.get() != null) {
+            throw new RuntimeException(
+                    "JavaFX action failed.",
+                    error.get()
+            );
         }
     }
 }
