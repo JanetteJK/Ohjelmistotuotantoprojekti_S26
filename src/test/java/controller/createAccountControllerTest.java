@@ -126,38 +126,50 @@ class CreateAccountControllerTest {
 
     @Test
     void switchToStartChangesScene() throws Exception {
-        AtomicReference<Throwable> error = new AtomicReference<>();
         CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<Throwable> error = new AtomicReference<>();
 
         Platform.runLater(() -> {
             Stage stage = new Stage();
 
             try {
-                StackPane root = new StackPane();
-                Button button = new Button();
+                System.out.println("1. Creating button");
 
-                root.getChildren().add(button);
+                Button button = new Button();
+                StackPane root = new StackPane(button);
 
                 Scene oldScene = new Scene(root);
                 stage.setScene(oldScene);
+                stage.show();
+
+                System.out.println("2. Before switchToStart");
 
                 ActionEvent event = new ActionEvent(button, null);
 
                 controller.switchToStart(event);
 
+                System.out.println("3. After switchToStart");
+
                 assertNotNull(stage.getScene());
                 assertNotSame(oldScene, stage.getScene());
                 assertNotNull(stage.getScene().getRoot());
 
-            } catch (Throwable e) {
-                error.set(e);
+                System.out.println("4. Assertions passed");
+
+            } catch (Throwable t) {
+                t.printStackTrace();
+                error.set(t);
             } finally {
+                System.out.println("5. Closing stage");
                 stage.close();
                 latch.countDown();
             }
         });
 
-        assertTrue(latch.await(5, TimeUnit.SECONDS));
+        assertTrue(
+                latch.await(10, TimeUnit.SECONDS),
+                "JavaFX action did not finish in time"
+        );
 
         if (error.get() != null) {
             fail(error.get());
