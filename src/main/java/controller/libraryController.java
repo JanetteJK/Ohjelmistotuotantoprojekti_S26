@@ -50,7 +50,7 @@ public class libraryController implements Initializable {
                 cardController cc = cardFxmlLoader.getController();
                 cc.setCardQuestion(card.getQuestion());
 
-                if(column == 2) {
+                if(column == 1) {
                     column = 0;
                     row++;
                 }

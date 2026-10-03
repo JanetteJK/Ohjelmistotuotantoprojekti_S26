@@ -8,41 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="feat: refactor card and library controllers for improved card management and UI updates">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/ccController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/cardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/cardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/libraryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/libraryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/signInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/signInController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/card.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/card.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/createCard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/createCard.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/libraryUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/libraryUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/controller/cardControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/controller/ccControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/controller/signInControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/controller/signInControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/cardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/cardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/signInController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/signInController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/createCard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/createCard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/createQuizUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/createQuizUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/CardDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/CardDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/StudyMaterialDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/StudyMaterialDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/UserDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/User$Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entity/User$Role.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/initHomeGui.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/initHomeGui.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/CardGetter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/CardReader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/CardWriter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/QuizGetter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/QuizMaker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/SetGetter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/SignIn.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/SignIn.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/controller/cardControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/cardControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/controller/createAccountControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/createAccountControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/controller/signInControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/signInControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/dao/CardDaoTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/dao/CardDaoTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/dao/UserDaoTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/dao/UserDaoTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/entity/CardTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/entity/CardTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/entity/UserTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/entity/UserTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +24,7 @@
     </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="65" />
+    <option name="cachedIndexableFilesCount" value="77" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -158,7 +127,7 @@
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="ohjelmistotuotantoprojekti" />
+      <module name="Ohjelmistotuotantoprojekti_S26" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
