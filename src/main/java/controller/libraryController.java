@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.ScrollPane;
@@ -28,12 +27,20 @@ public class libraryController implements Initializable {
     @FXML
     private GridPane grid;
 
+    private int currentUserId;
+
+
     public void getAllCards() {
         cards = (CardDao.showAllCards(1));
     }
 
+    public void setUserId(int n) {
+        this.currentUserId = n;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        signInController sc = new signInController();
         libraryController lc = new libraryController();
         cards = CardDao.showAllCards(1);
         int column = 0;
@@ -49,6 +56,7 @@ public class libraryController implements Initializable {
                 System.out.println("Loaded card: " + card.getQuestion() + " to library");
                 cardController cc = cardFxmlLoader.getController();
                 cc.setCardQuestion(card.getQuestion());
+                cc.setCardAnswer(card.getAnswer());
 
                 if(column == 1) {
                     column = 0;

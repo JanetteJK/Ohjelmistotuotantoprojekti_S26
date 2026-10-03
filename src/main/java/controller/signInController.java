@@ -33,7 +33,7 @@ public class signInController {
     private Stage stage;
     private Scene scene;
     private createAccountController cac;
-    private static User currentUser;
+    private User currentUser;
     private List<Card> cards = new ArrayList<>();
 
     @FXML
@@ -141,7 +141,9 @@ public class signInController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
         Parent root = fxmlLoader.load();
         // todo: add cards to library
+        int userId = currentUser.getUserId();
         libraryController lc = fxmlLoader.getController();
+        lc.setUserId(userId);
         lc.initialize(null, null);
         System.out.println(cards);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -185,6 +187,9 @@ public class signInController {
         nameTag.setText(un);
     }
 
+    public int getUserId(){
+        return currentUser.getUserId();
+    }
 
 }
 
