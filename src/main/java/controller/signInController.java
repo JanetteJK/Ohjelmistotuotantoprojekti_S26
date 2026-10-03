@@ -92,7 +92,7 @@ public class signInController {
                 Parent root = fxmlLoader.load();
                 signInController controller = fxmlLoader.getController();
                 controller.setUserGreeting(currentUser.getUserName());
-                controller.getAllCards(); // todo: id shit
+                controller.getAllCards(teacher); // todo: id shit
                 stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -119,11 +119,12 @@ public class signInController {
             if (UserDao.logInUser(student)) {
                 ud.logInUser(student);
                 setCurrentUser(student);
+                System.out.println(student.getUserId());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
                 Parent root = fxmlLoader.load();
                 signInController controller = fxmlLoader.getController();
                 controller.setUserGreeting(currentUser.getUserName());
-                controller.getAllCards();//todo: id shit
+                controller.getAllCards(student);//todo: id shit
                 System.out.println(cards);
                 stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 scene = new Scene(root);
@@ -153,6 +154,8 @@ public class signInController {
     public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"));
         Parent root = fxmlLoader.load();
+        cardController cardCtrl = fxmlLoader.getController();
+        cardCtrl.setUser(currentUser);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -205,8 +208,8 @@ public class signInController {
         nameTag.setText(un);
     }
 
-    public void getAllCards() {
-        cards.addAll(CardDao.showAllCards(1));
+    public void getAllCards(User user) {
+        cards.addAll(CardDao.showAllCards(user.getUserId()));
     }
 
     public void addCardsToLibrary() throws IOException{

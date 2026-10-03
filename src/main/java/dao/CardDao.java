@@ -94,7 +94,7 @@ public class CardDao {
             e.printStackTrace();
         }
         if (cardList.size() == 0) {
-            return null;
+            return cardList;
         } else {
             return cardList;
         }

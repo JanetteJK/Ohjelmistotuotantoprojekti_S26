@@ -28,6 +28,7 @@ public class cardController {
     private cardController cac;
     List<Card> cards = new ArrayList<>();
     private Card card;
+    private User user;
 
     @FXML
     TextArea questionBox;
@@ -61,13 +62,18 @@ public class cardController {
         return answerBox.getText();
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
     public void submitCard() {
         String question = getQuestion();
         String answer = getAnswer();
         String category = "default"; // Placeholder for category, todo: implement category selection logic
-        int userId = 1; // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID§
+        //int userId = 1; // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID§
         //int userId = this.user.getUserId(); // Assuming User class has a method to get the user ID
-        Card card = new Card(question, answer, category, userId);
+        Card card = new Card(question, answer, category, user.getUserId());
         CardDao.addCard(card);
         questionBox.clear();
         answerBox.clear();
