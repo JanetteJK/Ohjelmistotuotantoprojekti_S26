@@ -141,9 +141,7 @@ public class signInController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
         Parent root = fxmlLoader.load();
         // todo: add cards to library
-        int userId = currentUser.getUserId();
         libraryController lc = fxmlLoader.getController();
-        lc.setUserId(userId);
         lc.initialize(null, null);
         System.out.println(cards);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

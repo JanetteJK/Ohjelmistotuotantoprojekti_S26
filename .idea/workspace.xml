@@ -9,15 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="feat: refactor card and library controllers for improved card management and UI updates">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/cardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/cardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/libraryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/libraryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/signInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/signInController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/card.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/card.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/libraryUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/libraryUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/cardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/cardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/signInController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/signInController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/libraryUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/libraryUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -388,7 +379,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791033269318</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="feat: refactor card and library controllers for improved card management and UI updates">
+      <option name="closed" value="true" />
+      <created>1791043511711</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1791043511713</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

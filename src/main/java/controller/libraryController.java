@@ -27,16 +27,12 @@ public class libraryController implements Initializable {
     @FXML
     private GridPane grid;
 
-    private int currentUserId;
-
 
     public void getAllCards() {
         cards = (CardDao.showAllCards(1));
     }
 
-    public void setUserId(int n) {
-        this.currentUserId = n;
-    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
