@@ -112,7 +112,8 @@ public class ccController {
         Parent root = fxmlLoader.load();
         // todo: add cards to library
         libraryController lc = fxmlLoader.getController();
-        lc.initialize(null, null);
+        lc.setUser(user);
+        lc.getAllCards();
         System.out.println(cards);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
