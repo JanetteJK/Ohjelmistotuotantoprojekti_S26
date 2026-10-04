@@ -1,5 +1,6 @@
 package controller;
 
+import dao.CardDao;
 import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,10 +12,14 @@ public class cardController {
     private Label cardText;
     @FXML
     private Button showAnswerButton;
+    @FXML
+    private Button deleteCardButton;
 
     private String answer;
 
     private User user;
+
+    CardDao cardDao;
 
     public void setCardQuestion(String question) {
         cardText.setText(question);
@@ -30,5 +35,9 @@ public class cardController {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void deleteCard(ActionEvent actionEvent) {
+        cardDao.deleteCard(this.cardText.getText());
     }
 }

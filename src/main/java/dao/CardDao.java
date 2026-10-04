@@ -127,4 +127,23 @@ public class CardDao {
         }
     }
 
+    public static void deleteCard(String question) {
+        if (conn == null) {
+            System.out.println("Connection is null!");
+            return;
+        }
+
+        String sql = "DELETE FROM flashcards WHERE question = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, question);
+            stmt.executeUpdate();
+            System.out.println("Card deleted");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
