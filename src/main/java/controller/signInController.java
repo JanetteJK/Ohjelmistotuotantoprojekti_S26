@@ -164,14 +164,6 @@ public class signInController {
         libraryController lc = fxmlLoader.getController();
         lc.setUser(currentUser);
         lc.getAllCards();
-        System.out.println("Cards found: " + cards.size());
-
-        for (Card card : cards) {
-            System.out.println("Displaying: " + card.getQuestion());
-        }
-        System.out.println("currentUser: " + currentUser);
-        System.out.println("cardCtrl user set");
-        System.out.println(cards);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
