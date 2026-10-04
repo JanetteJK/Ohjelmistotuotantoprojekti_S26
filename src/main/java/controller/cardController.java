@@ -1,5 +1,6 @@
 package controller;
 
+import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,6 +14,8 @@ public class cardController {
 
     private String answer;
 
+    private User user;
+
     public void setCardQuestion(String question) {
         cardText.setText(question);
     }
@@ -23,5 +26,9 @@ public class cardController {
 
     public void setCardAnswer(ActionEvent actionEvent) {
         cardText.setText(answer);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
