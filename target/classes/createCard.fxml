@@ -44,7 +44,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label fx:id="LibraryMenu" text="Library" textFill="#4a1b2a">
+                                <Label fx:id="LibraryMenu" onMouseClicked="#switchToLibrary" text="Library" textFill="#4a1b2a">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>
@@ -71,7 +71,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label fx:id="profileButton" text="Profile" textFill="#4a1b2a">
+                                <Label fx:id="profileButton" onMouseClicked="#switchToProfile" text="Profile" textFill="#4a1b2a">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>
