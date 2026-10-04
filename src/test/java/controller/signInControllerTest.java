@@ -1,131 +1,563 @@
 package controller;
 
+import dao.CardDao;
+import dao.UserDao;
+import entity.Card;
+import entity.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import javafx.scene.Scene;
+import javafx.scene.layout.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import org.junit.jupiter.api.*;
+import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-class signInControllerTest {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+class SignInControllerTest {
 
     private signInController controller;
 
-    private TextField teacherUsername;
-    private PasswordField teacherPassword;
-    private Button teacherLoginButton;
+    private TextField tUsername;
+    private PasswordField tPassw;
+    private Button tOk;
 
-    private TextField studentUsername;
-    private PasswordField studentPassword;
-    private Button studentLoginButton;
+    private TextField sUsername;
+    private PasswordField sPassw;
+    private Button sOk;
 
-    private Hyperlink createAccountLink;
+    private Hyperlink createAccount;
+    private Label nameTag;
+    private GridPane grid;
+    private ScrollPane scroll;
+
+    private static boolean javaFxStarted = false;
 
     @BeforeAll
-    static void startJavaFxRuntime() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
+    static void startJavaFx() throws Exception {
+        if (!javaFxStarted) {
+            CountDownLatch latch = new CountDownLatch(1);
 
-        try {
-            Platform.startup(latch::countDown);
-        } catch (IllegalStateException alreadyStarted) {
-            latch.countDown();
-        }
+            try {
+                Platform.startup(latch::countDown);
+            } catch (IllegalStateException e) {
+                // JavaFX was already started
+                latch.countDown();
+            }
 
-        if (!latch.await(5, TimeUnit.SECONDS)) {
-            throw new IllegalStateException("JavaFX runtime did not start in time.");
+            assertTrue(
+                    latch.await(10, TimeUnit.SECONDS),
+                    "JavaFX toolkit did not start"
+            );
+
+            javaFxStarted = true;
         }
     }
 
     @BeforeEach
     void setUp() throws Exception {
-        controller = new signInController();
 
-        teacherUsername = new TextField();
-        teacherPassword = new PasswordField();
-        teacherLoginButton = new Button();
+        runOnFxThread(() -> {
+            controller = new signInController();
 
-        studentUsername = new TextField();
-        studentPassword = new PasswordField();
-        studentLoginButton = new Button();
+            tUsername = new TextField();
+            tPassw = new PasswordField();
+            tOk = new Button();
 
-        createAccountLink = new Hyperlink();
+            sUsername = new TextField();
+            sPassw = new PasswordField();
+            sOk = new Button();
 
-        setPrivateField(controller, "tUsername", teacherUsername);
-        setPrivateField(controller, "tPassw", teacherPassword);
-        setPrivateField(controller, "tOk", teacherLoginButton);
+            createAccount = new Hyperlink();
+            nameTag = new Label();
+            grid = new GridPane();
+            scroll = new ScrollPane();
 
-        setPrivateField(controller, "sUsername", studentUsername);
-        setPrivateField(controller, "sPassw", studentPassword);
-        setPrivateField(controller, "sOk", studentLoginButton);
+            setField(controller, "tUsername", tUsername);
+            setField(controller, "tPassw", tPassw);
+            setField(controller, "tOk", tOk);
 
-        setPrivateField(controller, "createAccount", createAccountLink);
+            setField(controller, "sUsername", sUsername);
+            setField(controller, "sPassw", sPassw);
+            setField(controller, "sOk", sOk);
+
+            setField(controller, "createAccount", createAccount);
+            setField(controller, "nameTag", nameTag);
+            setField(controller, "grid", grid);
+            setField(controller, "scroll", scroll);
+
+            controller.setCurrentUser(null);
+        });
+    }
+
+
+    @Test
+    @Order(1)
+    @DisplayName("gettUsername returns username")
+    void gettUsername() throws Exception {
+        runOnFxThread(() -> tUsername.setText("teacher"));
+
+        assertEquals("teacher", controller.gettUsername());
     }
 
     @Test
-    void gettUsernameReturnsTeacherUsernameText() {
-        teacherUsername.setText("teacherUser");
+    @Order(2)
+    @DisplayName("gettPassw returns password")
+    void gettPassw() throws Exception {
+        runOnFxThread(() -> tPassw.setText("password123"));
 
-        String result = controller.gettUsername();
-
-        assertEquals("teacherUser", result);
+        assertEquals("password123", controller.gettPassw());
     }
 
     @Test
-    void gettPasswReturnsTeacherPasswordText() {
-        teacherPassword.setText("teacherPassword");
+    @Order(3)
+    @DisplayName("getSUsername returns student username")
+    void getSUsername() throws Exception {
+        runOnFxThread(() -> sUsername.setText("student"));
 
-        String result = controller.gettPassw();
-
-        assertEquals("teacherPassword", result);
+        assertEquals("student", controller.getSUsername());
     }
 
     @Test
-    void getSUsernameReturnsStudentUsernameText() {
-        studentUsername.setText("studentUser");
+    @Order(4)
+    @DisplayName("getsPassw returns student password")
+    void getsPassw() throws Exception {
+        runOnFxThread(() -> sPassw.setText("studentPassword"));
 
-        String result = controller.getSUsername();
-
-        assertEquals("studentUser", result);
+        assertEquals(
+                "studentPassword",
+                controller.getsPassw()
+        );
     }
+
 
     @Test
-    void getsPasswReturnsStudentPasswordText() {
-        studentPassword.setText("studentPassword");
+    @Order(5)
+    @DisplayName("setCurrentUser sets current user")
+    void setCurrentUser() throws Exception {
 
-        String result = controller.getsPassw();
+        User user = new User(
+                "Matti",
+                "matti@email.fi",
+                "password",
+                User.Role.student
+        );
 
-        assertEquals("studentPassword", result);
-    }
+        user.setUserId(10);
 
-    @Test
-    void tLoginDoesNothingWhenEventSourceIsNotTeacherLoginButton() {
-        Button otherButton = new Button();
-        ActionEvent event = new ActionEvent(otherButton, null);
+        controller.setCurrentUser(user);
 
-        assertDoesNotThrow(() -> controller.tLogin(event));
-    }
+        Field field = signInController.class
+                .getDeclaredField("currentUser");
 
-    @Test
-    void sLoginDoesNothingWhenEventSourceIsNotStudentLoginButton() {
-        Button otherButton = new Button();
-        ActionEvent event = new ActionEvent(otherButton, null);
-
-        assertDoesNotThrow(() -> controller.sLogin(event));
-    }
-
-    private static void setPrivateField(Object target, String fieldName, Object value) throws Exception {
-        Field field = target.getClass().getDeclaredField(fieldName);
         field.setAccessible(true);
-        field.set(target, value);
+
+        assertSame(
+                user,
+                field.get(null)
+        );
+    }
+
+
+    @Test
+    @Order(6)
+    @DisplayName("setUserGreeting sets label")
+    void setUserGreeting() throws Exception {
+
+        controller.setUserGreeting("Matti");
+
+        assertEquals(
+                "Matti",
+                getLabelText()
+        );
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("setUserGreeting can replace existing value")
+    void setUserGreetingReplace() throws Exception {
+
+        controller.setUserGreeting("Matti");
+        controller.setUserGreeting("Teemu");
+
+        assertEquals(
+                "Teemu",
+                getLabelText()
+        );
+    }
+
+
+    @Test
+    @Order(8)
+    @DisplayName("getAllCards gets cards for correct user")
+    void getAllCards() throws Exception {
+
+        User user = new User(
+                "student",
+                "student@email.fi",
+                "password",
+                User.Role.student
+        );
+
+        user.setUserId(123);
+
+        Card card1 = new Card(
+                "Question 1",
+                "Answer 1",
+                "Math",
+                123
+        );
+
+        Card card2 = new Card(
+                "Question 2",
+                "Answer 2",
+                "Physics",
+                123
+        );
+
+        ArrayList<Card> result = new ArrayList<>();
+        result.add(card1);
+        result.add(card2);
+
+        try (MockedStatic<CardDao> mocked = mockStatic(CardDao.class)) {
+
+            mocked.when(() -> CardDao.showAllCards(123))
+                    .thenReturn(result);
+
+            controller.getAllCards(user);
+
+            mocked.verify(
+                    () -> CardDao.showAllCards(123)
+            );
+
+            List<Card> actual = getCards();
+
+            assertEquals(2, actual.size());
+            assertSame(card1, actual.get(0));
+            assertSame(card2, actual.get(1));
+        }
+    }
+
+    @Test
+    @Order(9)
+    @DisplayName("getAllCards handles empty result")
+    void getAllCardsEmpty() throws Exception {
+
+        User user = new User(
+                "student",
+                "student@email.fi",
+                "password",
+                User.Role.student
+        );
+
+        user.setUserId(50);
+
+        try (MockedStatic<CardDao> mocked = mockStatic(CardDao.class)) {
+
+            mocked.when(() -> CardDao.showAllCards(50))
+                    .thenReturn(new ArrayList<>());
+
+            controller.getAllCards(user);
+
+            assertTrue(getCards().isEmpty());
+        }
+    }
+
+
+    @Test
+    @Order(10)
+    @DisplayName("addCardsToLibrary with no cards does nothing")
+    void addCardsToLibraryEmpty() throws Exception {
+
+        controller.addCardsToLibrary();
+
+        assertEquals(
+                0,
+                grid.getChildren().size()
+        );
+    }
+
+    @Test
+    @Order(11)
+    @DisplayName("addCardsToLibrary adds one card")
+    void addCardsToLibraryOneCard() throws Exception {
+
+        Card card = new Card(
+                "What is Java?",
+                "Programming language",
+                "Programming",
+                1
+        );
+
+        getCards().add(card);
+
+        controller.addCardsToLibrary();
+
+        assertEquals(
+                1,
+                grid.getChildren().size()
+        );
+    }
+
+    @Test
+    @Order(12)
+    @DisplayName("addCardsToLibrary adds multiple cards")
+    void addCardsToLibraryMultipleCards() throws Exception {
+
+        for (int i = 0; i < 5; i++) {
+            getCards().add(
+                    new Card(
+                            "Question " + i,
+                            "Answer " + i,
+                            "Category",
+                            1
+                    )
+            );
+        }
+
+        controller.addCardsToLibrary();
+
+        assertEquals(
+                5,
+                grid.getChildren().size()
+        );
+    }
+
+    @Test
+    @Order(13)
+    @DisplayName("addCardsToLibrary starts new row after third column")
+    void addCardsToLibraryCreatesNewRow() throws Exception {
+
+        for (int i = 0; i < 4; i++) {
+            getCards().add(
+                    new Card(
+                            "Question " + i,
+                            "Answer " + i,
+                            "Category",
+                            1
+                    )
+            );
+        }
+
+        controller.addCardsToLibrary();
+
+        assertEquals(
+                4,
+                grid.getChildren().size()
+        );
+
+
+        assertEquals(
+                1,
+                GridPane.getRowIndex(
+                        grid.getChildren().get(3)
+                )
+        );
+    }
+
+
+
+    @Test
+    @Order(14)
+    @DisplayName("teacher login sends correct user to DAO")
+    void teacherLoginCreatesCorrectUser() throws Exception {
+
+        runOnFxThread(() -> {
+            tUsername.setText("teacher123");
+            tPassw.setText("secret");
+        });
+
+        ActionEvent event = mock(ActionEvent.class);
+        when(event.getSource()).thenReturn(tOk);
+
+        try (MockedStatic<UserDao> mocked =
+                     mockStatic(UserDao.class)) {
+
+            mocked.when(() -> UserDao.logInUser(any(User.class)))
+                    .thenReturn(false);
+
+            /*
+             * We only want to test that the correct User object
+             * is constructed and passed to UserDao.
+             */
+            assertDoesNotThrow(() -> {
+                try {
+                    controller.tLogin(event);
+                } catch (Exception e) {
+                    // Alert/FXML related JavaFX behavior is outside
+                    // the scope of this unit test.
+                }
+            });
+
+            mocked.verify(
+                    () -> UserDao.logInUser(argThat(user ->
+                            user.getUserName().equals("teacher123")
+                                    && user.getPassword().equals("secret")
+                                    && user.getEmail().equals("teacher@email.fi")
+                                    && user.getRole() == User.Role.teacher
+                    ))
+            );
+        }
+    }
+
+
+    @Test
+    @Order(15)
+    @DisplayName("student login sends correct user to DAO")
+    void studentLoginCreatesCorrectUser() throws Exception {
+
+        runOnFxThread(() -> {
+            sUsername.setText("student123");
+            sPassw.setText("secret");
+        });
+
+        ActionEvent event = mock(ActionEvent.class);
+        when(event.getSource()).thenReturn(sOk);
+
+        try (MockedStatic<UserDao> mocked =
+                     mockStatic(UserDao.class)) {
+
+            mocked.when(() -> UserDao.logInUser(any(User.class)))
+                    .thenReturn(false);
+
+            assertDoesNotThrow(() -> {
+                try {
+                    controller.sLogin(event);
+                } catch (Exception e) {
+                    // Alert/FXML related JavaFX behavior is outside
+                    // the scope of this unit test.
+                }
+            });
+
+            mocked.verify(
+                    () -> UserDao.logInUser(argThat(user ->
+                            user.getUserName().equals("student123")
+                                    && user.getPassword().equals("secret")
+                                    && user.getEmail().equals("student@email.fi")
+                                    && user.getRole() == User.Role.student
+                    ))
+            );
+        }
+    }
+
+
+
+    @Test
+    @Order(16)
+    @DisplayName("teacher login ignores unrelated event source")
+    void teacherLoginIgnoresWrongSource() throws Exception {
+
+        Button anotherButton = new Button();
+
+        ActionEvent event = mock(ActionEvent.class);
+
+        when(event.getSource())
+                .thenReturn(anotherButton);
+
+        try (MockedStatic<UserDao> mocked = mockStatic(UserDao.class)) {
+
+            controller.tLogin(event);
+
+            mocked.verifyNoInteractions();
+        }
+    }
+
+    @Test
+    @Order(17)
+    @DisplayName("student login ignores unrelated event source")
+    void studentLoginIgnoresWrongSource() throws Exception {
+
+        Button anotherButton = new Button();
+
+        ActionEvent event = mock(ActionEvent.class);
+
+        when(event.getSource())
+                .thenReturn(anotherButton);
+
+        try (MockedStatic<UserDao> mocked = mockStatic(UserDao.class)) {
+
+            controller.sLogin(event);
+
+            mocked.verifyNoInteractions();
+        }
+    }
+
+
+
+
+    @SuppressWarnings("unchecked")
+    private List<Card> getCards() throws Exception {
+
+        Field field = signInController.class
+                .getDeclaredField("cards");
+
+        field.setAccessible(true);
+
+        return (List<Card>) field.get(controller);
+    }
+
+    private String getLabelText() throws Exception {
+
+        final String[] result = new String[1];
+
+        runOnFxThread(() ->
+                result[0] = nameTag.getText()
+        );
+
+        return result[0];
+    }
+
+    private static void setField(
+            Object object,
+            String fieldName,
+            Object value
+    ) {
+
+        try {
+            Field field = object
+                    .getClass()
+                    .getDeclaredField(fieldName);
+
+            field.setAccessible(true);
+            field.set(object, value);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void runOnFxThread(
+            Runnable runnable
+    ) throws Exception {
+
+        if (Platform.isFxApplicationThread()) {
+            runnable.run();
+            return;
+        }
+
+        CountDownLatch latch = new CountDownLatch(1);
+
+        Platform.runLater(() -> {
+            try {
+                runnable.run();
+            } finally {
+                latch.countDown();
+            }
+        });
+
+        assertTrue(
+                latch.await(10, TimeUnit.SECONDS),
+                "JavaFX operation timed out"
+        );
     }
 }
