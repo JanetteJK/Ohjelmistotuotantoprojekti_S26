@@ -477,7 +477,7 @@ class libraryControllerTest {
         );
     }
 
-    private static User createTestUser(int userId) {
+    static User createTestUser(int userId) {
         User user = new User(
                 "Test User",
                 "test@example.com",
