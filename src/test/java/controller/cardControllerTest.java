@@ -74,7 +74,7 @@ class cardControllerTest {
 
     @Test
     void setCardAnswer_shouldStoreAnswer() throws Exception {
-        controller.setCardAnswer("Java is a programming language.");
+        controller.getCardAnswer("Java is a programming language.");
 
         Field answerField =
                 cardController.class.getDeclaredField("answer");
@@ -89,7 +89,7 @@ class cardControllerTest {
 
     @Test
     void setCardAnswerAction_shouldSetLabelToAnswer() {
-        controller.setCardAnswer("Correct answer");
+        controller.getCardAnswer("Correct answer");
 
         controller.setCardAnswer(event);
 

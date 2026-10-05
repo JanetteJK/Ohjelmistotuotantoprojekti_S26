@@ -59,7 +59,7 @@ public class libraryController implements Initializable {
                 System.out.println("Loaded card: " + card.getQuestion() + " to library");
                 cardController cc = cardFxmlLoader.getController();
                 cc.setCardQuestion(card.getQuestion());
-                cc.setCardAnswer(card.getAnswer());
+                cc.getCardAnswer(card.getAnswer());
 
                 if(column == 1) {
                     column = 0;
