@@ -39,7 +39,7 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class SignInControllerTest {
+class signInControllerTest {
 
     private signInController controller;
 
