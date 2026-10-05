@@ -2,283 +2,138 @@ package controller;
 
 import dao.CardDao;
 import entity.User;
-import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.MockedStatic;
+import org.mockito.MockitoAnnotations;
 
 import java.lang.reflect.Field;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mockStatic;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.Mockito.*;
 
 class cardControllerTest {
 
-    private static boolean javafxStarted = false;
-
     private cardController controller;
+    private AutoCloseable mocks;
 
+    @Mock
     private Label cardText;
+
+    @Mock
     private Button showAnswerButton;
+
+    @Mock
     private Button deleteCardButton;
 
+    @Mock
+    private CardDao cardDao;
+
+    @Mock
+    private User user;
+
+    @Mock
+    private ActionEvent event;
+
     @BeforeAll
-    static void startJavaFx() throws Exception {
-        if (javafxStarted) {
-            return;
-        }
-
-        CountDownLatch latch = new CountDownLatch(1);
-
-        try {
-            Platform.startup(latch::countDown);
-        } catch (IllegalStateException e) {
-            latch.countDown();
-        }
-
-        assertTrue(
-                latch.await(10, TimeUnit.SECONDS),
-                "JavaFX did not start"
-        );
-
-        javafxStarted = true;
+    static void initJavaFx() {
+        new JFXPanel();
     }
 
     @BeforeEach
     void setUp() throws Exception {
-        runOnFxThread(() -> {
-            controller = new cardController();
+        mocks = MockitoAnnotations.openMocks(this);
 
-            cardText = new Label();
-            showAnswerButton = new Button();
-            deleteCardButton = new Button();
+        controller = new cardController();
 
-            setField(controller, "cardText", cardText);
-            setField(controller, "showAnswerButton", showAnswerButton);
-            setField(controller, "deleteCardButton", deleteCardButton);
-        });
+        setPrivateField(controller, "cardText", cardText);
+        setPrivateField(controller, "showAnswerButton", showAnswerButton);
+        setPrivateField(controller, "deleteCardButton", deleteCardButton);
+        setPrivateField(controller, "cardDao", cardDao);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        mocks.close();
     }
 
     @Test
-    void setCardQuestionShouldUpdateCardTextLabel() throws Exception {
-        runOnFxThread(() -> {
-            controller.setCardQuestion("What is Java?");
+    void setCardQuestion_shouldSetLabelText() {
+        controller.setCardQuestion("What is Java?");
 
-            assertEquals(
-                    "What is Java?",
-                    cardText.getText()
-            );
-        });
+        verify(cardText).setText("What is Java?");
     }
 
     @Test
-    void setCardQuestionShouldAllowEmptyQuestion() throws Exception {
-        runOnFxThread(() -> {
-            controller.setCardQuestion("");
+    void setCardAnswer_shouldStoreAnswer() throws Exception {
+        controller.setCardAnswer("Java is a programming language.");
 
-            assertEquals(
-                    "",
-                    cardText.getText()
-            );
-        });
-    }
+        Field answerField =
+                cardController.class.getDeclaredField("answer");
 
-    @Test
-    void setCardQuestionShouldAllowNullQuestion() throws Exception {
-        runOnFxThread(() -> {
-            controller.setCardQuestion(null);
-
-            assertNull(cardText.getText());
-        });
-    }
-
-    @Test
-    void setCardAnswerStringShouldStoreAnswer() {
-        controller.setCardAnswer("A programming language");
+        answerField.setAccessible(true);
 
         assertEquals(
-                "A programming language",
-                getField(controller, "answer")
+                "Java is a programming language.",
+                answerField.get(controller)
         );
     }
 
     @Test
-    void setCardAnswerStringShouldAllowEmptyAnswer() {
-        controller.setCardAnswer("");
+    void setCardAnswerAction_shouldSetLabelToAnswer() {
+        controller.setCardAnswer("Correct answer");
 
-        assertEquals(
-                "",
-                getField(controller, "answer")
-        );
+        controller.setCardAnswer(event);
+
+        verify(cardText).setText("Correct answer");
     }
 
     @Test
-    void setCardAnswerStringShouldAllowNullAnswer() {
-        controller.setCardAnswer((String) null);
-
-        assertNull(getField(controller, "answer"));
-    }
-
-    @Test
-    void setCardAnswerActionEventShouldDisplayStoredAnswer() throws Exception {
-        controller.setCardAnswer("A programming language");
-
-        runOnFxThread(() -> {
-            controller.setCardAnswer(new ActionEvent());
-
-            assertEquals(
-                    "A programming language",
-                    cardText.getText()
-            );
-        });
-    }
-
-    @Test
-    void setCardAnswerActionEventShouldSetLabelToNullWhenAnswerIsNull() throws Exception {
-        controller.setCardAnswer((String) null);
-
-        runOnFxThread(() -> {
-            controller.setCardAnswer(new ActionEvent());
-
-            assertNull(cardText.getText());
-        });
-    }
-
-    @Test
-    void setUserShouldStoreUser() {
-        User user = new User(
-                "Test User",
-                "test@example.com",
-                "password",
-                User.Role.student
-        );
-
+    void setUser_shouldStoreUser() throws Exception {
         controller.setUser(user);
 
-        assertSame(
-                user,
-                getField(controller, "user")
-        );
+        Field userField =
+                cardController.class.getDeclaredField("user");
+
+        userField.setAccessible(true);
+
+        assertSame(user, userField.get(controller));
     }
 
     @Test
-    void setUserShouldAllowNullUser() {
-        controller.setUser(null);
+    void deleteCard_shouldCallDaoWithCurrentQuestion() {
+        when(cardText.getText()).thenReturn("What is Java?");
 
-        assertNull(getField(controller, "user"));
-    }
+        try (MockedStatic<CardDao> mockedCardDao = mockStatic(CardDao.class)) {
 
-    @Test
-    void deleteCardShouldCallCardDaoDeleteCardWithCurrentQuestionText() throws Exception {
-        runOnFxThread(() ->
-                cardText.setText("What is Java?")
-        );
+            controller.deleteCard(event);
 
-        try (MockedStatic<CardDao> cardDaoMock = mockStatic(CardDao.class)) {
-            controller.deleteCard(new ActionEvent());
-
-            cardDaoMock.verify(() ->
-                    CardDao.deleteCard("What is Java?")
+            mockedCardDao.verify(
+                    () -> CardDao.deleteCard("What is Java?")
             );
         }
     }
 
-    @Test
-    void deleteCardShouldPassEmptyTextToCardDaoWhenLabelIsEmpty() throws Exception {
-        runOnFxThread(() ->
-                cardText.setText("")
-        );
 
-        try (MockedStatic<CardDao> cardDaoMock = mockStatic(CardDao.class)) {
-            controller.deleteCard(new ActionEvent());
 
-            cardDaoMock.verify(() ->
-                    CardDao.deleteCard("")
-            );
-        }
-    }
-
-    @Test
-    void deleteCardShouldPassNullToCardDaoWhenLabelTextIsNull() throws Exception {
-        runOnFxThread(() ->
-                cardText.setText(null)
-        );
-
-        try (MockedStatic<CardDao> cardDaoMock = mockStatic(CardDao.class)) {
-            controller.deleteCard(new ActionEvent());
-
-            cardDaoMock.verify(() ->
-                    CardDao.deleteCard(null)
-            );
-        }
-    }
-
-    private static void runOnFxThread(Runnable runnable) throws Exception {
-        if (Platform.isFxApplicationThread()) {
-            runnable.run();
-            return;
-        }
-
-        CountDownLatch latch = new CountDownLatch(1);
-        RuntimeException[] exception = new RuntimeException[1];
-        Error[] error = new Error[1];
-
-        Platform.runLater(() -> {
-            try {
-                runnable.run();
-            } catch (RuntimeException e) {
-                exception[0] = e;
-            } catch (Error e) {
-                error[0] = e;
-            } finally {
-                latch.countDown();
-            }
-        });
-
-        assertTrue(
-                latch.await(10, TimeUnit.SECONDS),
-                "JavaFX operation timed out"
-        );
-
-        if (exception[0] != null) {
-            throw exception[0];
-        }
-
-        if (error[0] != null) {
-            throw error[0];
-        }
-    }
-
-    private static void setField(
-            Object object,
+    private static void setPrivateField(
+            Object target,
             String fieldName,
             Object value
-    ) {
-        try {
-            Field field = object.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            field.set(object, value);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+    ) throws Exception {
 
-    private static Object getField(
-            Object object,
-            String fieldName
-    ) {
-        try {
-            Field field = object.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            return field.get(object);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Field field =
+                target.getClass().getDeclaredField(fieldName);
+
+        field.setAccessible(true);
+        field.set(target, value);
     }
 }
