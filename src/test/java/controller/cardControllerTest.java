@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mockStatic;
 
-class CardControllerTest {
+class cardControllerTest {
 
     private static boolean javafxStarted = false;
 
