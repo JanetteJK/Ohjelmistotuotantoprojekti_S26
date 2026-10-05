@@ -1,37 +1,44 @@
 package controller;
 
-import dao.CardDao;
 import dao.UserDao;
-import entity.Card;
 import entity.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
-import java.awt.ScrollPane;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class SignInControllerTest {
 
     private signInController controller;
@@ -46,42 +53,26 @@ class SignInControllerTest {
 
     private Hyperlink createAccount;
     private Label nameTag;
-    private GridPane grid;
-    private ScrollPane scroll;
-
-    private static boolean javafxStarted = false;
-
 
     @BeforeAll
     static void startJavaFx() throws Exception {
-
-        if (javafxStarted) {
-            return;
-        }
-
         CountDownLatch latch = new CountDownLatch(1);
 
         try {
             Platform.startup(latch::countDown);
-        } catch (IllegalStateException e) {
-            // JavaFX was already started
+        } catch (IllegalStateException alreadyStarted) {
             latch.countDown();
         }
 
         assertTrue(
                 latch.await(10, TimeUnit.SECONDS),
-                "JavaFX did not start"
+                "JavaFX did not start within the timeout"
         );
-
-        javafxStarted = true;
     }
-
 
     @BeforeEach
     void setUp() throws Exception {
-
         runOnFxThread(() -> {
-
             controller = new signInController();
 
             tUsername = new TextField();
@@ -94,7 +85,6 @@ class SignInControllerTest {
 
             createAccount = new Hyperlink();
             nameTag = new Label();
-            grid = new GridPane();
 
             setField(controller, "tUsername", tUsername);
             setField(controller, "tPassw", tPassw);
@@ -106,924 +96,514 @@ class SignInControllerTest {
 
             setField(controller, "createAccount", createAccount);
             setField(controller, "nameTag", nameTag);
-            setField(controller, "grid", grid);
-
-            controller.setCurrentUser(null);
         });
     }
 
-
     @Test
-    @Order(1)
-    void gettUsername() throws Exception {
+    void gettUsernameReturnsTeacherUsernameText() throws Exception {
+        runOnFxThread(() -> tUsername.setText("teacherUser"));
 
-        runOnFxThread(() ->
-                tUsername.setText("teacher")
-        );
-
-        assertEquals(
-                "teacher",
-                controller.gettUsername()
-        );
+        assertEquals("teacherUser", controller.gettUsername());
     }
 
-
     @Test
-    @Order(2)
-    void gettPassw() throws Exception {
+    void gettPasswReturnsTeacherPasswordText() throws Exception {
+        runOnFxThread(() -> tPassw.setText("teacherPassword"));
 
-        runOnFxThread(() ->
-                tPassw.setText("password")
-        );
-
-        assertEquals(
-                "password",
-                controller.gettPassw()
-        );
+        assertEquals("teacherPassword", controller.gettPassw());
     }
 
-
     @Test
-    @Order(3)
-    void getSUsername() throws Exception {
+    void getSUsernameReturnsStudentUsernameText() throws Exception {
+        runOnFxThread(() -> sUsername.setText("studentUser"));
 
-        runOnFxThread(() ->
-                sUsername.setText("student")
-        );
-
-        assertEquals(
-                "student",
-                controller.getSUsername()
-        );
+        assertEquals("studentUser", controller.getSUsername());
     }
 
-
     @Test
-    @Order(4)
-    void getsPassw() throws Exception {
+    void getsPasswReturnsStudentPasswordText() throws Exception {
+        runOnFxThread(() -> sPassw.setText("studentPassword"));
 
-        runOnFxThread(() ->
-                sPassw.setText("password")
-        );
-
-        assertEquals(
-                "password",
-                controller.getsPassw()
-        );
+        assertEquals("studentPassword", controller.getsPassw());
     }
 
-
     @Test
-    @Order(5)
-    void setCurrentUser() throws Exception {
-
+    void setCurrentUserStoresGivenUser() throws Exception {
         User user = new User(
                 "Matti",
-                "matti@email.fi",
+                "matti@example.test",
                 "password",
                 User.Role.student
         );
 
+        controller.setCurrentUser(user);
+
+        Field field = signInController.class.getDeclaredField("currentUser");
+        field.setAccessible(true);
+
+        assertSame(user, field.get(controller));
+    }
+
+    @Test
+    void setUserGreetingUpdatesNameTagText() throws Exception {
+        runOnFxThread(() -> controller.setUserGreeting("Welcome Matti"));
+
+        assertEquals("Welcome Matti", nameTag.getText());
+    }
+
+    @Test
+    void getUserIdReturnsCurrentUserId() {
+        User user = new User(
+                "Matti",
+                "matti@example.test",
+                "password",
+                User.Role.student
+        );
         user.setUserId(123);
 
         controller.setCurrentUser(user);
 
-        Field field =
-                signInController.class.getDeclaredField("currentUser");
-
-        field.setAccessible(true);
-
-        assertSame(
-                user,
-                field.get(null)
-        );
+        assertEquals(123, controller.getUserId());
     }
 
-
     @Test
-    @Order(6)
-    void setUserGreeting() throws Exception {
+    void tLoginWithWrongSourceDoesNothing() throws Exception {
+        ActionEvent event = mock(ActionEvent.class);
+        Button wrongButton = new Button();
 
-        controller.setUserGreeting("Hello Matti");
+        when(event.getSource()).thenReturn(wrongButton);
 
-        assertEquals(
-                "Hello Matti",
-                nameTag.getText()
-        );
-    }
+        try (MockedStatic<UserDao> userDao = mockStatic(UserDao.class)) {
+            controller.tLogin(event);
 
-
-    @Test
-    @Order(7)
-    void getAllCards() throws Exception {
-
-        User user = new User(
-                "student",
-                "student@email.fi",
-                "password",
-                User.Role.student
-        );
-
-        user.setUserId(42);
-
-        Card card1 = new Card(
-                "Question 1",
-                "Answer 1",
-                "Math",
-                42
-        );
-
-        Card card2 = new Card(
-                "Question 2",
-                "Answer 2",
-                "Physics",
-                42
-        );
-
-        ArrayList<Card> cards = new ArrayList<>();
-        cards.add(card1);
-        cards.add(card2);
-
-        try (MockedStatic<CardDao> mocked =
-                     mockStatic(CardDao.class)) {
-
-            mocked.when(() ->
-                    CardDao.showAllCards(42)
-            ).thenReturn(cards);
-
-            controller.getAllCards(user);
-
-            mocked.verify(() ->
-                    CardDao.showAllCards(42)
-            );
-
-            List<Card> actual =
-                    getCards();
-
-            assertEquals(2, actual.size());
-            assertSame(card1, actual.get(0));
-            assertSame(card2, actual.get(1));
+            userDao.verifyNoInteractions();
         }
     }
 
-
     @Test
-    @Order(8)
-    void getAllCardsEmpty() throws Exception {
+    void sLoginWithWrongSourceDoesNothing() throws Exception {
+        ActionEvent event = mock(ActionEvent.class);
+        Button wrongButton = new Button();
 
-        User user = new User(
-                "student",
-                "student@email.fi",
-                "password",
-                User.Role.student
-        );
+        when(event.getSource()).thenReturn(wrongButton);
 
-        user.setUserId(99);
+        try (MockedStatic<UserDao> userDao = mockStatic(UserDao.class)) {
+            controller.sLogin(event);
 
-        try (MockedStatic<CardDao> mocked =
-                     mockStatic(CardDao.class)) {
-
-            mocked.when(() ->
-                    CardDao.showAllCards(99)
-            ).thenReturn(new ArrayList<>());
-
-            controller.getAllCards(user);
-
-            assertTrue(
-                    getCards().isEmpty()
-            );
+            userDao.verifyNoInteractions();
         }
     }
 
-
     @Test
-    @Order(9)
-    void addCardsToLibraryEmpty() throws Exception {
-
-        controller.addCardsToLibrary();
-
-        assertEquals(
-                0,
-                grid.getChildren().size()
-        );
-    }
-
-
-    @Test
-    @Order(10)
-    void addCardsToLibraryMultipleCards() throws Exception {
-
-        for (int i = 0; i < 5; i++) {
-
-            getCards().add(
-                    new Card(
-                            "Question " + i,
-                            "Answer " + i,
-                            "Category",
-                            1
-                    )
-            );
-        }
-
-        List<AnchorPane> panes = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-            panes.add(new AnchorPane());
-        }
-
-        cardController mockedCardController =
-                mock(cardController.class);
-
-        AtomicInteger counter =
-                new AtomicInteger(0);
-
-        try (MockedConstruction<FXMLLoader> ignored =
-                     mockConstruction(
-                             FXMLLoader.class,
-                             (mock, context) -> {
-
-                                 int index =
-                                         counter.getAndIncrement();
-
-                                 when(mock.load())
-                                         .thenReturn(panes.get(index));
-
-                                 when(mock.getController())
-                                         .thenReturn(
-                                                 mockedCardController
-                                         );
-                             })) {
-
-            controller.addCardsToLibrary();
-
-            assertEquals(
-                    5,
-                    grid.getChildren().size()
-            );
-
-            verify(mockedCardController, times(5))
-                    .setCardQuestion(any(Card.class));
-        }
-    }
-
-
-    @Test
-    @Order(11)
-    void addCardsToLibraryStartsNewRow() throws Exception {
-
-        for (int i = 0; i < 4; i++) {
-
-            getCards().add(
-                    new Card(
-                            "Question " + i,
-                            "Answer " + i,
-                            "Category",
-                            1
-                    )
-            );
-        }
-
-        List<AnchorPane> panes = new ArrayList<>();
-
-        for (int i = 0; i < 4; i++) {
-            panes.add(new AnchorPane());
-        }
-
-        cardController mockedCardController =
-                mock(cardController.class);
-
-        AtomicInteger counter =
-                new AtomicInteger(0);
-
-        try (MockedConstruction<FXMLLoader> ignored =
-                     mockConstruction(
-                             FXMLLoader.class,
-                             (mock, context) -> {
-
-                                 int index =
-                                         counter.getAndIncrement();
-
-                                 when(mock.load())
-                                         .thenReturn(panes.get(index));
-
-                                 when(mock.getController())
-                                         .thenReturn(
-                                                 mockedCardController
-                                         );
-                             })) {
-
-            controller.addCardsToLibrary();
-
-            assertEquals(
-                    4,
-                    grid.getChildren().size()
-            );
-
-            assertEquals(
-                    0,
-                    GridPane.getRowIndex(
-                            grid.getChildren().get(0)
-                    )
-            );
-
-            assertEquals(
-                    0,
-                    GridPane.getRowIndex(
-                            grid.getChildren().get(2)
-                    )
-            );
-
-            assertEquals(
-                    1,
-                    GridPane.getRowIndex(
-                            grid.getChildren().get(3)
-                    )
-            );
-        }
-    }
-
-
-    @Test
-    @Order(12)
-    void teacherLoginFailure() throws Exception {
-
+    void tLoginFailureShowsWarningAlert() throws Exception {
         runOnFxThread(() -> {
             tUsername.setText("teacher");
-            tPassw.setText("wrong");
+            tPassw.setText("wrongPassword");
         });
 
-        ActionEvent event =
-                mock(ActionEvent.class);
-
-        when(event.getSource())
-                .thenReturn(tOk);
+        ActionEvent event = mock(ActionEvent.class);
+        when(event.getSource()).thenReturn(tOk);
 
         try (
-                MockedStatic<UserDao> userDao =
-                        mockStatic(UserDao.class);
-
-                MockedConstruction<Alert> alerts =
-                        mockConstruction(
-                                Alert.class,
-                                (mock, context) -> {
-
-                                    when(mock.showAndWait())
-                                            .thenReturn(
-                                                    Optional.empty()
-                                            );
-                                })
+                MockedStatic<UserDao> userDao = mockStatic(UserDao.class);
+                MockedConstruction<Alert> alerts = mockConstruction(
+                        Alert.class,
+                        (mock, context) -> when(mock.showAndWait())
+                                .thenReturn(Optional.empty())
+                )
         ) {
+            userDao.when(() -> UserDao.logInUser(any(User.class)))
+                    .thenReturn(false);
 
-            userDao.when(() ->
-                    UserDao.logInUser(any(User.class))
-            ).thenReturn(false);
+            runOnFxThread(() -> {
+                try {
+                    controller.tLogin(event);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-            controller.tLogin(event);
+            userDao.verify(() -> UserDao.logInUser(argThat(user ->
+                    user.getUserName().equals("teacher")
+                            && user.getPassword().equals("wrongPassword")
+                            && user.getEmail().equals("teacher@email.fi")
+                            && user.getRole() == User.Role.teacher
+            )));
 
-            userDao.verify(() ->
-                    UserDao.logInUser(
-                            argThat(user ->
-                                    user.getUserName()
-                                            .equals("teacher")
-                                            &&
-                                            user.getPassword()
-                                                    .equals("wrong")
-                                            &&
-                                            user.getEmail()
-                                                    .equals("teacher@email.fi")
-                                            &&
-                                            user.getRole()
-                                                    == User.Role.teacher
-                            )
-                    )
-            );
-
-            assertEquals(
-                    1,
-                    alerts.constructed().size()
-            );
-
-            verify(
-                    alerts.constructed().get(0)
-            ).showAndWait();
+            assertEquals(1, alerts.constructed().size());
+            verify(alerts.constructed().get(0)).setTitle("Login failed");
+            verify(alerts.constructed().get(0)).setHeaderText("Login failed!");
+            verify(alerts.constructed().get(0))
+                    .setContentText("Wrong password or username.");
+            verify(alerts.constructed().get(0)).showAndWait();
         }
     }
 
-
     @Test
-    @Order(13)
-    void studentLoginFailure() throws Exception {
-
+    void sLoginFailureShowsWarningAlert() throws Exception {
         runOnFxThread(() -> {
             sUsername.setText("student");
-            sPassw.setText("wrong");
+            sPassw.setText("wrongPassword");
         });
 
-        ActionEvent event =
-                mock(ActionEvent.class);
-
-        when(event.getSource())
-                .thenReturn(sOk);
+        ActionEvent event = mock(ActionEvent.class);
+        when(event.getSource()).thenReturn(sOk);
 
         try (
-                MockedStatic<UserDao> userDao =
-                        mockStatic(UserDao.class);
-
-                MockedConstruction<Alert> alerts =
-                        mockConstruction(
-                                Alert.class,
-                                (mock, context) -> {
-
-                                    when(mock.showAndWait())
-                                            .thenReturn(
-                                                    Optional.empty()
-                                            );
-                                })
+                MockedStatic<UserDao> userDao = mockStatic(UserDao.class);
+                MockedConstruction<Alert> alerts = mockConstruction(
+                        Alert.class,
+                        (mock, context) -> when(mock.showAndWait())
+                                .thenReturn(Optional.empty())
+                )
         ) {
+            userDao.when(() -> UserDao.logInUser(any(User.class)))
+                    .thenReturn(false);
 
-            userDao.when(() ->
-                    UserDao.logInUser(any(User.class))
-            ).thenReturn(false);
+            runOnFxThread(() -> {
+                try {
+                    controller.sLogin(event);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-            controller.sLogin(event);
+            userDao.verify(() -> UserDao.logInUser(argThat(user ->
+                    user.getUserName().equals("student")
+                            && user.getPassword().equals("wrongPassword")
+                            && user.getEmail().equals("student@email.fi")
+                            && user.getRole() == User.Role.student
+            )));
 
-            userDao.verify(() ->
-                    UserDao.logInUser(
-                            argThat(user ->
-                                    user.getUserName()
-                                            .equals("student")
-                                            &&
-                                            user.getPassword()
-                                                    .equals("wrong")
-                                            &&
-                                            user.getEmail()
-                                                    .equals("student@email.fi")
-                                            &&
-                                            user.getRole()
-                                                    == User.Role.student
-                            )
-                    )
-            );
-
-            assertEquals(
-                    1,
-                    alerts.constructed().size()
-            );
-
-            verify(
-                    alerts.constructed().get(0)
-            ).showAndWait();
+            assertEquals(1, alerts.constructed().size());
+            verify(alerts.constructed().get(0)).setTitle("Login failed");
+            verify(alerts.constructed().get(0)).setHeaderText("Login failed!");
+            verify(alerts.constructed().get(0))
+                    .setContentText("Wrong password or username.");
+            verify(alerts.constructed().get(0)).showAndWait();
         }
     }
 
-
-
     @Test
-    @Order(14)
-    void teacherLoginWrongSource() throws Exception {
+    void tLoginSuccessSetsCurrentUserAndSwitchesScene() throws Exception {
+        runOnFxThread(() -> {
+            tUsername.setText("teacher");
+            tPassw.setText("correctPassword");
+        });
 
-        ActionEvent event =
-                mock(ActionEvent.class);
+        Stage stage = new Stage();
+        Scene oldScene = new Scene(new AnchorPane(tOk));
+        stage.setScene(oldScene);
 
-        Button otherButton =
-                new Button();
+        ActionEvent event = mock(ActionEvent.class);
+        when(event.getSource()).thenReturn(tOk);
 
-        when(event.getSource())
-                .thenReturn(otherButton);
+        Parent loadedRoot = new AnchorPane();
+        signInController loadedController = mock(signInController.class);
 
-        try (MockedStatic<UserDao> userDao =
-                     mockStatic(UserDao.class)) {
+        try (
+                MockedStatic<UserDao> userDao = mockStatic(UserDao.class);
+                MockedConstruction<FXMLLoader> ignored = mockConstruction(
+                        FXMLLoader.class,
+                        (mock, context) -> {
+                            when(mock.load()).thenReturn(loadedRoot);
+                            when(mock.getController()).thenReturn(loadedController);
+                        }
+                )
+        ) {
+            userDao.when(() -> UserDao.logInUser(any(User.class)))
+                    .thenReturn(true);
 
-            controller.tLogin(event);
+            runOnFxThread(() -> {
+                try {
+                    controller.tLogin(event);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-            userDao.verifyNoInteractions();
+            userDao.verify(() -> UserDao.logInUser(argThat(user ->
+                    user.getUserName().equals("teacher")
+                            && user.getPassword().equals("correctPassword")
+                            && user.getEmail().equals("teacher@email.fi")
+                            && user.getRole() == User.Role.teacher
+            )));
+
+            Field currentUserField =
+                    signInController.class.getDeclaredField("currentUser");
+            currentUserField.setAccessible(true);
+
+            User currentUser = (User) currentUserField.get(controller);
+
+            assertEquals("teacher", currentUser.getUserName());
+            assertEquals("teacher@email.fi", currentUser.getEmail());
+            assertEquals(User.Role.teacher, currentUser.getRole());
+
+            verify(loadedController).setUserGreeting("teacher");
+            verify(loadedController).setCurrentUser(currentUser);
+
+            assertSame(loadedRoot, stage.getScene().getRoot());
         }
     }
 
-
     @Test
-    @Order(15)
-    void studentLoginWrongSource() throws Exception {
+    void sLoginSuccessSetsCurrentUserAndSwitchesScene() throws Exception {
+        runOnFxThread(() -> {
+            sUsername.setText("student");
+            sPassw.setText("correctPassword");
+        });
 
-        ActionEvent event =
-                mock(ActionEvent.class);
+        Stage stage = new Stage();
+        Scene oldScene = new Scene(new AnchorPane(sOk));
+        stage.setScene(oldScene);
 
-        Button otherButton =
-                new Button();
+        ActionEvent event = mock(ActionEvent.class);
+        when(event.getSource()).thenReturn(sOk);
 
-        when(event.getSource())
-                .thenReturn(otherButton);
+        Parent loadedRoot = new AnchorPane();
+        signInController loadedController = mock(signInController.class);
 
-        try (MockedStatic<UserDao> userDao =
-                     mockStatic(UserDao.class)) {
+        try (
+                MockedStatic<UserDao> userDao = mockStatic(UserDao.class);
+                MockedConstruction<FXMLLoader> ignored = mockConstruction(
+                        FXMLLoader.class,
+                        (mock, context) -> {
+                            when(mock.load()).thenReturn(loadedRoot);
+                            when(mock.getController()).thenReturn(loadedController);
+                        }
+                )
+        ) {
+            userDao.when(() -> UserDao.logInUser(any(User.class)))
+                    .thenReturn(true);
 
-            controller.sLogin(event);
+            runOnFxThread(() -> {
+                try {
+                    controller.sLogin(event);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-            userDao.verifyNoInteractions();
+            userDao.verify(() -> UserDao.logInUser(argThat(user ->
+                    user.getUserName().equals("student")
+                            && user.getPassword().equals("correctPassword")
+                            && user.getEmail().equals("student@email.fi")
+                            && user.getRole() == User.Role.student
+            )));
+
+            Field currentUserField =
+                    signInController.class.getDeclaredField("currentUser");
+            currentUserField.setAccessible(true);
+
+            User currentUser = (User) currentUserField.get(controller);
+
+            assertEquals("student", currentUser.getUserName());
+            assertEquals("student@email.fi", currentUser.getEmail());
+            assertEquals(User.Role.student, currentUser.getRole());
+
+            verify(loadedController).setUserGreeting("student");
+            verify(loadedController).setCurrentUser(currentUser);
+
+            assertSame(loadedRoot, stage.getScene().getRoot());
         }
     }
 
-
     @Test
-    @Order(16)
-    void switchToCreateAccount() throws Exception {
+    void switchToCreateAccountLoadsCreateAccountScene() throws Exception {
+        Stage stage = new Stage();
+        Button source = new Button();
+        stage.setScene(new Scene(new AnchorPane(source)));
 
-        ActionEvent event =
-                mock(ActionEvent.class);
+        ActionEvent event = mock(ActionEvent.class);
+        when(event.getSource()).thenReturn(source);
 
-        Node source =
-                mock(Node.class);
-
-        Scene oldScene =
-                mock(Scene.class);
-
-        Stage stage =
-                mock(Stage.class);
-
-        when(event.getSource())
-                .thenReturn(source);
-
-        when(source.getScene())
-                .thenReturn(oldScene);
-
-        when(oldScene.getWindow())
-                .thenReturn(stage);
-
-        AnchorPane root =
-                new AnchorPane();
-
-        createAccountController accountController =
+        Parent loadedRoot = new AnchorPane();
+        createAccountController createAccountControllerMock =
                 mock(createAccountController.class);
 
-        try (MockedConstruction<FXMLLoader> ignored =
-                     mockConstruction(
-                             FXMLLoader.class,
-                             (mock, context) -> {
+        try (MockedConstruction<FXMLLoader> ignored = mockConstruction(
+                FXMLLoader.class,
+                (mock, context) -> {
+                    when(mock.load()).thenReturn(loadedRoot);
+                    when(mock.getController()).thenReturn(createAccountControllerMock);
+                }
+        )) {
+            runOnFxThread(() -> {
+                try {
+                    controller.switchToCreateAccount(event);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-                                 when(mock.load())
-                                         .thenReturn(root);
-
-                                 when(mock.getController())
-                                         .thenReturn(
-                                                 accountController
-                                         );
-                             })) {
-
-            controller.switchToCreateAccount(event);
-
-            verify(stage)
-                    .setScene(any(Scene.class));
-
-            verify(stage)
-                    .show();
+            assertSame(loadedRoot, stage.getScene().getRoot());
         }
     }
 
-
     @Test
-    @Order(17)
-    void switchToCreateCards() throws Exception {
-
-        User user =
-                new User(
-                        "Matti",
-                        "matti@email.fi",
-                        "password",
-                        User.Role.student
-                );
-
+    void switchToCreateCardsPassesCurrentUserAndLoadsCreateCardScene()
+            throws Exception {
+        User user = new User(
+                "Student",
+                "student@example.test",
+                "password",
+                User.Role.student
+        );
         controller.setCurrentUser(user);
 
-        MouseEvent event =
-                mock(MouseEvent.class);
+        Stage stage = new Stage();
+        Button source = new Button();
+        stage.setScene(new Scene(new AnchorPane(source)));
 
-        Node source =
-                mock(Node.class);
+        MouseEvent event = mock(MouseEvent.class);
+        when(event.getSource()).thenReturn(source);
 
-        Scene oldScene =
-                mock(Scene.class);
+        Parent loadedRoot = new AnchorPane();
+        ccController cardControllerMock = mock(ccController.class);
 
-        Stage stage =
-                mock(Stage.class);
+        try (MockedConstruction<FXMLLoader> ignored = mockConstruction(
+                FXMLLoader.class,
+                (mock, context) -> {
+                    when(mock.load()).thenReturn(loadedRoot);
+                    when(mock.getController()).thenReturn(cardControllerMock);
+                }
+        )) {
+            runOnFxThread(() -> {
+                try {
+                    controller.switchToCreateCards(event);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-        when(event.getSource())
-                .thenReturn(source);
-
-        when(source.getScene())
-                .thenReturn(oldScene);
-
-        when(oldScene.getWindow())
-                .thenReturn(stage);
-
-        AnchorPane root =
-                new AnchorPane();
-
-        cardController cardControllerMock =
-                mock(cardController.class);
-
-        try (MockedConstruction<FXMLLoader> ignored =
-                     mockConstruction(
-                             FXMLLoader.class,
-                             (mock, context) -> {
-
-                                 when(mock.load())
-                                         .thenReturn(root);
-
-                                 when(mock.getController())
-                                         .thenReturn(
-                                                 cardControllerMock
-                                         );
-                             })) {
-
-            controller.switchToCreateCards(event);
-
-            verify(cardControllerMock)
-                    .setUser(user);
-
-            verify(stage)
-                    .setScene(any(Scene.class));
-
-            verify(stage)
-                    .show();
+            verify(cardControllerMock).setUser(user);
+            assertSame(loadedRoot, stage.getScene().getRoot());
         }
     }
 
-
     @Test
-    @Order(18)
-    void switchToLibrary() throws Exception {
-
-        MouseEvent event =
-                mock(MouseEvent.class);
-
-        Node source =
-                mock(Node.class);
-
-        Scene oldScene =
-                mock(Scene.class);
-
-        Stage stage =
-                mock(Stage.class);
-
-        when(event.getSource())
-                .thenReturn(source);
-
-        when(source.getScene())
-                .thenReturn(oldScene);
-
-        when(oldScene.getWindow())
-                .thenReturn(stage);
-
-        AnchorPane root =
-                new AnchorPane();
-
-        try (MockedConstruction<FXMLLoader> ignored =
-                     mockConstruction(
-                             FXMLLoader.class,
-                             (mock, context) -> {
-
-                                 when(mock.load())
-                                         .thenReturn(root);
-                             })) {
-
-            controller.switchToLibrary(event);
-
-            verify(stage)
-                    .setScene(any(Scene.class));
-
-            verify(stage)
-                    .show();
-        }
-    }
-
-
-    @Test
-    @Order(19)
-    void switchToCreateQuiz() throws Exception {
-
-        MouseEvent event =
-                mock(MouseEvent.class);
-
-        Node source =
-                mock(Node.class);
-
-        Scene oldScene =
-                mock(Scene.class);
-
-        Stage stage =
-                mock(Stage.class);
-
-        when(event.getSource())
-                .thenReturn(source);
-
-        when(source.getScene())
-                .thenReturn(oldScene);
-
-        when(oldScene.getWindow())
-                .thenReturn(stage);
-
-        AnchorPane root =
-                new AnchorPane();
-
-        try (MockedConstruction<FXMLLoader> ignored =
-                     mockConstruction(
-                             FXMLLoader.class,
-                             (mock, context) -> {
-
-                                 when(mock.load())
-                                         .thenReturn(root);
-                             })) {
-
-            controller.switchToCreateQuiz(event);
-
-            verify(stage)
-                    .setScene(any(Scene.class));
-
-            verify(stage)
-                    .show();
-        }
-    }
-
-
-    @Test
-    @Order(20)
-    void switchToStudyMaterials() throws Exception {
-
-        MouseEvent event =
-                mock(MouseEvent.class);
-
-        Node source =
-                mock(Node.class);
-
-        Scene oldScene =
-                mock(Scene.class);
-
-        Stage stage =
-                mock(Stage.class);
-
-        when(event.getSource())
-                .thenReturn(source);
-
-        when(source.getScene())
-                .thenReturn(oldScene);
-
-        when(oldScene.getWindow())
-                .thenReturn(stage);
-
-        AnchorPane root =
-                new AnchorPane();
-
-        try (MockedConstruction<FXMLLoader> ignored =
-                     mockConstruction(
-                             FXMLLoader.class,
-                             (mock, context) -> {
-
-                                 when(mock.load())
-                                         .thenReturn(root);
-                             })) {
-
-            controller.switchToStudyMaterials(event);
-
-            verify(stage)
-                    .setScene(any(Scene.class));
-
-            verify(stage)
-                    .show();
-        }
-    }
-
-
-    @Test
-    @Order(21)
-    void switchToProfile() throws Exception {
-
-        User user =
-                new User(
-                        "Matti",
-                        "matti@email.fi",
-                        "password",
-                        User.Role.student
-                );
-
+    void switchToLibraryPassesCurrentUserLoadsCardsAndSwitchesScene()
+            throws Exception {
+        User user = new User(
+                "Student",
+                "student@example.test",
+                "password",
+                User.Role.student
+        );
         controller.setCurrentUser(user);
 
-        MouseEvent event =
-                mock(MouseEvent.class);
+        Stage stage = new Stage();
+        Button source = new Button();
+        stage.setScene(new Scene(new AnchorPane(source)));
 
-        Node source =
-                mock(Node.class);
+        MouseEvent event = mock(MouseEvent.class);
+        when(event.getSource()).thenReturn(source);
 
-        Scene oldScene =
-                mock(Scene.class);
+        Parent loadedRoot = new AnchorPane();
+        libraryController libraryControllerMock = mock(libraryController.class);
 
-        Stage stage =
-                mock(Stage.class);
+        try (MockedConstruction<FXMLLoader> ignored = mockConstruction(
+                FXMLLoader.class,
+                (mock, context) -> {
+                    when(mock.load()).thenReturn(loadedRoot);
+                    when(mock.getController()).thenReturn(libraryControllerMock);
+                }
+        )) {
+            runOnFxThread(() -> {
+                try {
+                    controller.switchToLibrary(event);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-        when(event.getSource())
-                .thenReturn(source);
-
-        when(source.getScene())
-                .thenReturn(oldScene);
-
-        when(oldScene.getWindow())
-                .thenReturn(stage);
-
-        AnchorPane root =
-                new AnchorPane();
-
-        signInController profileController =
-                mock(signInController.class);
-
-        try (MockedConstruction<FXMLLoader> ignored =
-                     mockConstruction(
-                             FXMLLoader.class,
-                             (mock, context) -> {
-
-                                 when(mock.load())
-                                         .thenReturn(root);
-
-                                 when(mock.getController())
-                                         .thenReturn(
-                                                 profileController
-                                         );
-                             })) {
-
-            controller.switchToProfile(event);
-
-            verify(profileController)
-                    .setUserGreeting("Matti");
-
-            verify(stage)
-                    .setScene(any(Scene.class));
-
-            verify(stage)
-                    .show();
+            verify(libraryControllerMock).setUser(user);
+            verify(libraryControllerMock).getAllCards();
+            assertSame(loadedRoot, stage.getScene().getRoot());
         }
     }
 
 
+    @Test
+    void switchToProfileSetsGreetingAndSwitchesScene() throws Exception {
+        User user = new User(
+                "Matti",
+                "matti@example.test",
+                "password",
+                User.Role.student
+        );
+        controller.setCurrentUser(user);
 
-    @SuppressWarnings("unchecked")
-    private List<Card> getCards() throws Exception {
+        Stage stage = new Stage();
+        Button source = new Button();
+        stage.setScene(new Scene(new AnchorPane(source)));
 
-        Field field =
-                signInController.class
-                        .getDeclaredField("cards");
+        MouseEvent event = mock(MouseEvent.class);
+        when(event.getSource()).thenReturn(source);
 
-        field.setAccessible(true);
+        Parent loadedRoot = new AnchorPane();
+        signInController loadedController = mock(signInController.class);
 
-        return (List<Card>) field.get(controller);
+        try (MockedConstruction<FXMLLoader> ignored = mockConstruction(
+                FXMLLoader.class,
+                (mock, context) -> {
+                    when(mock.load()).thenReturn(loadedRoot);
+                    when(mock.getController()).thenReturn(loadedController);
+                }
+        )) {
+            runOnFxThread(() -> {
+                try {
+                    controller.switchToProfile(event);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            verify(loadedController).setUserGreeting("Matti");
+            assertSame(loadedRoot, stage.getScene().getRoot());
+        }
     }
 
-
-    private void setField(
+    private static void setField(
             Object object,
             String fieldName,
             Object value
     ) {
-
         try {
-
-            Field field =
-                    object.getClass()
-                            .getDeclaredField(fieldName);
-
+            Field field = object.getClass().getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(object, value);
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-
-    private static void runOnFxThread(
-            Runnable runnable
-    ) throws Exception {
-
+    private static void runOnFxThread(Runnable runnable) throws Exception {
         if (Platform.isFxApplicationThread()) {
             runnable.run();
             return;
         }
 
-        CountDownLatch latch =
-                new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(1);
+        RuntimeException[] thrown = new RuntimeException[1];
 
         Platform.runLater(() -> {
-
             try {
                 runnable.run();
+            } catch (RuntimeException e) {
+                thrown[0] = e;
             } finally {
                 latch.countDown();
             }
         });
 
         assertTrue(
-                latch.await(
-                        10,
-                        TimeUnit.SECONDS
-                ),
+                latch.await(10, TimeUnit.SECONDS),
                 "JavaFX operation timed out"
         );
+
+        if (thrown[0] != null) {
+            throw thrown[0];
+        }
     }
 }
