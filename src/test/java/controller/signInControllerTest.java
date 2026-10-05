@@ -3,7 +3,15 @@ package controller;
 import dao.UserDao;
 import entity.User;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -225,6 +233,7 @@ class signInControllerTest {
         }
     }
 
+
     @Test
     void setCurrentUser_thenGetUserId_shouldWork() {
         User user = mock(User.class);
@@ -270,6 +279,236 @@ class signInControllerTest {
 
         if (error.get() != null) {
             throw new RuntimeException(error.get());
+        }
+    }
+
+    @Test
+    void switchToCreateAccount_shouldLoadView() throws Exception {
+        ActionEvent actionEvent = mock(ActionEvent.class);
+        Node node = mock(Node.class);
+        Scene scene = mock(Scene.class);
+        Stage stage = mock(Stage.class);
+
+        when(actionEvent.getSource()).thenReturn(node);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWindow()).thenReturn(stage);
+
+        Parent root = mock(Parent.class);
+        createAccountController createController =
+                mock(createAccountController.class);
+
+        try (MockedConstruction<FXMLLoader> loaders =
+                     mockConstruction(FXMLLoader.class, (loader, context) -> {
+                         when(loader.load()).thenReturn(root);
+                         when(loader.getController()).thenReturn(createController);
+                     });
+             MockedConstruction<Scene> scenes =
+                     mockConstruction(Scene.class)) {
+
+            controller.switchToCreateAccount(actionEvent);
+
+            FXMLLoader loader = loaders.constructed().get(0);
+
+            verify(loader).load();
+            verify(loader).getController();
+            verify(stage).setScene(any(Scene.class));
+            verify(stage).show();
+        }
+    }
+
+    @Test
+    void switchToCreateCards_shouldLoadViewAndSetUser() throws Exception {
+        MouseEvent mouseEvent = mock(MouseEvent.class);
+        Node node = mock(Node.class);
+        Scene scene = mock(Scene.class);
+        Stage stage = mock(Stage.class);
+
+        when(mouseEvent.getSource()).thenReturn(node);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWindow()).thenReturn(stage);
+
+        Parent root = mock(Parent.class);
+        ccController cardController = mock(ccController.class);
+        User user = mock(User.class);
+
+        controller.setCurrentUser(user);
+
+        try (MockedConstruction<FXMLLoader> loaders =
+                     mockConstruction(FXMLLoader.class, (loader, context) -> {
+                         when(loader.load()).thenReturn(root);
+                         when(loader.getController()).thenReturn(cardController);
+                     });
+             MockedConstruction<Scene> scenes =
+                     mockConstruction(Scene.class)) {
+
+            controller.switchToCreateCards(mouseEvent);
+
+            FXMLLoader loader = loaders.constructed().get(0);
+
+            verify(loader).load();
+            verify(loader).getController();
+            verify(cardController).setUser(user);
+            verify(stage).setScene(any(Scene.class));
+            verify(stage).show();
+        }
+    }
+
+    @Test
+    void switchToLibrary_shouldLoadViewAndGetCards() throws Exception {
+        MouseEvent mouseEvent = mock(MouseEvent.class);
+        Node node = mock(Node.class);
+        Scene scene = mock(Scene.class);
+        Stage stage = mock(Stage.class);
+
+        when(mouseEvent.getSource()).thenReturn(node);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWindow()).thenReturn(stage);
+
+        Parent root = mock(Parent.class);
+        libraryController libraryController =
+                mock(libraryController.class);
+        User user = mock(User.class);
+
+        controller.setCurrentUser(user);
+
+        try (MockedConstruction<FXMLLoader> loaders =
+                     mockConstruction(FXMLLoader.class, (loader, context) -> {
+                         when(loader.load()).thenReturn(root);
+                         when(loader.getController()).thenReturn(libraryController);
+                     });
+             MockedConstruction<Scene> scenes =
+                     mockConstruction(Scene.class)) {
+
+            controller.switchToLibrary(mouseEvent);
+
+            FXMLLoader loader = loaders.constructed().get(0);
+
+            verify(loader).load();
+            verify(loader).getController();
+            verify(libraryController).setUser(user);
+            verify(libraryController).getAllCards();
+            verify(stage).setScene(any(Scene.class));
+            verify(stage).show();
+        }
+    }
+
+    @Test
+    void switchToCreateQuiz_shouldLoadView() throws Exception {
+        MouseEvent mouseEvent = mock(MouseEvent.class);
+        Node node = mock(Node.class);
+        Scene scene = mock(Scene.class);
+        Stage stage = mock(Stage.class);
+
+        when(mouseEvent.getSource()).thenReturn(node);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWindow()).thenReturn(stage);
+
+        Parent root = mock(Parent.class);
+
+        try (MockedConstruction<FXMLLoader> loaders =
+                     mockConstruction(FXMLLoader.class, (loader, context) -> {
+                         when(loader.load()).thenReturn(root);
+                     });
+             MockedConstruction<Scene> scenes =
+                     mockConstruction(Scene.class)) {
+
+            controller.switchToCreateQuiz(mouseEvent);
+
+            FXMLLoader loader = loaders.constructed().get(0);
+
+            verify(loader).load();
+            verify(stage).setScene(any(Scene.class));
+            verify(stage).show();
+        }
+    }
+
+    @Test
+    void switchToStudyMaterials_shouldLoadView() throws Exception {
+        MouseEvent mouseEvent = mock(MouseEvent.class);
+        Node node = mock(Node.class);
+        Scene scene = mock(Scene.class);
+        Stage stage = mock(Stage.class);
+
+        when(mouseEvent.getSource()).thenReturn(node);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWindow()).thenReturn(stage);
+
+        Parent root = mock(Parent.class);
+
+        try (MockedConstruction<FXMLLoader> loaders =
+                     mockConstruction(FXMLLoader.class, (loader, context) -> {
+                         when(loader.load()).thenReturn(root);
+                     });
+             MockedConstruction<Scene> scenes =
+                     mockConstruction(Scene.class)) {
+
+            controller.switchToStudyMaterials(mouseEvent);
+
+            FXMLLoader loader = loaders.constructed().get(0);
+
+            verify(loader).load();
+            verify(stage).setScene(any(Scene.class));
+            verify(stage).show();
+        }
+    }
+
+    @Test
+    void switchToProfile_shouldLoadViewAndSetGreeting() throws Exception {
+        MouseEvent mouseEvent = mock(MouseEvent.class);
+        Node node = mock(Node.class);
+        Scene scene = mock(Scene.class);
+        Stage stage = mock(Stage.class);
+
+        when(mouseEvent.getSource()).thenReturn(node);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWindow()).thenReturn(stage);
+
+        Parent root = mock(Parent.class);
+        signInController profileController =
+                mock(signInController.class);
+
+        User user = mock(User.class);
+        when(user.getUserName()).thenReturn("Matti");
+
+        controller.setCurrentUser(user);
+
+        try (MockedConstruction<FXMLLoader> loaders =
+                     mockConstruction(FXMLLoader.class, (loader, context) -> {
+                         when(loader.load()).thenReturn(root);
+                         when(loader.getController()).thenReturn(profileController);
+                     });
+             MockedConstruction<Scene> scenes =
+                     mockConstruction(Scene.class)) {
+
+            controller.switchToProfile(mouseEvent);
+
+            FXMLLoader loader = loaders.constructed().get(0);
+
+            verify(loader).load();
+            verify(loader).getController();
+            verify(profileController).setUserGreeting("Matti");
+            verify(stage).setScene(any(Scene.class));
+            verify(stage).show();
+        }
+    }
+
+    private Stage createTestStage() {
+        Stage stage = new Stage();
+        Pane pane = new Pane();
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        return stage;
+    }
+
+    private Button createButtonOnStage(Stage stage) {
+        Button button = new Button();
+        stage.getScene().setRoot(button);
+        return button;
+    }
+
+    private void closeStage(Stage stage) {
+        if (stage != null) {
+            stage.close();
         }
     }
 }
