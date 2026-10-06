@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -131,7 +132,7 @@ public class ccController {
         stage.show();
     }
 
-    public void switchToStudyMaterials(javafx.event.ActionEvent actionEvent) throws IOException{
+    public void switchToStudyMaterials(javafx.scene.input.@MonotonicNonNull MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
@@ -141,7 +142,7 @@ public class ccController {
         stage.show();
     }
 
-    public void switchToProfile(javafx.event.ActionEvent actionEvent) throws IOException{
+    public void switchToProfile(javafx.scene.input.@MonotonicNonNull MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();

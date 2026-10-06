@@ -88,13 +88,16 @@ class cardControllerTest {
     }
 
     @Test
-    void setCardAnswerAction_shouldSetLabelToAnswer() {
-        controller.getCardAnswer("Correct answer");
+    void setCardAnswer_shouldShowAnswerWhenButtonSaysShowAnswer() {
+        when(showAnswerButton.getText()).thenReturn("Show Answer");
 
+        controller.getCardAnswer("Java is a programming language.");
         controller.setCardAnswer(event);
 
-        verify(cardText).setText("Correct answer");
+        verify(showAnswerButton).setText("Hide Answer");
+        verify(cardText).setText("Java is a programming language.");
     }
+
 
     @Test
     void setUser_shouldStoreUser() throws Exception {
