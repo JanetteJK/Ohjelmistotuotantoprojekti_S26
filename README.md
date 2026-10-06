@@ -24,3 +24,6 @@ Flashers is a software which allows for the easy creation of and use of digital 
 
 The main program uses the MVC model, with multiple controller classes to handle the individual pages of the program.
 
+# 4. Functional Testing
+
+# 5. Set-Up
