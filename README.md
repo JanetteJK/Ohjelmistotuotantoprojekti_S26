@@ -1,8 +1,11 @@
 # Ohjelmistotuotantoprojekti_S26
 
 
-
-▪ Frontend () --> JavaFx /n
-▪ Backend () --> Java /n
-▪ Database () --> MariaDb /n
+# 2. Technologies and Dependencies
+▪ Frontend () --> JavaFx
+▪ Backend () --> Java
+▪ Database () --> MariaDb
 ▪ Other tools or frameworks (e.g., authentication, APIs)
+
+
+# 3. Design and Development Methodology
