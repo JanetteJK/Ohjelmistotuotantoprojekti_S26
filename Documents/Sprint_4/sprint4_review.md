@@ -6,7 +6,7 @@ The goal of Sprint 4 was to add docker and do more testing and finalize the prod
 ## Completed User Stories / Tasks
 - Create presentation
 - Finish library functions and make it working
-- mMre tests
+- More tests
 - Delete flashcards
 - Show user-specific flashcards
 - Show and hide flashcard answer on the library page
