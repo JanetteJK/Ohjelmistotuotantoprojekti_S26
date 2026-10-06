@@ -1,5 +1,8 @@
 # Ohjelmistotuotantoprojekti_S26
-▪ Frontend () --> JavaFx 
-▪ Backend () --> Java 
-▪ Database () --> MariaDb 
+
+
+
+▪ Frontend () --> JavaFx /n
+▪ Backend () --> Java /n
+▪ Database () --> MariaDb /n
 ▪ Other tools or frameworks (e.g., authentication, APIs)
