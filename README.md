@@ -1,5 +1,8 @@
 # Ohjelmistotuotantoprojekti_S26
 
+# 1. Overview and Project Objectives
+
+Flashers is a software which allows for the easy creation of and use of digital flashcards. By handling the flashcards digitally, they can be shared with users remotely and in multiples. This way, students and teachers can share their study materials with other students without unnecessary waste of resources or time.
 
 # 2. Technologies and Dependencies
 ▪ Frontend () --> JavaFx
