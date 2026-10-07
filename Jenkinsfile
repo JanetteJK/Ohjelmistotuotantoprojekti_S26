@@ -8,7 +8,7 @@ pipeline {
     environment {
         PATH = "C:\\Program Files\\DockerDesktop\\resources\\bin;${env.PATH}"
         DOCKERHUB_CREDENTIALS_ID = 'docker'
-        DOCKERHUB_REPO = 'sinyalohis/otp1_inclass'
+        DOCKERHUB_REPO = 'sinyalohis/flashers'
         DOCKER_IMAGE_TAG = 'v1'
     }
     stages {
