@@ -10,6 +10,7 @@ The goal of Sprint 4 was to add docker and do more testing and finalize the prod
 - Delete flashcards
 - Show user-specific flashcards
 - Show and hide flashcard answer on the library page
+- the docker image is now created
 
 ## What Went Well
 - project progressed
