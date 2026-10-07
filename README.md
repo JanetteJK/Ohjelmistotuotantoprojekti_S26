@@ -41,7 +41,7 @@ Jenkins was integrated to for CI/CD. The pipeline is as follows: Git repository 
 ### Getting the application
 - Clone repository
   - git clone <https://github.com/JanetteJK/Ohjelmistotuotantoprojekti_S26.git> 
-- Set up database using the sql script
+- Set up database using the sql script that can be found in Documents
 - Build and run the project
   - mvn clean install
-- Launch the application
+- Launch the application from the Main class
