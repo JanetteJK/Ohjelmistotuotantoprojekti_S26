@@ -15,7 +15,7 @@ import java.util.concurrent.CountDownLatch;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CreateAccountControllerTest {
+class createAccountControllerTest {
 
     private createAccountController controller;
 
