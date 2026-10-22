@@ -17,21 +17,33 @@ public class cardController {
 
     private String answer;
 
+    private String question;
+
     private User user;
 
     CardDao cardDao;
 
     public void setCardQuestion(String question) {
+        this.question = question;
         cardText.setText(question);
     }
 
-    public void setCardAnswer(String answer) {
+    public void getCardAnswer(String answer) {
         this.answer = answer;
     }
 
     public void setCardAnswer(ActionEvent actionEvent) {
-        cardText.setText(answer);
+        if (showAnswerButton.getText().equals("Show Answer")) {
+            showAnswerButton.setText("Hide Answer");
+            cardText.setText(answer);
+
+        }
+        else {
+            showAnswerButton.setText("Show Answer");
+            cardText.setText(question);
+        }
     }
+
 
     public void setUser(User user) {
         this.user = user;

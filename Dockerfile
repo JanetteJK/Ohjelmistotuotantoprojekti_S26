@@ -1,0 +1,5 @@
+FROM maven:3.9-eclipse-temurin-25
+WORKDIR /app
+COPY pom.xml .
+COPY . /app
+RUN mvn package -DskipTests
