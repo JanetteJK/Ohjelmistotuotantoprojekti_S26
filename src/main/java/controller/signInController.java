@@ -39,7 +39,7 @@ public class signInController {
     private User currentUser;
     private List<Card> cards = new ArrayList<>();
     final ChoiceBox<String> cb = new ChoiceBox<>(
-            FXCollections.observableArrayList("English", "Suomeksi", "日本語で", "Koreaksi(vaihda)")
+            FXCollections.observableArrayList("English", "Suomeksi", "日本語で", "한국어")
     );
     Locale locale = Locale.getDefault();
 
