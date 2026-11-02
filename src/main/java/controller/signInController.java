@@ -11,12 +11,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.event.ActionEvent;
 
 
 
 import javafx.scene.input.MouseEvent;
-
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,9 @@ public class signInController {
     private createAccountController cac;
     private User currentUser;
     private List<Card> cards = new ArrayList<>();
-    final ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList("English", "Suomeksi", "日本語で" , "Koreaksi(vaihda)"));
+    final ChoiceBox<String> cb = new ChoiceBox<>(
+            FXCollections.observableArrayList("English", "Suomeksi", "日本語で", "Koreaksi(vaihda)")
+    );
     Locale locale = Locale.getDefault();
 
     @FXML
@@ -59,7 +60,8 @@ public class signInController {
     @FXML
     private Label nameTag;
     @FXML
-    public ChoiceBox languageChoice;
+    public ChoiceBox<String> languageChoice;
+    private boolean initializingLanguageChoice;
 
     public String gettUsername() {
         return tUsername.getText();
@@ -82,7 +84,27 @@ public class signInController {
     }
 
     public void initialize() {
-        languageChoice.setItems(cb.getItems());
+        if (languageChoice == null) {
+            return;
+        }
+        initializingLanguageChoice = true;
+        try {
+            languageChoice.setItems(cb.getItems());
+            languageChoice.getSelectionModel().select(languageIndexForLocale(
+                    LanguageManager.getLocale()
+            ));
+        } finally {
+            initializingLanguageChoice = false;
+        }
+    }
+
+    private int languageIndexForLocale(Locale selectedLocale) {
+        return switch (selectedLocale.getLanguage()) {
+            case "fi" -> 1;
+            case "ja" -> 2;
+            case "ko" -> 3;
+            default -> 0;
+        };
     }
 
     // todo: see how to get the password value, create login handler for dao, repeat with sLogin
@@ -95,7 +117,10 @@ public class signInController {
             if (UserDao.logInUser(teacher)) {
                 ud.logInUser(teacher);
                 setCurrentUser(teacher);
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(
+                        getClass().getResource("/initHomeGui.fxml"),
+                        LanguageManager.getBundle()
+                );
                 Parent root = fxmlLoader.load();
                 signInController controller = fxmlLoader.getController();
                 controller.setUserGreeting(currentUser.getUserName());
@@ -126,7 +151,10 @@ public class signInController {
                 ud.logInUser(student);
                 setCurrentUser(student);
                 System.out.println(student.getUserId());
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(
+                        getClass().getResource("/initHomeGui.fxml"),
+                        LanguageManager.getBundle()
+                );
                 Parent root = fxmlLoader.load();
                 signInController controller = fxmlLoader.getController();
                 controller.setUserGreeting(currentUser.getUserName());
@@ -149,7 +177,8 @@ public class signInController {
     }
 
     public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+        Locale locale = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -159,7 +188,8 @@ public class signInController {
     }
 
     public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"));
+        Locale locale = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         ccController cardCtrl = fxmlLoader.getController();
         cardCtrl.setUser(currentUser);
@@ -170,7 +200,8 @@ public class signInController {
     }
 
     public void switchToLibrary(MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
+        Locale locale = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         // todo: add cards to library
         libraryController lc = fxmlLoader.getController();
@@ -183,7 +214,8 @@ public class signInController {
     }
 
     public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"));
+        Locale locale = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -192,7 +224,8 @@ public class signInController {
     }
 
     public void switchToStudyMaterials(javafx.scene.input.MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+        Locale locale = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -201,7 +234,8 @@ public class signInController {
     }
 
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"));
+        Locale locale = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
 
         signInController controller = fxmlLoader.getController();
@@ -221,29 +255,33 @@ public class signInController {
         return currentUser.getUserId();
     }
 
-    @FXML
-    public void changeLanguage() throws Exception {
+    public void changeLanguage(ActionEvent e) throws Exception {
+        if (initializingLanguageChoice) {
+            return;
+        }
+
         int lang = languageChoice.getSelectionModel().getSelectedIndex();
         switch (lang) {
             case 0:
-                locale = new Locale("en", "US");
+                LanguageManager.setLocale(new Locale("en", "EN"));
                 break;
             case 1:
-                locale = new Locale("fi", "FI");
+                LanguageManager.setLocale(new Locale("fi", "FI"));
                 break;
             case 2:
-                locale = new Locale("ja", "JP");
+                LanguageManager.setLocale(new Locale("ja", "JP"));
                 break;
             case 3:
-                locale = new Locale("ko", "KR");
+                LanguageManager.setLocale(new Locale("ko", "KR"));
                 break;
             default:
                 System.out.println("Invalid language choice, defaulting to English");
         }
-        System.out.println("Language changed to " + locale.getDisplayLanguage());
-        //todo: tähän kaikki muutokset labeleihin jne
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/loginUi.fxml"), LanguageManager.getBundle());
+        Parent root = fxmlLoader.load();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
-
 }
-
-

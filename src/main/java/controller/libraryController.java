@@ -94,7 +94,10 @@ public class libraryController implements Initializable {
     }
 
     public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                getClass().getResource("/createCard.fxml"),
+                LanguageManager.getBundle()
+        );
         Parent root = fxmlLoader.load();
         ccController cardCtrl = fxmlLoader.getController();
         cardCtrl.setUser(user);

@@ -89,7 +89,10 @@ public class ccController {
 
     //switch funtions
     public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                getClass().getResource("/createAccount.fxml"),
+                LanguageManager.getBundle()
+        );
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -99,7 +102,10 @@ public class ccController {
     }
 
     public void switchToCreateCard(MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                getClass().getResource("/createCard.fxml"),
+                LanguageManager.getBundle()
+        );
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -109,7 +115,10 @@ public class ccController {
     }
 
     public void switchToLibrary(javafx.scene.input.MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                getClass().getResource("/libraryUi.fxml"),
+                LanguageManager.getBundle()
+        );
         Parent root = fxmlLoader.load();
         // todo: add cards to library
         libraryController lc = fxmlLoader.getController();
@@ -123,7 +132,10 @@ public class ccController {
     }
 
     public void switchToCreateQuiz(MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                getClass().getResource("/createQuizUI.fxml"),
+                LanguageManager.getBundle()
+        );
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -133,7 +145,10 @@ public class ccController {
     }
 
     public void switchToStudyMaterials(javafx.scene.input.@MonotonicNonNull MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                getClass().getResource("/createAccount.fxml"),
+                LanguageManager.getBundle()
+        );
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -143,7 +158,10 @@ public class ccController {
     }
 
     public void switchToProfile(javafx.scene.input.@MonotonicNonNull MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                getClass().getResource("/createAccount.fxml"),
+                LanguageManager.getBundle()
+        );
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

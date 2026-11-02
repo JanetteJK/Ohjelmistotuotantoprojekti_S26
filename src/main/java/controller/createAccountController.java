@@ -72,7 +72,10 @@ public class createAccountController {
     }
 
     public void switchToStart(javafx.event.ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/loginUi.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                getClass().getResource("/loginUi.fxml"),
+                LanguageManager.getBundle()
+        );
         Parent root = fxmlLoader.load();
         sct = fxmlLoader.getController();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

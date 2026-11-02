@@ -1,6 +1,7 @@
 package view;
 import java.io.IOException;
 
+import controller.LanguageManager;
 import controller.signInController;
 import datasource.MariaDBConnection;
 import javafx.application.Application;
@@ -21,8 +22,8 @@ public class SignIn extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         MariaDBConnection.connect();
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/loginUi.fxml"));
+        //LanguageManager.setLocale(LanguageManager.getLocale());
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/loginUi.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         controller = fxmlLoader.getController();
         stage.setTitle("Flashers");
