@@ -3,6 +3,7 @@ import dao.CardDao;
 import dao.UserDao;
 import entity.Card;
 import entity.User;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -14,9 +15,12 @@ import javafx.scene.control.*;
 
 
 import javafx.scene.input.MouseEvent;
+
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,6 +39,8 @@ public class signInController {
     private createAccountController cac;
     private User currentUser;
     private List<Card> cards = new ArrayList<>();
+    final ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList("English", "Suomeksi", "日本語で" , "Koreaksi(vaihda)"));
+    Locale locale = Locale.getDefault();
 
     @FXML
     private TextField tUsername;
@@ -52,6 +58,8 @@ public class signInController {
     private Hyperlink createAccount;
     @FXML
     private Label nameTag;
+    @FXML
+    public ChoiceBox languageChoice;
 
     public String gettUsername() {
         return tUsername.getText();
@@ -71,6 +79,10 @@ public class signInController {
 
     public void setCurrentUser(User cu){
         currentUser = cu;
+    }
+
+    public void initialize() {
+        languageChoice.setItems(cb.getItems());
     }
 
     // todo: see how to get the password value, create login handler for dao, repeat with sLogin
@@ -207,6 +219,28 @@ public class signInController {
 
     public int getUserId(){
         return currentUser.getUserId();
+    }
+
+    @FXML
+    public void changeLanguage(ActionEvent e) throws Exception {
+        int lang = languageChoice.getSelectionModel().getSelectedIndex();
+        switch (lang) {
+            case 0:
+                locale = new Locale("en", "US");
+                break;
+            case 1:
+                locale = new Locale("fi", "FI");
+                break;
+            case 2:
+                locale = new Locale("ja", "JP");
+                break;
+            case 3:
+                locale = new Locale("ko", "KR");
+                break;
+            default:
+                System.out.println("Invalid language choice, defaulting to English");
+        }
+        //todo: tähän kaikki muutokset labeleihin jne
     }
 
 }

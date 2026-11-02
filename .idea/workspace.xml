@@ -5,21 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="readme fixes">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/messages_bundle_ja_JP.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages_bundle_ja_JP.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/cardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/cardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/signInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/signInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/loginUi.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/loginUi.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/signInController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/signInController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/createAccount.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/createAccount.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/createCard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/createCard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/createQuizUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/createQuizUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/dao/CardDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/CardDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/initHomeGui.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/initHomeGui.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/libraryUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/libraryUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/loginUi.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/loginUi.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/controller/cardControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/cardControllerTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/controller/createAccountControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/createAccountControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/dao/UserDaoTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/dao/UserDaoTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/controller/signInControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/signInControllerTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="76" />
+    <option name="cachedIndexableFilesCount" value="78" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -74,37 +66,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.SignIn.executor": "Run",
-    "Application.UI_dummy.executor": "Run",
-    "JUnit.LibraryControllerTest.executor": "Run",
-    "JUnit.SignInControllerTest.executor": "Run",
-    "JUnit.ccControllerTest.executor": "Run",
-    "JUnit.libraryControllerTest.executor": "Run",
-    "JUnit.signInControllerTest.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.24482758",
-    "settings.editor.selected.configurable": "File.Encoding",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SignIn.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UI_dummy.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LibraryControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SignInControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ccControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.libraryControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.signInControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.24482758&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="controller" />
@@ -189,9 +181,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.LibraryControllerTest" />
         <item itemvalue="JUnit.ccControllerTest" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.SignInControllerTest" />
         <item itemvalue="Application.Main" />
       </list>
@@ -226,7 +218,13 @@
       <workItem from="1791562087403" duration="5000" />
       <workItem from="1791567299931" duration="13000" />
       <workItem from="1791567355737" duration="5000" />
-      <workItem from="1792656543455" duration="796000" />
+      <workItem from="1792656543455" duration="2253000" />
+      <workItem from="1793004166758" duration="1548000" />
+      <workItem from="1793101221673" duration="7000" />
+      <workItem from="1793632606792" duration="697000" />
+      <workItem from="1793633402163" duration="464000" />
+      <workItem from="1793633896573" duration="285000" />
+      <workItem from="1793635245729" duration="997000" />
     </task>
     <task id="LOCAL-00001" summary="files">
       <option name="closed" value="true" />
@@ -436,7 +434,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791360268587</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="readme fixes">
+      <option name="closed" value="true" />
+      <created>1792657381134</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1792657381136</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
