@@ -222,7 +222,7 @@ public class signInController {
     }
 
     @FXML
-    public void changeLanguage(ActionEvent e) throws Exception {
+    public void changeLanguage() throws Exception {
         int lang = languageChoice.getSelectionModel().getSelectedIndex();
         switch (lang) {
             case 0:
@@ -240,6 +240,7 @@ public class signInController {
             default:
                 System.out.println("Invalid language choice, defaulting to English");
         }
+        System.out.println("Language changed to " + locale.getDisplayLanguage());
         //todo: tähän kaikki muutokset labeleihin jne
     }
 

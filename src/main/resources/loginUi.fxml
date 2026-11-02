@@ -38,7 +38,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" >
                      <children>
-                        <ChoiceBox fx:id="languageChoice"  prefWidth="150.0" value="English"/>
+                        <ChoiceBox fx:id="languageChoice" prefWidth="150.0" value="English" onAction="#changeLanguage"/>
                      </children>
                   </HBox>
                   <HBox alignment="TOP_CENTER" prefHeight="113.0" prefWidth="637.0">

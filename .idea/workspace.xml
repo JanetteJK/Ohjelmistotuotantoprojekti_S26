@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="readme fixes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/signInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/signInController.java" afterDir="false" />
+    <list default="true" id="455deeb5-12d3-455a-980d-626dd15986b6" name="Changes" comment="language selection added">
       <change beforePath="$PROJECT_DIR$/src/main/resources/loginUi.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/loginUi.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/signInController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/signInController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/loginUi.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/loginUi.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/controller/cardControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/cardControllerTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/controller/createAccountControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/createAccountControllerTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/controller/signInControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/signInControllerTest.class" afterDir="false" />
@@ -224,7 +223,7 @@
       <workItem from="1793632606792" duration="697000" />
       <workItem from="1793633402163" duration="464000" />
       <workItem from="1793633896573" duration="285000" />
-      <workItem from="1793635245729" duration="997000" />
+      <workItem from="1793635245729" duration="1338000" />
     </task>
     <task id="LOCAL-00001" summary="files">
       <option name="closed" value="true" />
@@ -442,7 +441,15 @@
       <option name="project" value="LOCAL" />
       <updated>1792657381136</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="language selection added">
+      <option name="closed" value="true" />
+      <created>1793636353991</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1793636353991</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -479,7 +486,8 @@
     <MESSAGE value="fix typo" />
     <MESSAGE value="added completion" />
     <MESSAGE value="readme fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="readme fixes" />
+    <MESSAGE value="language selection added" />
+    <option name="LAST_COMMIT_MESSAGE" value="language selection added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
