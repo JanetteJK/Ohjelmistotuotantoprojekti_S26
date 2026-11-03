@@ -131,9 +131,9 @@ public class signInController {
                 stage.show();
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Login failed");
-                alert.setHeaderText("Login failed!");
-                alert.setContentText("Wrong password or username.");
+                alert.setTitle(LanguageManager.getBundle().getString("ELEM_login_failed"));
+                alert.setHeaderText(LanguageManager.getBundle().getString("ELEM_login_failed"));
+                alert.setContentText(LanguageManager.getBundle().getString("ELEM_wrong"));
                 alert.showAndWait();
             }
 
@@ -167,9 +167,9 @@ public class signInController {
                 stage.show();
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Login failed");
-                alert.setHeaderText("Login failed!");
-                alert.setContentText("Wrong password or username.");
+                alert.setTitle(LanguageManager.getBundle().getString("ELEM_login_failed"));
+                alert.setHeaderText(LanguageManager.getBundle().getString("ELEM_login_failed"));
+                alert.setContentText(LanguageManager.getBundle().getString("ELEM_wrong"));
                 alert.showAndWait();
             }
 
