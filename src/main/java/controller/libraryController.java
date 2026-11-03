@@ -33,7 +33,7 @@ public class libraryController implements Initializable {
 
 
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane scroll;
     @FXML
     private GridPane grid;
 

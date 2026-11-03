@@ -6,6 +6,7 @@ Flashers is a software which allows for the easy creation of and use of digital 
 
 The target audience for the application is students and teachers. Users are able to create an account, log in and create and view their own flashcards. They can also delete useless flashcards.
 
+
 # 2. Technologies and Dependencies
 ▪ Frontend () --> JavaFX 20
 
@@ -45,3 +46,9 @@ Jenkins was integrated to for CI/CD. The pipeline is as follows: Git repository 
 - Build and run the project
   - mvn clean install
 - Launch the application from the Main class
+
+### Supported languages
+- English
+- Finnish
+- Korean
+- Japanese

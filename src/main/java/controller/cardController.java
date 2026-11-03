@@ -21,9 +21,9 @@ public class cardController {
 
     private User user;
 
-    private boolean answerVisible = false;
-
     CardDao cardDao;
+
+    private boolean answerVisible = false;
 
     public void setCardQuestion(String question) {
         this.question = question;
