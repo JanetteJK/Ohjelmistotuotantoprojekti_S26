@@ -24,7 +24,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="62.0" prefWidth="98.0">
                            <children>
-                              <Button fx:id="showAnswerButton" mnemonicParsing="false" onAction="#setCardAnswer" styleClass="shadow" stylesheets="@style.css" text="Show answer">
+                              <Button fx:id="showAnswerButton" mnemonicParsing="false" onAction="#setCardAnswer" styleClass="shadow" stylesheets="@style.css" text="%ELEM_show_answer">
                                  <font>
                                     <Font name="Bell MT" size="12.0" />
                                  </font>
@@ -38,7 +38,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="62.0" prefWidth="92.0">
                      <children>
-                        <Button fx:id="deleteCardButton" mnemonicParsing="false" onAction="#deleteCard" styleClass="shadow" stylesheets="@style.css" text="Delete card">
+                        <Button fx:id="deleteCardButton" mnemonicParsing="false" onAction="#deleteCard" styleClass="shadow" stylesheets="@style.css" text="%ELEM_delete">
                            <font>
                               <Font name="Bell MT" size="12.0" />
                            </font>
