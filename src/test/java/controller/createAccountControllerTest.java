@@ -1,11 +1,20 @@
 package controller;
 
 import entity.User;
+import dao.UserDao;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import org.mockito.MockedConstruction;
+import org.mockito.MockedStatic;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -109,6 +118,45 @@ class createAccountControllerTest {
         controller.createAccount();
 
         assertEquals("Account created successfully!", createAccountInfo.getText());
+    }
+
+    @Test
+    void createAccountRegistersNewUser() {
+        newUsername.setText("newUser");
+        newPassw.setText("newPassword");
+        studentButton.setSelected(true);
+
+        try (MockedStatic<UserDao> userDao = org.mockito.Mockito.mockStatic(UserDao.class)) {
+            controller.createAccount();
+
+            userDao.verify(() -> UserDao.registerUser(org.mockito.ArgumentMatchers.argThat(
+                    user -> "newUser".equals(user.getUserName())
+                            && "newPassword".equals(user.getPassword())
+                            && User.Role.student == user.getRole()
+            )));
+        }
+    }
+
+    @Test
+    void switchToStart_shouldLoadLoginView() throws Exception {
+        ActionEvent actionEvent = org.mockito.Mockito.mock(ActionEvent.class);
+        Node node = org.mockito.Mockito.mock(Node.class);
+        Scene scene = org.mockito.Mockito.mock(Scene.class);
+        Stage stage = org.mockito.Mockito.mock(Stage.class);
+        org.mockito.Mockito.when(actionEvent.getSource()).thenReturn(node);
+        org.mockito.Mockito.when(node.getScene()).thenReturn(scene);
+        org.mockito.Mockito.when(scene.getWindow()).thenReturn(stage);
+        Parent root = org.mockito.Mockito.mock(Parent.class);
+
+        try (MockedConstruction<FXMLLoader> loaders = org.mockito.Mockito.mockConstruction(
+                FXMLLoader.class, (loader, context) -> org.mockito.Mockito.when(loader.load()).thenReturn(root));
+             MockedConstruction<Scene> scenes = org.mockito.Mockito.mockConstruction(Scene.class)) {
+            controller.switchToStart(actionEvent);
+
+            org.mockito.Mockito.verify(loaders.constructed().get(0)).load();
+            org.mockito.Mockito.verify(stage).setScene(org.mockito.ArgumentMatchers.any(Scene.class));
+            org.mockito.Mockito.verify(stage).show();
+        }
     }
 
     private void setField(String fieldName, Object value) throws Exception {
