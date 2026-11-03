@@ -14,7 +14,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
@@ -25,6 +28,7 @@ import javafx.event.ActionEvent;
 import javafx.application.Platform;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -69,6 +73,7 @@ class signInControllerTest {
 
     @Mock
     private Button sOk;
+    private Locale originalLocale;
 
     @BeforeAll
     static void initJavaFx() {
@@ -78,6 +83,7 @@ class signInControllerTest {
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
+        originalLocale = LanguageManager.getLocale();
 
         controller = new signInController();
 
@@ -90,6 +96,11 @@ class signInControllerTest {
         setField(controller, "sPassw", sPassw);
         setField(controller, "nameTag", nameTag);
         setField(controller, "createAccount", createAccount);
+    }
+
+    @AfterEach
+    void restoreLocale() {
+        LanguageManager.setLocale(originalLocale);
     }
 
     @Test
@@ -243,6 +254,83 @@ class signInControllerTest {
         controller.setCurrentUser(user);
 
         assertEquals(999, controller.getUserId());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "en, English",
+            "fi, Suomeksi",
+            "ja, 日本語で",
+            "ko, 한국어"
+    })
+    void initialize_selectsLanguageForCurrentLocale(
+            String language,
+            String expectedChoice
+    ) throws Exception {
+        ChoiceBox<String> languageChoice = new ChoiceBox<>();
+        setField(controller, "languageChoice", languageChoice);
+        LanguageManager.setLocale(new Locale(language));
+
+        runOnFxThread(controller::initialize);
+
+        assertEquals(expectedChoice, languageChoice.getValue());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "0, en, EN",
+            "1, fi, FI",
+            "2, ja, JP",
+            "3, ko, KR"
+    })
+    void changeLanguage_setsSelectedLocaleAndReloadsLoginView(
+            int selectedIndex,
+            String expectedLanguage,
+            String expectedCountry
+    ) throws Exception {
+        ChoiceBox<String> languageChoice = new ChoiceBox<>();
+        setField(controller, "languageChoice", languageChoice);
+        runOnFxThread(() -> {
+            languageChoice.getItems().addAll("English", "Suomeksi", "日本語で", "한국어");
+            languageChoice.getSelectionModel().select(selectedIndex);
+        });
+
+        ActionEvent actionEvent = mock(ActionEvent.class);
+        Node node = mock(Node.class);
+        Scene currentScene = mock(Scene.class);
+        Stage stage = mock(Stage.class);
+
+        when(actionEvent.getSource()).thenReturn(node);
+        when(node.getScene()).thenReturn(currentScene);
+        when(currentScene.getWindow()).thenReturn(stage);
+
+        runOnFxThread(() -> {
+            try {
+                controller.changeLanguage(actionEvent);
+            } catch (Exception exception) {
+                throw new RuntimeException(exception);
+            }
+        });
+
+        assertEquals(
+                new Locale(expectedLanguage, expectedCountry),
+                LanguageManager.getLocale()
+        );
+        verify(stage).setScene(any(Scene.class));
+        verify(stage).show();
+    }
+
+    @Test
+    void changeLanguage_doesNothingDuringLanguageChoiceInitialization() throws Exception {
+        ChoiceBox<String> languageChoice = new ChoiceBox<>();
+        setField(controller, "languageChoice", languageChoice);
+        setField(controller, "initializingLanguageChoice", true);
+        ActionEvent actionEvent = mock(ActionEvent.class);
+
+        controller.changeLanguage(actionEvent);
+
+        verifyNoInteractions(actionEvent);
+        assertEquals(originalLocale, LanguageManager.getLocale());
     }
 
     private static void setField(
