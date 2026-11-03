@@ -1,7 +1,7 @@
 package controller;
 
-import entity.User;
 import dao.UserDao;
+import entity.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -13,11 +13,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.mockito.MockedConstruction;
-import org.mockito.MockedStatic;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
 import java.util.concurrent.CountDownLatch;
@@ -115,9 +115,11 @@ class createAccountControllerTest {
         newPassw.setText("newPassword");
         studentButton.setSelected(true);
 
-        controller.createAccount();
+        try (MockedStatic<UserDao> userDao = org.mockito.Mockito.mockStatic(UserDao.class)) {
+            controller.createAccount();
+        }
 
-        assertEquals("Account created successfully!", createAccountInfo.getText());
+        assertEquals("ELEM_account_created", createAccountInfo.getText());
     }
 
     @Test

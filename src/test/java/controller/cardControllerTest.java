@@ -11,8 +11,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
+import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
 
@@ -35,9 +35,6 @@ class cardControllerTest {
     private Button deleteCardButton;
 
     @Mock
-    private CardDao cardDao;
-
-    @Mock
     private User user;
 
     @Mock
@@ -57,7 +54,6 @@ class cardControllerTest {
         setPrivateField(controller, "cardText", cardText);
         setPrivateField(controller, "showAnswerButton", showAnswerButton);
         setPrivateField(controller, "deleteCardButton", deleteCardButton);
-        setPrivateField(controller, "cardDao", cardDao);
     }
 
     @AfterEach
@@ -89,28 +85,33 @@ class cardControllerTest {
 
     @Test
     void setCardAnswer_shouldShowAnswerWhenButtonSaysShowAnswer() {
-        when(showAnswerButton.getText()).thenReturn("Show Answer");
+        String showText = LanguageManager.getBundle().getString("ELEM_show_answer");
+        String hideText = LanguageManager.getBundle().getString("ELEM_hide_answer");
+
+        when(showAnswerButton.getText()).thenReturn(showText);
 
         controller.getCardAnswer("Java is a programming language.");
         controller.setCardAnswer(event);
 
-        verify(showAnswerButton).setText("Hide Answer");
+        verify(showAnswerButton).setText(hideText);
         verify(cardText).setText("Java is a programming language.");
     }
 
     @Test
     void setCardAnswer_shouldHideAnswerWhenButtonSaysHideAnswer() {
-        when(showAnswerButton.getText()).thenReturn("Hide Answer");
+        String showText = LanguageManager.getBundle().getString("ELEM_show_answer");
 
         controller.setCardQuestion("What is Java?");
         controller.getCardAnswer("Java is a programming language.");
-        clearInvocations(cardText);
+
+        // First toggle shows answer; second toggle hides it.
+        controller.setCardAnswer(event);
+        clearInvocations(cardText, showAnswerButton);
         controller.setCardAnswer(event);
 
-        verify(showAnswerButton).setText("Show Answer");
+        verify(showAnswerButton).setText(showText);
         verify(cardText).setText("What is Java?");
     }
-
 
     @Test
     void setUser_shouldStoreUser() throws Exception {
@@ -128,16 +129,12 @@ class cardControllerTest {
     void deleteCard_shouldCallDaoWithCurrentQuestion() {
         when(cardText.getText()).thenReturn("What is Java?");
 
-        try (MockedStatic<CardDao> mockedCardDao = mockStatic(CardDao.class)) {
-
+        try (MockedStatic<CardDao> cardDaoMock = mockStatic(CardDao.class)) {
             controller.deleteCard(event);
 
-            mockedCardDao.verify(
-                    () -> CardDao.deleteCard("What is Java?")
-            );
+            cardDaoMock.verify(() -> CardDao.deleteCard("What is Java?"));
         }
     }
-
 
 
     private static void setPrivateField(
