@@ -21,6 +21,8 @@ public class cardController {
 
     private User user;
 
+    private boolean answerVisible = false;
+
     CardDao cardDao;
 
     public void setCardQuestion(String question) {
@@ -33,14 +35,15 @@ public class cardController {
     }
 
     public void setCardAnswer(ActionEvent actionEvent) {
-        if (showAnswerButton.getText().equals("Show Answer")) {
-            showAnswerButton.setText("Hide Answer");
-            cardText.setText(answer);
-
-        }
-        else {
-            showAnswerButton.setText("Show Answer");
+        var bundle = LanguageManager.getBundle();
+        if (answerVisible) {
+            answerVisible = false;
+            showAnswerButton.setText(bundle.getString("ELEM_show_answer"));
             cardText.setText(question);
+        } else {
+            answerVisible = true;
+            showAnswerButton.setText(bundle.getString("ELEM_hide_answer"));
+            cardText.setText(answer);
         }
     }
 
