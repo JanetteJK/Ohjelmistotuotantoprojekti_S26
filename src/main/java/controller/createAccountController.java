@@ -13,7 +13,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import view.SignIn;
+import view.SignIn;
+import view.SignIn;
+import view.SignIn;
 
+import java.awt.*;
+import java.awt.*;
+import java.awt.*;
 import java.awt.*;
 import java.io.IOException;
 
@@ -36,7 +42,7 @@ public class createAccountController {
     @FXML
     public Label createAccountInfo;
 
-    
+
 
 
 
@@ -68,7 +74,7 @@ public class createAccountController {
         ud.registerUser(newUser);
         // todo: add check if username in use to ud and finish this
         System.out.println("toimiipas");
-        createAccountInfo.setText("Account created successfully!");
+        createAccountInfo.setText("ELEM_account_created");
     }
 
     public void switchToStart(javafx.event.ActionEvent actionEvent) throws IOException {
