@@ -116,7 +116,7 @@ public class ccController {
 
     public void switchToLibrary(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/libraryUi.fxml"),
+                getClass().getResource("/libraryUI.fxml"),
                 LanguageManager.getBundle()
         );
         Parent root = fxmlLoader.load();
