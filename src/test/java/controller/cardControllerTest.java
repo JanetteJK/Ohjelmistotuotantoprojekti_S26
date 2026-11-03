@@ -98,6 +98,19 @@ class cardControllerTest {
         verify(cardText).setText("Java is a programming language.");
     }
 
+    @Test
+    void setCardAnswer_shouldHideAnswerWhenButtonSaysHideAnswer() {
+        when(showAnswerButton.getText()).thenReturn("Hide Answer");
+
+        controller.setCardQuestion("What is Java?");
+        controller.getCardAnswer("Java is a programming language.");
+        clearInvocations(cardText);
+        controller.setCardAnswer(event);
+
+        verify(showAnswerButton).setText("Show Answer");
+        verify(cardText).setText("What is Java?");
+    }
+
 
     @Test
     void setUser_shouldStoreUser() throws Exception {

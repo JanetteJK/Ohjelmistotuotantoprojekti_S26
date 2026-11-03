@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static datasource.MariaDBConnection.conn;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
 
@@ -170,7 +171,13 @@ class CardDaoTest {
                 .thenReturn("Test")
                 .thenReturn("Test");
 
-        CardDao.showAllCards(1);
+        java.util.ArrayList<Card> cards = CardDao.showAllCards(1);
+
+        assertEquals(2, cards.size());
+        assertEquals("Question 1", cards.get(0).getQuestion());
+        assertEquals("Answer 1", cards.get(0).getAnswer());
+        assertEquals("Test", cards.get(0).getCategory());
+        assertEquals(1, cards.get(0).getUserId());
 
         verify(mockConnection).prepareStatement(
                 "SELECT question, answer, category FROM flashcards WHERE user_id = ?"
@@ -308,6 +315,44 @@ class CardDaoTest {
         assertDoesNotThrow(() ->
                 CardDao.showCardsBasedOnCategory(card)
         );
+
+    }
+
+    @Test
+    void deleteCardShouldDeleteCardByQuestion() throws SQLException {
+        Connection mockConnection = mock(Connection.class);
+        PreparedStatement mockStatement = mock(PreparedStatement.class);
+        conn = mockConnection;
+
+        when(mockConnection.prepareStatement(
+                "DELETE FROM flashcards WHERE question = ?"
+        )).thenReturn(mockStatement);
+
+        CardDao.deleteCard("What is Java?");
+
+        verify(mockConnection).prepareStatement(
+                "DELETE FROM flashcards WHERE question = ?"
+        );
+        verify(mockStatement).setString(1, "What is Java?");
+        verify(mockStatement).executeUpdate();
+    }
+
+    @Test
+    void deleteCardShouldDoNothingWhenConnectionIsNull() {
+        conn = null;
+
+        assertDoesNotThrow(() -> CardDao.deleteCard("What is Java?"));
+    }
+
+    @Test
+    void deleteCardShouldHandleSQLException() throws SQLException {
+        Connection mockConnection = mock(Connection.class);
+        conn = mockConnection;
+
+        when(mockConnection.prepareStatement(anyString()))
+                .thenThrow(new SQLException("Test database error"));
+
+        assertDoesNotThrow(() -> CardDao.deleteCard("What is Java?"));
     }
 
 }
