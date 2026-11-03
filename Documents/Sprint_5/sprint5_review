@@ -1,0 +1,23 @@
+# Sprint 5 review report
+
+## Sprint Goal
+The goal of Sprint 5 was internationalisation of the app
+
+## Completed User Stories / Tasks
+- Implement language selection
+- Translation of the app to Finnish, Japanese and Korean
+- Modify the functionality of the app to support multiple languages
+
+## What Went Well
+- Implementation was swift and smooth
+- Team members were able to work independently and efficiently
+
+## What Could Be Improved
+- Starting work on the implementation earlier would have allowed more time for testing and bug fixing
+
+## Time spent by each member during the sprint
+| Team member     | Hours spent |
+|-----------------|-------------|
+| Aatu Laakso     | 12          |
+| Janette Kotanen | 12          |
+| Sonja Meskus    | 12          |
