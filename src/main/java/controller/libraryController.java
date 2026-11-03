@@ -43,6 +43,7 @@ public class libraryController implements Initializable {
 
 
 
+
     public void getAllCards() {
         cards = (CardDao.showAllCards(user.getUserId()));
 
@@ -50,9 +51,12 @@ public class libraryController implements Initializable {
         int row = 0;
         try {
             for (Card card : cards) {
-                FXMLLoader cardFxmlLoader = new FXMLLoader();
-                System.out.println("Adding card: " + card.getQuestion() + " to library");
-                cardFxmlLoader.setLocation(getClass().getResource("/card.fxml"));
+
+                FXMLLoader cardFxmlLoader = new FXMLLoader(
+                        getClass().getResource("/card.fxml"),
+                        LanguageManager.getBundle()
+                );
+
                 // Load the FXML file
 
                 AnchorPane anchorPane = cardFxmlLoader.load();
