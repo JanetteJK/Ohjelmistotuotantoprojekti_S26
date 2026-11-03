@@ -1,7 +1,7 @@
 # Sprint 5 review report
 
 ## Sprint Goal
-The goal of Sprint 5 was internationalisation of the app
+The goal of Sprint 5 was internationalisation of the app.
 
 ## Completed User Stories / Tasks
 - Implement language selection
