@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class cardController {
+public class CardController {
     @FXML
     private Label cardText;
     @FXML
@@ -19,7 +19,7 @@ public class cardController {
 
     private String question;
 
-    private User user;
+    public User user;
 
     CardDao cardDao;
 
@@ -53,6 +53,6 @@ public class cardController {
     }
 
     public void deleteCard(ActionEvent actionEvent) {
-        cardDao.deleteCard(this.cardText.getText());
+        CardDao.deleteCard(this.cardText.getText());
     }
 }

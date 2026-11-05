@@ -20,13 +20,13 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-public class ccController {
+public class CcController {
 
     CardDao cardDao = new CardDao();
     UserDao userDao = new UserDao();
     private Stage stage;
     private Scene scene;
-    private ccController cac;
+    private CcController cac;
     List<Card> cards = new ArrayList<>();
     private Card card;
     private User user;
@@ -124,7 +124,7 @@ public class ccController {
         );
         Parent root = fxmlLoader.load();
         // todo: add cards to library
-        libraryController lc = fxmlLoader.getController();
+        LibraryController lc = fxmlLoader.getController();
         lc.setUser(user);
         lc.getAllCards();
         System.out.println(cards);

@@ -2,7 +2,7 @@ package view;
 import java.io.IOException;
 
 import controller.LanguageManager;
-import controller.signInController;
+import controller.SignInController;
 import datasource.MariaDBConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 
 public class SignIn extends Application {
-     signInController controller;
+     SignInController controller;
 
     @Override
     public void init(){
@@ -22,7 +22,6 @@ public class SignIn extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         MariaDBConnection.connect();
-        //LanguageManager.setLocale(LanguageManager.getLocale());
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/loginUi.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         controller = fxmlLoader.getController();
