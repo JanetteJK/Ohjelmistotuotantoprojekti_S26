@@ -1,8 +1,11 @@
 package controller;
 
-import dao.*;
+
 import javafx.fxml.FXML;
-import entity.*;
+import dao.CardDao;
+import dao.UserDao;
+import entity.Card;
+import entity.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;

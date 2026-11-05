@@ -1,7 +1,8 @@
 package dao;
 import entity.StudyMaterial;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import static datasource.MariaDBConnection.conn;
 
 public class StudyMaterialDao {
