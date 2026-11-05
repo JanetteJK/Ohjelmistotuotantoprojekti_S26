@@ -38,7 +38,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label fx:id="LibraryMenu" onMouseClicked="#switchToLibrary" text="%MENU_library" textFill="#4a1b2a">
+                                <Label fx:id="libraryMenu" onMouseClicked="#switchToLibrary" text="%MENU_library" textFill="#4a1b2a">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>
@@ -47,7 +47,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label fx:id="CreateQuizMenu" text="%MENU_create_quiz" textFill="#4a1b2a">
+                                <Label fx:id="createQuizMenu" text="%MENU_create_quiz" textFill="#4a1b2a">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>
@@ -56,7 +56,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label fx:id="studyMButton" text="%MENU_study_materials" textFill="#4a1b2a">
+                                <Label fx:id="studyMaterialsMenu" text="%MENU_study_materials" textFill="#4a1b2a">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>

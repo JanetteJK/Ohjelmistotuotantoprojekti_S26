@@ -15,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -22,13 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 public class CcController {
 
-    CardDao cardDao = new CardDao();
-    UserDao userDao = new UserDao();
+    private static final Logger log = LoggerFactory.getLogger(CcController.class);
+    CardDao cardDao;
+    UserDao userDao;
     private Stage stage;
     private Scene scene;
-    private CcController cac;
+    CcController cac;
     List<Card> cards = new ArrayList<>();
-    private Card card;
+    Card card;
     private User user;
 
     @FXML
@@ -38,15 +41,15 @@ public class CcController {
     @FXML
     private Button submitCard;
     @FXML
-    private Label LibraryMenu;
+    private Label libraryMenu;
     @FXML
-    private Label StudyMaterialsMenu;
+    private Label studyMaterialsMenu;
     @FXML
-    private Label ProfileMenu;
+    private Label profileMenu;
     @FXML
-    private Label CreateQuizMenu;
+    private Label createQuizMenu;
     @FXML
-    private Label CreateCardMenu;
+    private Label createCardsMenu;
 
 
     // cardCreation functions
@@ -68,27 +71,12 @@ public class CcController {
         String category = "default"; // Placeholder for category, todo: implement category selection logic
         //int userId = 1; // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID§
         //int userId = this.user.getUserId(); // Assuming User class has a method to get the user ID
-        Card card = new Card(question, answer, category, user.getUserId());
-        CardDao.addCard(card);
+        Card cardS = new Card(question, answer, category, user.getUserId());
+        log.info("Card submitted: {} - {}", question, answer);
+        CardDao.addCard(cardS);
         questionBox.clear();
         answerBox.clear();
-        System.out.println("Card submitted: " + question + " - " + answer);
     }
-
-    /*public void showAllCards(int userId) {
-        // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID
-        //int userId = this.user.getUserId(); // Assuming User class has a method to get the user ID
-        ArrayList<Card> cards = CardDao.showAllCards(userId); // Replace 1 with the actual user ID
-        if (cards != null) {
-            for (Card card : cards) {
-                System.out.println("Question: " + card.getQuestion() + ", Answer: " + card.getAnswer() + ", Category: " + card.getCategory());
-                cards.add(card);
-            }
-        } else {
-            System.out.println("No cards found.");
-        }
-    }
-    */
 
     //switch funtions
     public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{
@@ -123,11 +111,10 @@ public class CcController {
                 LanguageManager.getBundle()
         );
         Parent root = fxmlLoader.load();
-        // todo: add cards to library
         LibraryController lc = fxmlLoader.getController();
         lc.setUser(user);
         lc.getAllCards();
-        System.out.println(cards);
+        log.info("Cards: {}", cards);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

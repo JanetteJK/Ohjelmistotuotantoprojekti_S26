@@ -13,9 +13,12 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CreateAccountController {
-    private UserDao ud = new UserDao();
+    private static final Logger log = LoggerFactory.getLogger(CreateAccountController.class);
+    UserDao userDao;
     SignInController sct;
     Stage stage;
     Scene scene;
@@ -51,10 +54,9 @@ public class CreateAccountController {
             email = "student@email.com";
         }
         else {
-            System.out.println("no role selected");
+            log.info("no role selected");
         }
-        User user = new User(un, email, passw, role);
-        return user;
+        return new User(un, email, passw, role);
     }
 
 
@@ -62,8 +64,8 @@ public class CreateAccountController {
 
     public void createAccount(){
         User newUser = getUserCreationDetails();
-        ud.registerUser(newUser);
-        System.out.println("toimiipas");
+        UserDao.registerUser(newUser);
+        log.info("toimiipas");
         createAccountInfo.setText("ELEM_account_created");
     }
 

@@ -20,9 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
-class cardControllerTest {
+class CardControllerTest {
 
-    private cardController controller;
+    private CardController controller;
     private AutoCloseable mocks;
 
     @Mock
@@ -49,7 +49,7 @@ class cardControllerTest {
     void setUp() throws Exception {
         mocks = MockitoAnnotations.openMocks(this);
 
-        controller = new cardController();
+        controller = new CardController();
 
         setPrivateField(controller, "cardText", cardText);
         setPrivateField(controller, "showAnswerButton", showAnswerButton);
@@ -73,7 +73,7 @@ class cardControllerTest {
         controller.getCardAnswer("Java is a programming language.");
 
         Field answerField =
-                cardController.class.getDeclaredField("answer");
+                CardController.class.getDeclaredField("answer");
 
         answerField.setAccessible(true);
 
@@ -118,7 +118,7 @@ class cardControllerTest {
         controller.setUser(user);
 
         Field userField =
-                cardController.class.getDeclaredField("user");
+                CardController.class.getDeclaredField("user");
 
         userField.setAccessible(true);
 

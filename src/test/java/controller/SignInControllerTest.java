@@ -34,7 +34,7 @@ import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class signInControllerTest {
+class SignInControllerTest {
 
     private SignInController controller;
 
