@@ -42,3 +42,16 @@ CREATE TABLE quizzes (
 
 ALTER TABLE quizzes ADD CONSTRAINT quiz_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
 
+CREATE TABLE IF NOT EXISTS languages (
+  lang CHAR(2) NOT NULL,
+  translated_lang VARCHAR(80) NOT NULL,
+  db_message VARCHAR(255) NOT NULL,
+  PRIMARY KEY (lang)
+) CHARACTER SET utf8mb4;
+
+INSERT INTO languages (lang, translated_lang, db_message)
+VALUES ('en', 'English', 'Flashcard saved.'),
+('fi', 'Suomeksi', 'Kortti tallennettu.'),
+('ja', '日本語で', 'フラッシュカードを保存しました。'),
+('ko', '한국어', '플래시카드가 저장되었습니다.');
+
