@@ -24,7 +24,7 @@
                             <children>
                                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="flasherslogo.png"/>
+                                        <Image url="@flasherslogo.png"/>
                                     </image>
                                 </ImageView>
                             </children>

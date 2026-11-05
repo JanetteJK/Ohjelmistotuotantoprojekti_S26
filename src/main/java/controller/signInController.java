@@ -201,7 +201,7 @@ public class signInController {
 
     public void switchToLibrary(MouseEvent actionEvent) throws IOException{
         Locale locale = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUi.fxml"), LanguageManager.getBundle());
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         // todo: add cards to library
         libraryController lc = fxmlLoader.getController();
