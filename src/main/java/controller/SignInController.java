@@ -25,12 +25,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
-public class signInController {
+public class SignInController {
     private UserDao ud = new UserDao();
     private CardDao cd = new CardDao();
     private Stage stage;
     private Scene scene;
-    private createAccountController cac;
+    private CreateAccountController cac;
     private User currentUser;
     private List<Card> cards = new ArrayList<>();
     final ChoiceBox<String> cb = new ChoiceBox<>(
@@ -117,7 +117,7 @@ public class signInController {
                         LanguageManager.getBundle()
                 );
                 Parent root = fxmlLoader.load();
-                signInController controller = fxmlLoader.getController();
+                SignInController controller = fxmlLoader.getController();
                 controller.setUserGreeting(currentUser.getUserName());
                 controller.setCurrentUser(currentUser);
                 stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -151,7 +151,7 @@ public class signInController {
                         LanguageManager.getBundle()
                 );
                 Parent root = fxmlLoader.load();
-                signInController controller = fxmlLoader.getController();
+                SignInController controller = fxmlLoader.getController();
                 controller.setUserGreeting(currentUser.getUserName());
                 controller.setCurrentUser(currentUser);
                 //controller.getAllCards(student);//todo: id shit
@@ -186,7 +186,7 @@ public class signInController {
         Locale locale = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
-        ccController cardCtrl = fxmlLoader.getController();
+        CcController cardCtrl = fxmlLoader.getController();
         cardCtrl.setUser(currentUser);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -199,7 +199,7 @@ public class signInController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         // todo: add cards to library
-        libraryController lc = fxmlLoader.getController();
+        LibraryController lc = fxmlLoader.getController();
         lc.setUser(currentUser);
         lc.getAllCards();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -233,7 +233,7 @@ public class signInController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
 
-        signInController controller = fxmlLoader.getController();
+        SignInController controller = fxmlLoader.getController();
         controller.setUserGreeting(currentUser.getUserName());
 
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

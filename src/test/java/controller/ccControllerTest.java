@@ -1,7 +1,6 @@
 package controller;
 
 import dao.CardDao;
-import entity.Card;
 import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +28,7 @@ import static org.mockito.Mockito.*;
 
 class ccControllerTest {
 
-    private ccController controller;
+    private CcController controller;
 
     @Mock
     private TextArea questionBox;
@@ -49,7 +48,7 @@ class ccControllerTest {
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
 
-        controller = new ccController();
+        controller = new CcController();
 
         setField(controller, "questionBox", questionBox);
         setField(controller, "answerBox", answerBox);
@@ -78,7 +77,7 @@ class ccControllerTest {
     void setUser_shouldStoreUser() throws Exception {
         controller.setUser(user);
 
-        Field field = ccController.class.getDeclaredField("user");
+        Field field = CcController.class.getDeclaredField("user");
         field.setAccessible(true);
 
         assertSame(user, field.get(controller));
@@ -187,8 +186,8 @@ class ccControllerTest {
         when(scene.getWindow()).thenReturn(stage);
 
         Parent root = mock(Parent.class);
-        libraryController libraryController =
-                mock(libraryController.class);
+        LibraryController libraryController =
+                mock(LibraryController.class);
         User user = mock(User.class);
 
         controller.setUser(user);

@@ -14,9 +14,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-public class createAccountController {
+public class CreateAccountController {
     private UserDao ud = new UserDao();
-    signInController sct;
+    SignInController sct;
     Stage stage;
     Scene scene;
 
@@ -63,7 +63,6 @@ public class createAccountController {
     public void createAccount(){
         User newUser = getUserCreationDetails();
         ud.registerUser(newUser);
-        // todo: add check if username in use to ud and finish this
         System.out.println("toimiipas");
         createAccountInfo.setText("ELEM_account_created");
     }

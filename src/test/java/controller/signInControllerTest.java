@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
@@ -23,8 +22,6 @@ import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
 import javafx.embed.swing.JFXPanel;
-import javafx.event.ActionEvent;
-
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -39,7 +36,7 @@ import static org.mockito.Mockito.*;
 
 class signInControllerTest {
 
-    private signInController controller;
+    private SignInController controller;
 
     @Mock
     private TextField tUsername;
@@ -85,7 +82,7 @@ class signInControllerTest {
         MockitoAnnotations.openMocks(this);
         originalLocale = LanguageManager.getLocale();
 
-        controller = new signInController();
+        controller = new SignInController();
 
         when(tEvent.getSource()).thenReturn(tOk);
         when(sEvent.getSource()).thenReturn(sOk);
@@ -150,7 +147,7 @@ class signInControllerTest {
         controller.setCurrentUser(user);
 
         Field field =
-                signInController.class.getDeclaredField("currentUser");
+                SignInController.class.getDeclaredField("currentUser");
 
         field.setAccessible(true);
 
@@ -382,8 +379,8 @@ class signInControllerTest {
         when(scene.getWindow()).thenReturn(stage);
 
         Parent root = mock(Parent.class);
-        createAccountController createController =
-                mock(createAccountController.class);
+        CreateAccountController createController =
+                mock(CreateAccountController.class);
 
         try (MockedConstruction<FXMLLoader> loaders =
                      mockConstruction(FXMLLoader.class, (loader, context) -> {
@@ -416,7 +413,7 @@ class signInControllerTest {
         when(scene.getWindow()).thenReturn(stage);
 
         Parent root = mock(Parent.class);
-        ccController cardController = mock(ccController.class);
+        CcController cardController = mock(CcController.class);
         User user = mock(User.class);
 
         controller.setCurrentUser(user);
@@ -453,8 +450,8 @@ class signInControllerTest {
         when(scene.getWindow()).thenReturn(stage);
 
         Parent root = mock(Parent.class);
-        libraryController libraryController =
-                mock(libraryController.class);
+        LibraryController libraryController =
+                mock(LibraryController.class);
         User user = mock(User.class);
 
         controller.setCurrentUser(user);
@@ -552,8 +549,8 @@ class signInControllerTest {
         when(scene.getWindow()).thenReturn(stage);
 
         Parent root = mock(Parent.class);
-        signInController profileController =
-                mock(signInController.class);
+        SignInController profileController =
+                mock(SignInController.class);
 
         User user = mock(User.class);
         when(user.getUserName()).thenReturn("Matti");
