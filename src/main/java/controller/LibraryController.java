@@ -22,9 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class libraryController implements Initializable {
+public class LibraryController implements Initializable {
 
-    libraryController lc;
+    LibraryController lc;
     Card card;
     private List<Card> cards = new ArrayList<>();
     private User user;
@@ -92,8 +92,8 @@ public class libraryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        signInController sc = new signInController();
-        libraryController lc = new libraryController();
+        SignInController sc = new SignInController();
+        LibraryController lc = new LibraryController();
 
     }
 
@@ -103,7 +103,7 @@ public class libraryController implements Initializable {
                 LanguageManager.getBundle()
         );
         Parent root = fxmlLoader.load();
-        ccController cardCtrl = fxmlLoader.getController();
+        CcController cardCtrl = fxmlLoader.getController();
         cardCtrl.setUser(user);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
