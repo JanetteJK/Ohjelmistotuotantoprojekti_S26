@@ -1,7 +1,6 @@
 package controller;
 
 import dao.CardDao;
-import entity.Card;
 import entity.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -24,14 +23,13 @@ import javafx.embed.swing.JFXPanel;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class libraryControllerTest {
 
-    private libraryController controller;
+    private LibraryController controller;
 
     @Mock
     private User user;
@@ -51,7 +49,7 @@ class libraryControllerTest {
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
 
-        controller = new libraryController();
+        controller = new LibraryController();
 
         setField(controller, "user", user);
         setField(controller, "grid", grid);
@@ -63,7 +61,7 @@ class libraryControllerTest {
         controller.setUser(user);
 
         Field field =
-                libraryController.class.getDeclaredField("user");
+                LibraryController.class.getDeclaredField("user");
 
         field.setAccessible(true);
 
@@ -153,7 +151,7 @@ class libraryControllerTest {
         when(scene.getWindow()).thenReturn(stage);
 
         Parent root = mock(Parent.class);
-        ccController cardController = mock(ccController.class);
+        CcController cardController = mock(CcController.class);
         User user = mock(User.class);
 
         controller.setUser(user);

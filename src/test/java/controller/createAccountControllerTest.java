@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class createAccountControllerTest {
 
-    private createAccountController controller;
+    private CreateAccountController controller;
 
     private TextField newUsername;
     private PasswordField newPassw;
@@ -49,7 +49,7 @@ class createAccountControllerTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        controller = new createAccountController();
+        controller = new CreateAccountController();
 
         newUsername = new TextField();
         newPassw = new PasswordField();
@@ -162,7 +162,7 @@ class createAccountControllerTest {
     }
 
     private void setField(String fieldName, Object value) throws Exception {
-        Field field = createAccountController.class.getDeclaredField(fieldName);
+        Field field = CreateAccountController.class.getDeclaredField(fieldName);
         field.setAccessible(true);
         field.set(controller, value);
     }
