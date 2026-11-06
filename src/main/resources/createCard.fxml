@@ -34,7 +34,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="HBox" stylesheets="@style.css">
                             <children>
-                                <Label fx:id="createCardsMenu" alignment="CENTER" contentDisplay="CENTER" styleClass="menu-label" stylesheets="@style.css" text="%MENU_create_cards" textFill="#4a1b2a">
+                                <Label fx:id="createCardsMenu" alignment="CENTER" contentDisplay="CENTER" prefHeight="81.0" prefWidth="201.0" styleClass="menu-label" stylesheets="@style.css" text="%MENU_create_cards" textAlignment="CENTER" textFill="#4a1b2a" wrapText="true">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>
@@ -46,7 +46,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label fx:id="LibraryMenu" onMouseClicked="#switchToLibrary" text="%MENU_library" textFill="#4a1b2a">
+                                <Label fx:id="LibraryMenu" onMouseClicked="#switchToLibrary" prefHeight="88.0" prefWidth="171.0" text="%MENU_library" textAlignment="CENTER" textFill="#4a1b2a" wrapText="true">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>
@@ -55,7 +55,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label fx:id="CreateQuizMenu" text="%MENU_create_quiz" textFill="#4a1b2a">
+                                <Label fx:id="CreateQuizMenu" prefHeight="90.0" prefWidth="200.0" text="%MENU_create_quiz" textAlignment="CENTER" textFill="#4a1b2a" wrapText="true">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>
@@ -64,7 +64,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label fx:id="studyMButton" text="%MENU_study_materials" textFill="#4a1b2a">
+                                <Label fx:id="studyMButton" prefHeight="96.0" prefWidth="200.0" text="%MENU_study_materials" textAlignment="CENTER" textFill="#4a1b2a" wrapText="true">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>
@@ -73,7 +73,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label fx:id="profileButton" text="%MENU_profile" textFill="#4a1b2a">
+                                <Label fx:id="profileButton" prefHeight="90.0" prefWidth="168.0" text="%MENU_profile" textAlignment="CENTER" textFill="#4a1b2a" wrapText="true">
                                     <font>
                                         <Font name="Bell MT" size="24.0" />
                                     </font>
