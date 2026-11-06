@@ -21,3 +21,11 @@
 .cardItem {
     -fx-background-color: #ffffff;
 }
+
+.lightOrange { -fx-background-color: #f1a27b; }
+
+.darkPink { -fx-background-color: #ed4672; }
+
+.green { -fx-background-color: #2e8f4c; }
+
+.cream { -fx-background-color: #FFDAC5; }
