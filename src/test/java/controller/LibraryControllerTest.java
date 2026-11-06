@@ -3,23 +3,18 @@ package controller;
 import dao.CardDao;
 import entity.User;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
-import javafx.embed.swing.JFXPanel;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -37,14 +32,6 @@ class LibraryControllerTest {
     @Mock
     private GridPane grid;
 
-    @Mock
-    private ScrollPane scrollPane;
-
-    @BeforeAll
-    static void initJavaFx() {
-        new JFXPanel();
-    }
-
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
@@ -53,7 +40,6 @@ class LibraryControllerTest {
 
         setField(controller, "user", user);
         setField(controller, "grid", grid);
-        setField(controller, "scrollPane", scrollPane);
     }
 
     @Test
@@ -114,7 +100,6 @@ class LibraryControllerTest {
             cardDaoMock.when(() -> CardDao.showAllCards(42))
                     .thenReturn(null);
 
-
             assertThrows(
                     NullPointerException.class,
                     () -> controller.getAllCards()
@@ -123,26 +108,11 @@ class LibraryControllerTest {
     }
 
     @Test
-    void initialize_shouldNotThrowException() {
-        assertDoesNotThrow(() ->
-                controller.initialize(null, null)
-        );
-    }
+    void switchToCreateCards_shouldLoadViewAndSetUser()
+            throws Exception {
 
-    private static void setField(
-            Object target,
-            String name,
-            Object value
-    ) throws Exception {
-        Field field = target.getClass().getDeclaredField(name);
-        field.setAccessible(true);
-        field.set(target, value);
-    }
-
-    @Test
-    void switchToCreateCards_shouldLoadViewAndSetUser() throws Exception {
         MouseEvent mouseEvent = mock(MouseEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
 
@@ -152,19 +122,23 @@ class LibraryControllerTest {
 
         Parent root = mock(Parent.class);
         CcController cardController = mock(CcController.class);
-        User user = mock(User.class);
 
         controller.setUser(user);
 
         try (MockedConstruction<FXMLLoader> loaders =
-                     mockConstruction(FXMLLoader.class, (loader, context) -> {
-                         when(loader.load()).thenReturn(root);
-                         when(loader.getController()).thenReturn(cardController);
-                     });
+                     mockConstruction(
+                             FXMLLoader.class,
+                             (loader, context) -> {
+                                 when(loader.load()).thenReturn(root);
+                                 when(loader.getController())
+                                         .thenReturn(cardController);
+                             });
              MockedConstruction<Scene> scenes =
                      mockConstruction(Scene.class)) {
 
             controller.switchToCreateCards(mouseEvent);
+
+            assertEquals(1, loaders.constructed().size());
 
             FXMLLoader loader = loaders.constructed().get(0);
 
@@ -176,23 +150,14 @@ class LibraryControllerTest {
         }
     }
 
-    private Stage createTestStage() {
-        Stage stage = new Stage();
-        Pane pane = new Pane();
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        return stage;
-    }
+    private static void setField(
+            Object target,
+            String name,
+            Object value
+    ) throws Exception {
 
-    private Button createButtonOnStage(Stage stage) {
-        Button button = new Button();
-        stage.getScene().setRoot(button);
-        return button;
-    }
-
-    private void closeStage(Stage stage) {
-        if (stage != null) {
-            stage.close();
-        }
+        Field field = target.getClass().getDeclaredField(name);
+        field.setAccessible(true);
+        field.set(target, value);
     }
 }

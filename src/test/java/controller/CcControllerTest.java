@@ -4,11 +4,11 @@ import dao.CardDao;
 import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -37,6 +37,9 @@ class CcControllerTest {
     private TextArea answerBox;
 
     @Mock
+    private TextField categoryField;
+
+    @Mock
     private User user;
 
     @BeforeAll
@@ -53,6 +56,7 @@ class CcControllerTest {
         setField(controller, "questionBox", questionBox);
         setField(controller, "answerBox", answerBox);
         setField(controller, "user", user);
+        setField(controller, "categoryField", categoryField);
     }
 
     @Test
@@ -84,10 +88,20 @@ class CcControllerTest {
     }
 
     @Test
+    void getCategory_shouldReturnCategoryFieldText() {
+        when(categoryField.getText()).thenReturn("Category");
+        assertEquals("Category", controller.getCategory());
+        verify(categoryField).getText();
+    }
+
+    @Test
     void submitCard_shouldCreateAndAddCard() {
         when(questionBox.getText()).thenReturn("What is Java?");
         when(answerBox.getText()).thenReturn("Programming language");
+        when(categoryField.getText()).thenReturn("Category");
         when(user.getUserId()).thenReturn(42);
+
+
 
         try (MockedStatic<CardDao> cardDaoMock =
                      mockStatic(CardDao.class)) {
@@ -98,7 +112,7 @@ class CcControllerTest {
                     CardDao.addCard(argThat(card ->
                             card.getQuestion().equals("What is Java?")
                                     && card.getAnswer().equals("Programming language")
-                                    && card.getCategory().equals("default")
+                                    && card.getCategory().equals("Category")
                                     && card.getUserId() == 42
                     ))
             );
@@ -112,6 +126,7 @@ class CcControllerTest {
     void submitCard_shouldUseCorrectUserId() {
         when(questionBox.getText()).thenReturn("Q");
         when(answerBox.getText()).thenReturn("A");
+        when(categoryField.getText()).thenReturn("Category");
         when(user.getUserId()).thenReturn(123);
 
         try (MockedStatic<CardDao> cardDaoMock =
@@ -131,6 +146,7 @@ class CcControllerTest {
     void submitCard_shouldClearBothTextAreas() {
         when(questionBox.getText()).thenReturn("Q");
         when(answerBox.getText()).thenReturn("A");
+        when(categoryField.getText()).thenReturn("Category");
         when(user.getUserId()).thenReturn(1);
 
         try (MockedStatic<CardDao> ignored =
@@ -144,9 +160,10 @@ class CcControllerTest {
     }
 
     @Test
-    void submitCard_shouldUseDefaultCategory() {
+    void submitCard_shouldNotUseDefaultCategory() {
         when(questionBox.getText()).thenReturn("Q");
         when(answerBox.getText()).thenReturn("A");
+        when(categoryField.getText()).thenReturn("Category");
         when(user.getUserId()).thenReturn(1);
 
         try (MockedStatic<CardDao> cardDaoMock =
@@ -156,7 +173,7 @@ class CcControllerTest {
 
             cardDaoMock.verify(() ->
                     CardDao.addCard(argThat(card ->
-                            "default".equals(card.getCategory())
+                            "Category".equals(card.getCategory())
                     ))
             );
         }
@@ -177,7 +194,7 @@ class CcControllerTest {
     @Test
     void switchToLibrary_shouldLoadViewAndGetCards() throws Exception {
         MouseEvent mouseEvent = mock(MouseEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
 
@@ -216,7 +233,7 @@ class CcControllerTest {
     @Test
     void switchToCreateAccount_shouldLoadView() throws Exception {
         ActionEvent actionEvent = mock(ActionEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
         when(actionEvent.getSource()).thenReturn(node);
@@ -237,8 +254,8 @@ class CcControllerTest {
 
     @Test
     void switchToCreateCard_shouldLoadView() throws Exception {
-        java.awt.event.MouseEvent mouseEvent = mock(java.awt.event.MouseEvent.class);
-        Node node = mock(Node.class);
+        MouseEvent mouseEvent = mock(MouseEvent.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
         when(mouseEvent.getSource()).thenReturn(node);
@@ -258,8 +275,8 @@ class CcControllerTest {
     }
     @Test
     void switchToCreateQuiz_shouldLoadView() throws Exception {
-        java.awt.event.MouseEvent mouseEvent = mock(java.awt.event.MouseEvent.class);
-        Node node = mock(Node.class);
+        MouseEvent mouseEvent = mock(MouseEvent.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
 
@@ -289,7 +306,7 @@ class CcControllerTest {
     @Test
     void switchToStudyMaterials_shouldLoadView() throws Exception {
         MouseEvent mouseEvent = mock(MouseEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
 
@@ -319,7 +336,7 @@ class CcControllerTest {
     @Test
     void switchToProfile_shouldLoadView() throws Exception {
         MouseEvent mouseEvent = mock(MouseEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
         when(mouseEvent.getSource()).thenReturn(node);

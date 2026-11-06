@@ -5,13 +5,13 @@ import entity.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +23,7 @@ import java.lang.reflect.Field;
 import java.util.concurrent.CountDownLatch;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class CreateAccountControllerTest {
 
@@ -141,14 +142,14 @@ class CreateAccountControllerTest {
 
     @Test
     void switchToStart_shouldLoadLoginView() throws Exception {
-        ActionEvent actionEvent = org.mockito.Mockito.mock(ActionEvent.class);
-        Node node = org.mockito.Mockito.mock(Node.class);
-        Scene scene = org.mockito.Mockito.mock(Scene.class);
-        Stage stage = org.mockito.Mockito.mock(Stage.class);
+        ActionEvent actionEvent = mock(ActionEvent.class);
+        Pane node = mock(Pane.class);
+        Scene scene = mock(Scene.class);
+        Stage stage = mock(Stage.class);
         org.mockito.Mockito.when(actionEvent.getSource()).thenReturn(node);
         org.mockito.Mockito.when(node.getScene()).thenReturn(scene);
         org.mockito.Mockito.when(scene.getWindow()).thenReturn(stage);
-        Parent root = org.mockito.Mockito.mock(Parent.class);
+        Parent root = mock(Parent.class);
 
         try (MockedConstruction<FXMLLoader> loaders = org.mockito.Mockito.mockConstruction(
                 FXMLLoader.class, (loader, context) -> org.mockito.Mockito.when(loader.load()).thenReturn(root));

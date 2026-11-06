@@ -4,7 +4,6 @@ import dao.UserDao;
 import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -293,7 +292,7 @@ class SignInControllerTest {
         });
 
         ActionEvent actionEvent = mock(ActionEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene currentScene = mock(Scene.class);
         Stage stage = mock(Stage.class);
 
@@ -370,7 +369,7 @@ class SignInControllerTest {
     @Test
     void switchToCreateAccount_shouldLoadView() throws Exception {
         ActionEvent actionEvent = mock(ActionEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
 
@@ -404,7 +403,7 @@ class SignInControllerTest {
     @Test
     void switchToCreateCards_shouldLoadViewAndSetUser() throws Exception {
         MouseEvent mouseEvent = mock(MouseEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
 
@@ -441,7 +440,7 @@ class SignInControllerTest {
     @Test
     void switchToLibrary_shouldLoadViewAndGetCards() throws Exception {
         MouseEvent mouseEvent = mock(MouseEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
 
@@ -480,7 +479,7 @@ class SignInControllerTest {
     @Test
     void switchToCreateQuiz_shouldLoadView() throws Exception {
         MouseEvent mouseEvent = mock(MouseEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
 
@@ -510,7 +509,7 @@ class SignInControllerTest {
     @Test
     void switchToStudyMaterials_shouldLoadView() throws Exception {
         MouseEvent mouseEvent = mock(MouseEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
 
@@ -540,7 +539,7 @@ class SignInControllerTest {
     @Test
     void switchToProfile_shouldLoadViewAndSetGreeting() throws Exception {
         MouseEvent mouseEvent = mock(MouseEvent.class);
-        Node node = mock(Node.class);
+        Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
 
