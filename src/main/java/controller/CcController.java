@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.slf4j.Logger;
@@ -38,6 +39,8 @@ public class CcController {
     TextArea questionBox;
     @FXML
     TextArea answerBox;
+    @FXML
+    TextField categoryField;
     @FXML
     private Button submitCard;
     @FXML
@@ -65,12 +68,14 @@ public class CcController {
         this.user = user;
     }
 
+    public String getCategory() {
+        return categoryField.getText();
+    }
+
     public void submitCard() {
         String question = getQuestion();
         String answer = getAnswer();
-        String category = "default"; // Placeholder for category, todo: implement category selection logic
-        //int userId = 1; // Placeholder for the current user's ID, todo: replace with actual logic to get the logged-in user's ID§
-        //int userId = this.user.getUserId(); // Assuming User class has a method to get the user ID
+        String category = getCategory();
         Card cardS = new Card(question, answer, category, user.getUserId());
         log.info("Card submitted: {} - {}", question, answer);
         CardDao.addCard(cardS);
