@@ -366,6 +366,62 @@ class SignInControllerTest {
         }
     }
 
+
+    @Test
+    void tLogin_withInvalidCredentials_shouldNotOpenAlert()
+            throws Exception {
+
+        when(tUsername.getText()).thenReturn("wrongTeacher");
+        when(tPassw.getText()).thenReturn("wrongPassword");
+
+        SignInController spyController = spy(controller);
+
+        doNothing().when(spyController).showLoginFailedAlert();
+
+        try (MockedStatic<UserDao> mockedUserDao =
+                     mockStatic(UserDao.class)) {
+
+            mockedUserDao.when(() -> UserDao.logInUser(any(User.class)))
+                    .thenReturn(false);
+
+            runOnFxThread(() -> {
+                try {
+                    spyController.tLogin(tEvent);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+    }
+
+    @Test
+    void sLogin_withInvalidCredentials_shouldNotOpenAlert()
+            throws Exception {
+
+        when(sUsername.getText()).thenReturn("wrongStudent");
+        when(sPassw.getText()).thenReturn("wrongPassword");
+
+        SignInController spyController = spy(controller);
+
+        doNothing().when(spyController).showLoginFailedAlert();
+
+        try (MockedStatic<UserDao> mockedUserDao =
+                     mockStatic(UserDao.class)) {
+
+            mockedUserDao.when(() -> UserDao.logInUser(any(User.class)))
+                    .thenReturn(false);
+
+            runOnFxThread(() -> {
+                try {
+                    spyController.sLogin(sEvent);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+    }
+
+
     @Test
     void switchToCreateAccount_shouldLoadView() throws Exception {
         ActionEvent actionEvent = mock(ActionEvent.class);

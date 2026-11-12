@@ -267,7 +267,7 @@ class CardDaoTest {
                 .thenReturn("Animals")
                 .thenReturn("Animals");
 
-        java.util.ArrayList<Card> cards = CardDao.getCardsBasedOnCategory("Animals", 5);
+        java.util.List<Card> cards = CardDao.getCardsBasedOnCategory("Animals", 5);
 
         verify(mockConnection).prepareStatement(
                 "SELECT question, answer, category FROM flashcards WHERE user_id = ? AND category = ?"
