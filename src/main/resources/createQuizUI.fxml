@@ -112,7 +112,7 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label fx:id="ELEM_choosecategory" prefHeight="71.0" prefWidth="376.0" text="Whitch category do you want the quiz to be from?" textAlignment="CENTER" wrapText="true">
+                                    <Label fx:id="ELEM_choosecategory" prefHeight="71.0" prefWidth="376.0" text="Which category do you want the quiz to be from?" textAlignment="CENTER" wrapText="true">
                                        <VBox.margin>
                                           <Insets top="40.0" />
                                        </VBox.margin>
