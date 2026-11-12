@@ -171,7 +171,7 @@ class CardDaoTest {
                 .thenReturn("Test")
                 .thenReturn("Test");
 
-        java.util.ArrayList<Card> cards = CardDao.showAllCards(1);
+        java.util.List<Card> cards = CardDao.showAllCards(1);
 
         assertEquals(2, cards.size());
         assertEquals("Question 1", cards.get(0).getQuestion());

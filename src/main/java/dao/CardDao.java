@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static datasource.MariaDBConnection.conn;
@@ -59,7 +60,7 @@ public class CardDao {
         }
     }
 
-    public static ArrayList<Card> showAllCards(int userId) {
+    public static List<Card> showAllCards(int userId) {
 
         ArrayList<Card> cardList = new ArrayList<>();
 
