@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 class QuizControllerTest {
 
     @Test
-    void getQuizShouldCreateQuizForCategoryAndUser() {
+    void createQuizShouldCreateQuizForCategoryAndUser() {
         Quiz expectedQuiz = new Quiz(1, 3, 0, 7);
         QuizController controller = new QuizController(null);
 
@@ -24,35 +24,35 @@ class QuizControllerTest {
             quizDao.when(() -> QuizDao.createQuiz("Geography", 7))
                     .thenReturn(expectedQuiz);
 
-            assertSame(expectedQuiz, controller.getQuiz("Geography", 7));
+            assertSame(expectedQuiz, controller.createQuiz("Geography", 7));
 
             quizDao.verify(() -> QuizDao.createQuiz("Geography", 7));
         }
     }
 
     @Test
-    void getQuizShouldUseDefaultCategoryWhenCategoryIsBlank() {
+    void createQuizShouldUseDefaultCategoryWhenCategoryIsBlank() {
         QuizController controller = new QuizController(null);
 
         try (MockedStatic<QuizDao> quizDao = org.mockito.Mockito.mockStatic(QuizDao.class)) {
             quizDao.when(() -> QuizDao.createQuiz("default", 7))
                     .thenReturn(null);
 
-            controller.getQuiz("  ", 7);
+            controller.createQuiz("  ", 7);
 
             quizDao.verify(() -> QuizDao.createQuiz("default", 7));
         }
     }
 
     @Test
-    void getQuizShouldUseDefaultCategoryWhenCategoryIsNull() {
+    void createQuizShouldUseDefaultCategoryWhenCategoryIsNull() {
         QuizController controller = new QuizController(null);
 
         try (MockedStatic<QuizDao> quizDao = org.mockito.Mockito.mockStatic(QuizDao.class)) {
             quizDao.when(() -> QuizDao.createQuiz("default", 7))
                     .thenReturn(null);
 
-            controller.getQuiz(null, 7);
+            controller.createQuiz(null, 7);
 
             quizDao.verify(() -> QuizDao.createQuiz("default", 7));
         }
