@@ -45,7 +45,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="114.0" prefWidth="398.0">
                            <children>
-                              <Label prefHeight="43.0" prefWidth="306.0" text="%HEADER_log_in" textAlignment="CENTER" wrapText="true">
+                              <Label alignment="CENTER" prefHeight="89.0" prefWidth="386.0" text="%HEADER_log_in" textAlignment="CENTER" wrapText="true">
                                  <font>
                                     <Font name="Bell MT" size="35.0" />
                                  </font>
@@ -118,7 +118,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="165.0" prefWidth="637.0">
                      <children>
-                        <Label text="%ELEM_create_account1">
+                        <Label alignment="CENTER" prefHeight="94.0" prefWidth="298.0" text="%ELEM_create_account1" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
