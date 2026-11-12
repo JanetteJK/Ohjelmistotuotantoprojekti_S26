@@ -251,19 +251,13 @@ class CardDaoTest {
 
         when(mockResultSet.getString("question"))
                 .thenReturn("Who is Kiri?")
-                .thenReturn("Who is Kiri?")
-                .thenReturn("Who is Veela?")
                 .thenReturn("Who is Veela?");
 
         when(mockResultSet.getString("answer"))
                 .thenReturn("My cat.")
-                .thenReturn("My cat.")
-                .thenReturn("My dog")
                 .thenReturn("My dog");
 
         when(mockResultSet.getString("category"))
-                .thenReturn("Animals")
-                .thenReturn("Animals")
                 .thenReturn("Animals")
                 .thenReturn("Animals");
 

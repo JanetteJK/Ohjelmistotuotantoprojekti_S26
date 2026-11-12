@@ -1,20 +1,19 @@
 package dao;
 
+import entity.User;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static datasource.MariaDBConnection.conn;
+import java.util.logging.Logger;
 
-import datasource.MariaDBConnection;
-import entity.User;
+import static datasource.MariaDBConnection.conn;
 
 public class UserDao {
 
 
-
     public static void registerUser(User u) {
         if (conn == null) {
-            System.out.println("Connection is null!");
             return;
         }
 
@@ -29,14 +28,13 @@ public class UserDao {
 
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException _) {
+            Logger.getLogger(UserDao.class.getName()).info("User already exists!");
         }
-}
+    }
 
     public static boolean logInUser(User u) {
         if (conn == null) {
-            System.out.println("Connection is null!");
             return false;
         }
 
@@ -44,9 +42,7 @@ public class UserDao {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            //System.out.println("Username: " + u.getUserName());
             stmt.setString(1, u.getUserName());
-            //System.out.println("Password: " + u.getPassword());
             stmt.setString(2, u.getPassword());
             stmt.setString(3, u.getRole().name());
 
@@ -56,20 +52,12 @@ public class UserDao {
 
                 int userId = rs.getInt("user_id");
                 u.setUserId(userId);
-
-                System.out.println("Login successful!");
-                System.out.println("Username: " + rs.getString("username"));
-                System.out.println("Role: " + rs.getString("role"));
-                System.out.println("UserId: " + userId);
-
                 return true;
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException _) {
+            Logger.getLogger(UserDao.class.getName()).info("User does not exist!");
         }
-
-        System.out.println("Login failed!");
         return false;
 
     }
