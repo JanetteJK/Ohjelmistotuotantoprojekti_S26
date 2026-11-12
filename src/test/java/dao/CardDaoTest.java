@@ -251,23 +251,17 @@ class CardDaoTest {
 
         when(mockResultSet.getString("question"))
                 .thenReturn("Who is Kiri?")
-                .thenReturn("Who is Kiri?")
-                .thenReturn("Who is Veela?")
                 .thenReturn("Who is Veela?");
 
         when(mockResultSet.getString("answer"))
                 .thenReturn("My cat.")
-                .thenReturn("My cat.")
-                .thenReturn("My dog")
                 .thenReturn("My dog");
 
         when(mockResultSet.getString("category"))
                 .thenReturn("Animals")
-                .thenReturn("Animals")
-                .thenReturn("Animals")
                 .thenReturn("Animals");
 
-        java.util.ArrayList<Card> cards = CardDao.getCardsBasedOnCategory("Animals", 5);
+        java.util.List<Card> cards = CardDao.getCardsBasedOnCategory("Animals", 5);
 
         verify(mockConnection).prepareStatement(
                 "SELECT question, answer, category FROM flashcards WHERE user_id = ? AND category = ?"

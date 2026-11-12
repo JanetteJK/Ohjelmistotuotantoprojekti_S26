@@ -35,6 +35,11 @@ public class QuizSession {
             }
             Collections.shuffle(options);
 
+            System.out.println("Answer options:");
+            for (int i = 0; i < options.size(); i++) {
+                System.out.println((i + 1) + ". " + options.get(i));
+            }
+
             return new QuizQuestion(card.getQuestion(), options);
         }
 

@@ -16,7 +16,7 @@ public class QuizController {
         this.qd = qd;
     }
 
-    public Quiz getQuiz(String category, int userId) {
+    public Quiz createQuiz(String category, int userId) {
         if (category == null || category.isBlank()) {
             category = PLACEHOLDER_CATEGORY;
         }
