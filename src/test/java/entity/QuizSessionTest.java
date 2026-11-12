@@ -2,6 +2,8 @@ package entity;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,16 +29,40 @@ class QuizSessionTest {
     }
 
     @Test
-    void nextQuestionShouldNotReturnAnotherQuestionBeforeAnswering() {
+    void nextQuestionShouldPrintAnswerOptionsToConsole() {
+        QuizSession session = new QuizSession(cards());
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+        try {
+            System.setOut(new PrintStream(output));
+
+            QuizQuestion question = session.nextQuestion();
+            String printedOptions = output.toString();
+
+            assertNotNull(question);
+            assertTrue(printedOptions.contains("Answer options:"));
+            for (int i = 0; i < question.getOptions().size(); i++) {
+                assertTrue(printedOptions.contains(
+                        (i + 1) + ". " + question.getOptions().get(i)
+                ));
+            }
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+    @Test
+    void nextQuestionShouldReturnAnotherQuestionWhenCurrentQuestionIsNotStored() {
         QuizSession session = new QuizSession(cards());
 
         assertNotNull(session.nextQuestion());
 
-        assertNull(session.nextQuestion());
+        assertNotNull(session.nextQuestion());
     }
 
     @Test
-    void correctAnswerShouldIncreaseScoreAndAdvanceSession() {
+    void answerShouldNotChangeScoreWhenCurrentQuestionIsNotStored() {
         QuizSession session = new QuizSession(cards());
 
         QuizQuestion question = session.nextQuestion();
@@ -46,8 +72,8 @@ class QuizSessionTest {
                 .orElseThrow()
                 .getAnswer();
 
-        assertTrue(session.answer(correctAnswer));
-        assertEquals(1, session.getScore());
+        assertFalse(session.answer(correctAnswer));
+        assertEquals(0, session.getScore());
         assertNotNull(session.nextQuestion());
     }
 
@@ -59,7 +85,7 @@ class QuizSessionTest {
 
         assertFalse(session.answer("Not an option"));
         assertEquals(0, session.getScore());
-        assertNull(session.nextQuestion());
+        assertNotNull(session.nextQuestion());
     }
 
     @Test
