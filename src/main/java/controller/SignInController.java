@@ -106,6 +106,14 @@ public class SignInController {
         };
     }
 
+    void showLoginFailedAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(LanguageManager.getBundle().getString(LOGIN_FAILED_PATH));
+        alert.setHeaderText(LanguageManager.getBundle().getString(LOGIN_FAILED_PATH));
+        alert.setContentText(LanguageManager.getBundle().getString("ELEM_wrong"));
+        alert.showAndWait();
+    }
+
     public void tLogin(javafx.event.ActionEvent actionEvent) throws IOException {
         if (actionEvent.getSource() == tOk) {
             String un = gettUsername();
@@ -128,11 +136,7 @@ public class SignInController {
                 stage.setScene(scene);
                 stage.show();
             } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle(LanguageManager.getBundle().getString(LOGIN_FAILED_PATH));
-                alert.setHeaderText(LanguageManager.getBundle().getString(LOGIN_FAILED_PATH));
-                alert.setContentText(LanguageManager.getBundle().getString("ELEM_wrong"));
-                alert.showAndWait();
+                showLoginFailedAlert();
             }
 
 
@@ -161,11 +165,7 @@ public class SignInController {
                 stage.setScene(scene);
                 stage.show();
             } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle(LanguageManager.getBundle().getString(LOGIN_FAILED_PATH));
-                alert.setHeaderText(LanguageManager.getBundle().getString(LOGIN_FAILED_PATH));
-                alert.setContentText(LanguageManager.getBundle().getString("ELEM_wrong"));
-                alert.showAndWait();
+                showLoginFailedAlert();
             }
 
         }
