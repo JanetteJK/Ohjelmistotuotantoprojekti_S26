@@ -12,6 +12,8 @@ public class CardController {
     private Label cardText;
     @FXML
     private Button showAnswerButton;
+    @FXML
+    private Button deleteCardButton;
 
     private String answer;
     private String question;

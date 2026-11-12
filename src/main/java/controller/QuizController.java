@@ -8,6 +8,7 @@ import entity.Quiz;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class QuizController {
     private static final String PLACEHOLDER_CATEGORY = "default";
@@ -34,6 +35,7 @@ public class QuizController {
         private int questionIndex;
         private int score;
         private QuizQuestion currentQuestion;
+        Random random = new Random();
 
         private QuizSession(List<Card> cards) {
             questions = new ArrayList<>(cards);
@@ -52,7 +54,7 @@ public class QuizController {
             if (!questions.isEmpty()) {
                 while (options.size() < 3) {
                     options.add(questions.get(
-                            (int) (Math.random() * questions.size())
+                            random.nextInt(questions.size())
                     ).getAnswer());
                 }
             }
