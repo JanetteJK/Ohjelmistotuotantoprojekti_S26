@@ -11,9 +11,14 @@ import java.util.List;
 import java.util.Random;
 
 public class QuizController {
+    QuizDao qd;
     private static final String PLACEHOLDER_CATEGORY = "default";
 
-    public Quiz createQuiz(String category, int userId) {
+    public QuizController(QuizDao qd) {
+        this.qd = qd;
+    }
+
+    public Quiz getQuiz(String category, int userId) {
         if (category == null || category.isBlank()) {
             category = PLACEHOLDER_CATEGORY;
         }
@@ -26,7 +31,7 @@ public class QuizController {
             category = PLACEHOLDER_CATEGORY;
         }
 
-        ArrayList<Card> cards = CardDao.getCardsBasedOnCategory(category, userId);
+        final ArrayList<Card> cards = CardDao.getCardsBasedOnCategory(category, userId);
         return new QuizSession(cards);
     }
 
