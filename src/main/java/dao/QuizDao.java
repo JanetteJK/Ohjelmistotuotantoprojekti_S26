@@ -35,8 +35,8 @@ public class QuizDao {
                 submitQuiz(quiz);
                 return quiz;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException _) {
+            LOGGER.info("Error creating quiz.");
         }
 
         return null;
@@ -55,8 +55,8 @@ public class QuizDao {
             stmt.setInt(2, quiz.getQuizPoints());
             stmt.setInt(3, quiz.getUserId());
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException _) {
+            LOGGER.info("Error submitting quiz.");
         }
     }
 
@@ -81,8 +81,8 @@ public class QuizDao {
                         rs.getInt("user_id")
                 );
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException _) {
+            LOGGER.info("Error getting quiz.");
         }
 
         return null;
