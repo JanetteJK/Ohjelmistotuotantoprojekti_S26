@@ -81,6 +81,7 @@ public class SignInController {
         currentUser = cu;
     }
 
+
     public void initialize() {
         if (languageChoice == null) {
             return;

@@ -34,9 +34,6 @@ public class QuizController {
         private final List<Card> questions;
         private int questionIndex;
         private int score;
-        private QuizQuestion currentQuestion;
-        Random random = new Random();
-
         private QuizSession(List<Card> cards) {
             questions = new ArrayList<>(cards);
             Collections.shuffle(questions);

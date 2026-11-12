@@ -4,15 +4,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 import static datasource.MariaDBConnection.conn;
 
 
 public class CardDao {
+    
+
+
+    private static final Logger msg = Logger.getLogger(CardDao.class.getName());
 
     public static void addCard(Card c) {
         if (conn == null) {
-            System.out.println("Connection is null!");
             return;
         }
 
@@ -27,15 +32,15 @@ public class CardDao {
 
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException _) {
+            msg.info("Card already exists!");
         }
 
     }
 
     public static void modifyCard(Card c) {
         if (conn == null) {
-            System.out.println("Connection is null!");
+
             return;
         }
 
@@ -50,8 +55,8 @@ public class CardDao {
 
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException _) {
+            msg.info("Card already exists!");
         }
     }
 
@@ -60,8 +65,7 @@ public class CardDao {
         ArrayList<Card> cardList = new ArrayList<>();
 
         if (conn == null) {
-            System.out.println("Connection is null!");
-            return null;
+            return new ArrayList<>();
         }
 
         String sql = "SELECT question, answer, category FROM flashcards WHERE user_id = ?";
@@ -78,10 +82,6 @@ public class CardDao {
                 String answer = rs.getString("answer");
                 String category = rs.getString("category");
 
-                System.out.println(question);
-                System.out.println(answer);
-                System.out.println(category);
-
                 Card card = new Card(
                         question,
                         answer,
@@ -92,23 +92,17 @@ public class CardDao {
                 cardList.add(card);
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException _) {
+            msg.info("No cards found!");
         }
-        if (cardList.size() == 0) {
-            return cardList;
-        } else {
-            return cardList;
-        }
+        return cardList;
     }
 
 
-    public static ArrayList<Card> getCardsBasedOnCategory(String cat, int userid) {
+    public static List<Card> getCardsBasedOnCategory(String cat, int userid) {
         ArrayList<Card> cardList = new ArrayList<>();
-        Card c = new Card(null, null, cat, userid);
 
         if (conn == null) {
-            System.out.println("Connection is null!");
             return cardList;
         }
 
@@ -122,11 +116,7 @@ public class CardDao {
             ResultSet rs = stmt.executeQuery();
 
 
-
             while (rs.next()) {
-                System.out.println(rs.getString("question"));
-                System.out.println(rs.getString("answer"));
-                System.out.println(rs.getString("category"));
                 Card card = new Card(
                         rs.getString("question"),
                         rs.getString("answer"),
@@ -136,20 +126,14 @@ public class CardDao {
                 cardList.add(card);
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException _) {
+            msg.info("No cards found!");
         }
-        if (cardList.size() == 0) {
-            return cardList;
-        } else {
-            return cardList;
-        }
-
+        return cardList;
     }
 
     public static void deleteCard(String question) {
         if (conn == null) {
-            System.out.println("Connection is null!");
             return;
         }
 
@@ -158,10 +142,9 @@ public class CardDao {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, question);
             stmt.executeUpdate();
-            System.out.println("Card deleted");
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException _) {
+            msg.info("Card does not exist!");
         }
 
     }
