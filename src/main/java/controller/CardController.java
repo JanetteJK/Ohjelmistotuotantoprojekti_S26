@@ -16,13 +16,8 @@ public class CardController {
     private Button deleteCardButton;
 
     private String answer;
-
     private String question;
-
     public User user;
-
-    CardDao cardDao;
-
     private boolean answerVisible = false;
 
     public void setCardQuestion(String question) {
@@ -46,7 +41,6 @@ public class CardController {
             cardText.setText(answer);
         }
     }
-
 
     public void setUser(User user) {
         this.user = user;

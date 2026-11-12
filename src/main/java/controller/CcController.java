@@ -3,15 +3,12 @@ package controller;
 
 import javafx.fxml.FXML;
 import dao.CardDao;
-import dao.UserDao;
 import entity.Card;
 import entity.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -26,13 +23,10 @@ import java.util.List;
 public class CcController {
 
     private static final Logger log = LoggerFactory.getLogger(CcController.class);
-    CardDao cardDao;
-    UserDao userDao;
     private Stage stage;
     private Scene scene;
     CcController cac;
     List<Card> cards = new ArrayList<>();
-    Card card;
     private User user;
 
     @FXML
@@ -41,19 +35,6 @@ public class CcController {
     TextArea answerBox;
     @FXML
     TextField categoryField;
-    @FXML
-    private Button submitCard;
-    @FXML
-    private Label libraryMenu;
-    @FXML
-    private Label studyMaterialsMenu;
-    @FXML
-    private Label profileMenu;
-    @FXML
-    private Label createQuizMenu;
-    @FXML
-    private Label createCardsMenu;
-
 
     // cardCreation functions
     public String getQuestion() {
