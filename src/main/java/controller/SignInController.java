@@ -1,7 +1,7 @@
 package controller;
+
 import dao.CardDao;
 import dao.UserDao;
-import entity.Card;
 import entity.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -11,10 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
+import java.util.logging.Logger;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -26,13 +27,15 @@ import javafx.stage.Stage;
 
 
 public class SignInController {
-    private UserDao ud = new UserDao();
-    private CardDao cd = new CardDao();
+    private static final Logger LOGGER = Logger.getLogger(SignInController.class.getName());
+    private static final String HOME_GUI_FXML_PATH = "/initHomeGui.fxml";
+    private static final String LOGIN_FAILED_PATH = "ELEM_login_failed";
+    UserDao ud;
+    CardDao cd;
+    CreateAccountController cac;
     private Stage stage;
     private Scene scene;
-    private CreateAccountController cac;
     private User currentUser;
-    private List<Card> cards = new ArrayList<>();
     final ChoiceBox<String> cb = new ChoiceBox<>(
             FXCollections.observableArrayList("English", "Suomeksi", "日本語で", "한국어")
     );
@@ -62,19 +65,19 @@ public class SignInController {
         return tUsername.getText();
     }
 
-    public String gettPassw(){
+    public String gettPassw() {
         return tPassw.getText();
     }
 
-    public String getSUsername(){
+    public String getSUsername() {
         return sUsername.getText();
     }
 
-    public String getsPassw(){
+    public String getsPassw() {
         return sPassw.getText();
     }
 
-    public void setCurrentUser(User cu){
+    public void setCurrentUser(User cu) {
         currentUser = cu;
     }
 
@@ -102,18 +105,17 @@ public class SignInController {
         };
     }
 
-    // todo: see how to get the password value, create login handler for dao, repeat with sLogin
     public void tLogin(javafx.event.ActionEvent actionEvent) throws IOException {
-        if(actionEvent.getSource()==tOk) {
+        if (actionEvent.getSource() == tOk) {
             String un = gettUsername();
             String ps = gettPassw();
             String email = "teacher@email.fi";
             User teacher = new User(un, email, ps, User.Role.teacher);
             if (UserDao.logInUser(teacher)) {
-                ud.logInUser(teacher);
+                UserDao.logInUser(teacher);
                 setCurrentUser(teacher);
                 FXMLLoader fxmlLoader = new FXMLLoader(
-                        getClass().getResource("/initHomeGui.fxml"),
+                        getClass().getResource(HOME_GUI_FXML_PATH),
                         LanguageManager.getBundle()
                 );
                 Parent root = fxmlLoader.load();
@@ -126,8 +128,8 @@ public class SignInController {
                 stage.show();
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle(LanguageManager.getBundle().getString("ELEM_login_failed"));
-                alert.setHeaderText(LanguageManager.getBundle().getString("ELEM_login_failed"));
+                alert.setTitle(LanguageManager.getBundle().getString(LOGIN_FAILED_PATH));
+                alert.setHeaderText(LanguageManager.getBundle().getString(LOGIN_FAILED_PATH));
                 alert.setContentText(LanguageManager.getBundle().getString("ELEM_wrong"));
                 alert.showAndWait();
             }
@@ -137,33 +139,30 @@ public class SignInController {
     }
 
     public void sLogin(javafx.event.ActionEvent actionEvent) throws IOException {
-        if(actionEvent.getSource()==sOk) {
+        if (actionEvent.getSource() == sOk) {
             String un = getSUsername();
             String ps = getsPassw();
             String email = "student@email.fi";
             User student = new User(un, email, ps, User.Role.student);
             if (UserDao.logInUser(student)) {
-                ud.logInUser(student);
+                UserDao.logInUser(student);
                 setCurrentUser(student);
-                System.out.println(student.getUserId());
                 FXMLLoader fxmlLoader = new FXMLLoader(
-                        getClass().getResource("/initHomeGui.fxml"),
+                        getClass().getResource(HOME_GUI_FXML_PATH),
                         LanguageManager.getBundle()
                 );
                 Parent root = fxmlLoader.load();
                 SignInController controller = fxmlLoader.getController();
                 controller.setUserGreeting(currentUser.getUserName());
                 controller.setCurrentUser(currentUser);
-                //controller.getAllCards(student);//todo: id shit
-                System.out.println(cards);
                 stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle(LanguageManager.getBundle().getString("ELEM_login_failed"));
-                alert.setHeaderText(LanguageManager.getBundle().getString("ELEM_login_failed"));
+                alert.setTitle(LanguageManager.getBundle().getString(LOGIN_FAILED_PATH));
+                alert.setHeaderText(LanguageManager.getBundle().getString(LOGIN_FAILED_PATH));
                 alert.setContentText(LanguageManager.getBundle().getString("ELEM_wrong"));
                 alert.showAndWait();
             }
@@ -171,8 +170,8 @@ public class SignInController {
         }
     }
 
-    public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{
-        Locale locale = LanguageManager.getLocale();
+    public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException {
+        Locale localeCA = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         cac = fxmlLoader.getController();
@@ -182,8 +181,8 @@ public class SignInController {
         stage.show();
     }
 
-    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException{
-        Locale locale = LanguageManager.getLocale();
+    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        Locale localeCC = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         CcController cardCtrl = fxmlLoader.getController();
@@ -194,11 +193,10 @@ public class SignInController {
         stage.show();
     }
 
-    public void switchToLibrary(MouseEvent actionEvent) throws IOException{
-        Locale locale = LanguageManager.getLocale();
+    public void switchToLibrary(MouseEvent actionEvent) throws IOException {
+        Locale localeL = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
-        // todo: add cards to library
         LibraryController lc = fxmlLoader.getController();
         lc.setUser(currentUser);
         lc.getAllCards();
@@ -208,8 +206,8 @@ public class SignInController {
         stage.show();
     }
 
-    public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException{
-        Locale locale = LanguageManager.getLocale();
+    public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        Locale localeCQ = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -218,8 +216,8 @@ public class SignInController {
         stage.show();
     }
 
-    public void switchToStudyMaterials(javafx.scene.input.MouseEvent actionEvent) throws IOException{
-        Locale locale = LanguageManager.getLocale();
+    public void switchToStudyMaterials(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        Locale localeSM = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -229,8 +227,8 @@ public class SignInController {
     }
 
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        Locale locale = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"), LanguageManager.getBundle());
+        Locale localeP = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(HOME_GUI_FXML_PATH), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
 
         SignInController controller = fxmlLoader.getController();
@@ -242,15 +240,15 @@ public class SignInController {
         stage.show();
     }
 
-    public void setUserGreeting(String un){
+    public void setUserGreeting(String un) {
         nameTag.setText(un);
     }
 
-    public int getUserId(){
+    public int getUserId() {
         return currentUser.getUserId();
     }
 
-    public void changeLanguage(ActionEvent e) throws Exception {
+    public void changeLanguage(ActionEvent e) throws IOException {
         if (initializingLanguageChoice) {
             return;
         }
@@ -270,7 +268,7 @@ public class SignInController {
                 LanguageManager.setLocale(new Locale("ko", "KR"));
                 break;
             default:
-                System.out.println("Invalid language choice, defaulting to English");
+                LOGGER.info("Invalid language choice, defaulting to English");
         }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/loginUi.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
