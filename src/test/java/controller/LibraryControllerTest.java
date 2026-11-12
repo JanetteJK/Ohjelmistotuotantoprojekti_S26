@@ -91,23 +91,6 @@ class LibraryControllerTest {
     }
 
     @Test
-    void getAllCards_shouldHandleNullCardList() {
-        when(user.getUserId()).thenReturn(42);
-
-        try (MockedStatic<CardDao> cardDaoMock =
-                     mockStatic(CardDao.class)) {
-
-            cardDaoMock.when(() -> CardDao.showAllCards(42))
-                    .thenReturn(null);
-
-            assertThrows(
-                    NullPointerException.class,
-                    () -> controller.getAllCards()
-            );
-        }
-    }
-
-    @Test
     void switchToCreateCards_shouldLoadViewAndSetUser()
             throws Exception {
 

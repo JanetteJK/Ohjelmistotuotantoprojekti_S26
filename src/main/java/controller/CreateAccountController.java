@@ -12,19 +12,17 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 public class CreateAccountController {
     private static final Logger log = LoggerFactory.getLogger(CreateAccountController.class);
-    UserDao userDao;
     SignInController sct;
     Stage stage;
     Scene scene;
 
-    @FXML
-    private javafx.scene.control.Button createAccountButton;
     @FXML
     public TextField newUsername;
     @FXML
@@ -37,35 +35,27 @@ public class CreateAccountController {
     public Label createAccountInfo;
 
 
-
-
-
-    public User getUserCreationDetails(){
+    public User getUserCreationDetails() {
         String un = newUsername.getText();
         User.Role role = null;
         String passw = newPassw.getText();
         String email = null;
-        if (teacherButton.isSelected()){
+        if (teacherButton.isSelected()) {
             role = User.Role.teacher;
             email = "teacher@email.com";
-        }
-        else if (studentButton.isSelected()){
+        } else if (studentButton.isSelected()) {
             role = User.Role.student;
             email = "student@email.com";
-        }
-        else {
+        } else {
             log.info("no role selected");
         }
         return new User(un, email, passw, role);
     }
 
 
-
-
-    public void createAccount(){
+    public void createAccount() {
         User newUser = getUserCreationDetails();
         UserDao.registerUser(newUser);
-        log.info("toimiipas");
         createAccountInfo.setText("ELEM_account_created");
     }
 

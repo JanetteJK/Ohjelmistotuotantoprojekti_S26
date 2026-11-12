@@ -2,7 +2,6 @@ package controller;
 
 import dao.CardDao;
 import dao.UserDao;
-import entity.Card;
 import entity.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -14,8 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
 
