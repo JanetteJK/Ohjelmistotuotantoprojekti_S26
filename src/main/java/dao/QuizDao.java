@@ -5,14 +5,21 @@ import entity.Quiz;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 import static datasource.MariaDBConnection.conn;
 
 public class QuizDao {
+    private static final String NULL_CONNECTION_MESSAGE = "Connection is null!";
+    private static final Logger LOGGER = Logger.getLogger(QuizDao.class.getName());
+
+    private QuizDao() {
+        // Private constructor to prevent instantiation
+    }
 
     public static Quiz createQuiz(String category, int userId) {
         if (conn == null) {
-            System.out.println("Connection is null!");
+            LOGGER.severe(NULL_CONNECTION_MESSAGE);
             return null;
         }
 
@@ -37,7 +44,7 @@ public class QuizDao {
 
     public static void submitQuiz(Quiz quiz) {
         if (conn == null) {
-            System.out.println("Connection is null!");
+            LOGGER.severe(NULL_CONNECTION_MESSAGE);
             return;
         }
 
@@ -55,7 +62,7 @@ public class QuizDao {
 
     public static Quiz getQuiz(int quizId) {
         if (conn == null) {
-            System.out.println("Connection is null!");
+            LOGGER.severe(NULL_CONNECTION_MESSAGE);
             return null;
         }
 
