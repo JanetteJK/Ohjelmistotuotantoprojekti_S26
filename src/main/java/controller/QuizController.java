@@ -31,7 +31,7 @@ public class QuizController {
             category = PLACEHOLDER_CATEGORY;
         }
 
-        final ArrayList<Card> cards = CardDao.getCardsBasedOnCategory(category, userId);
+        final List<Card> cards = CardDao.getCardsBasedOnCategory(category, userId);
         return new QuizSession(cards);
     }
 
@@ -39,6 +39,7 @@ public class QuizController {
         private final List<Card> questions;
         private int questionIndex;
         private int score;
+        private QuizQuestion currentQuestion;
         private QuizSession(List<Card> cards) {
             questions = new ArrayList<>(cards);
             Collections.shuffle(questions);
@@ -54,6 +55,7 @@ public class QuizController {
             options.add(card.getAnswer());
 
             if (!questions.isEmpty()) {
+                Random random = new Random();
                 while (options.size() < 3) {
                     options.add(questions.get(
                             random.nextInt(questions.size())
