@@ -103,30 +103,48 @@ public class CardDao {
     }
 
 
-    public static void showCardsBasedOnCategory(Card c) {
+    public static ArrayList<Card> getCardsBasedOnCategory(String cat, int userid) {
+        ArrayList<Card> cardList = new ArrayList<>();
+        Card c = new Card(null, null, cat, userid);
+
         if (conn == null) {
             System.out.println("Connection is null!");
-            return;
+            return cardList;
         }
 
         String sql = "SELECT question, answer, category FROM flashcards WHERE user_id = ? AND category = ?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, c.getUserId());
-            stmt.setString(2, c.getCategory());
+            stmt.setInt(1, userid);
+            stmt.setString(2, cat);
 
             ResultSet rs = stmt.executeQuery();
+
+
 
             while (rs.next()) {
                 System.out.println(rs.getString("question"));
                 System.out.println(rs.getString("answer"));
                 System.out.println(rs.getString("category"));
+                Card card = new Card(
+                        rs.getString("question"),
+                        rs.getString("answer"),
+                        rs.getString("category"),
+                        userid
+                );
+                cardList.add(card);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if (cardList.size() == 0) {
+            return cardList;
+        } else {
+            return cardList;
+        }
+
     }
 
     public static void deleteCard(String question) {

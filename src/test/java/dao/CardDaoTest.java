@@ -231,7 +231,7 @@ class CardDaoTest {
     }
 
     @Test
-    void showAllCardsBasedOnCategoryShouldShowCardsBasedOnCategories() throws Exception {
+    void getCardsBasedOnCategoryShouldReturnCardsBasedOnCategory() throws Exception {
         Connection mockConnection = mock(Connection.class);
         PreparedStatement mockStatement = mock(PreparedStatement.class);
         ResultSet mockResultSet = mock(ResultSet.class);
@@ -249,26 +249,25 @@ class CardDaoTest {
                 .thenReturn(true)
                 .thenReturn(false);
 
-        when(mockResultSet.getString("category"))
-                .thenReturn("Animals")
-                .thenReturn("Animals");
-
         when(mockResultSet.getString("question"))
                 .thenReturn("Who is Kiri?")
+                .thenReturn("Who is Kiri?")
+                .thenReturn("Who is Veela?")
                 .thenReturn("Who is Veela?");
 
         when(mockResultSet.getString("answer"))
                 .thenReturn("My cat.")
+                .thenReturn("My cat.")
+                .thenReturn("My dog")
                 .thenReturn("My dog");
 
-        Card card = new Card(
-                "Test question",
-                "Test answer",
-                "Animals",
-                5
-        );
+        when(mockResultSet.getString("category"))
+                .thenReturn("Animals")
+                .thenReturn("Animals")
+                .thenReturn("Animals")
+                .thenReturn("Animals");
 
-        CardDao.showCardsBasedOnCategory(card);
+        java.util.ArrayList<Card> cards = CardDao.getCardsBasedOnCategory("Animals", 5);
 
         verify(mockConnection).prepareStatement(
                 "SELECT question, answer, category FROM flashcards WHERE user_id = ? AND category = ?"
@@ -281,23 +280,26 @@ class CardDaoTest {
 
         verify(mockResultSet, times(3)).next();
 
-        verify(mockResultSet, times(2)).getString("question");
-        verify(mockResultSet, times(2)).getString("answer");
-        verify(mockResultSet, times(2)).getString("category");
+        assertEquals(2, cards.size());
+        assertEquals("Who is Kiri?", cards.get(0).getQuestion());
+        assertEquals("My cat.", cards.get(0).getAnswer());
+        assertEquals("Animals", cards.get(0).getCategory());
+        assertEquals(5, cards.get(0).getUserId());
+        assertEquals("Who is Veela?", cards.get(1).getQuestion());
+        assertEquals("My dog", cards.get(1).getAnswer());
+        assertEquals("Animals", cards.get(1).getCategory());
+        assertEquals(5, cards.get(1).getUserId());
     }
 
     @Test
-    void showCardsBasedOnCategoryShouldDoNothingWhenConnectionIsNull() {
+    void getCardsBasedOnCategoryShouldReturnEmptyListWhenConnectionIsNull() {
         conn = null;
 
-        Card card = new Card("Test question", "Test answer", "Animals", 5);
-
-        assertDoesNotThrow(() ->
-                CardDao.showCardsBasedOnCategory(card));
+        assertEquals(0, CardDao.getCardsBasedOnCategory("Animals", 5).size());
     }
 
     @Test
-    void showCardsBasedOnCategoryShouldHandleSQLException() throws SQLException {
+    void getCardsBasedOnCategoryShouldReturnEmptyListWhenSQLExceptionOccurs() throws SQLException {
         Connection mockConnection = mock(Connection.class);
 
         conn = mockConnection;
@@ -305,16 +307,7 @@ class CardDaoTest {
         when(mockConnection.prepareStatement(anyString()))
                 .thenThrow(new SQLException("Test database error"));
 
-        Card card = new Card(
-                "Question",
-                "Answer",
-                "Animals",
-                5
-        );
-
-        assertDoesNotThrow(() ->
-                CardDao.showCardsBasedOnCategory(card)
-        );
+        assertEquals(0, CardDao.getCardsBasedOnCategory("Animals", 5).size());
 
     }
 
