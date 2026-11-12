@@ -100,7 +100,7 @@ public class CardDao {
     }
 
 
-    public static ArrayList<Card> getCardsBasedOnCategory(String cat, int userid) {
+    public static List<Card> getCardsBasedOnCategory(String cat, int userid) {
         ArrayList<Card> cardList = new ArrayList<>();
 
         if (conn == null) {
