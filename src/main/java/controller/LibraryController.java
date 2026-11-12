@@ -53,7 +53,7 @@ public class LibraryController implements Initializable {
 
                 AnchorPane anchorPane = cardFxmlLoader.load();
                 CardController cc = cardFxmlLoader.getController();
-                cc.setCardQuestion(card.getQuestion());
+                cc.setCardQuestion(card.getQuestion(), card.getCategory());
                 cc.getCardAnswer(card.getAnswer());
 
                 if (column == 1) {
