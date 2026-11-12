@@ -11,8 +11,9 @@ import static datasource.MariaDBConnection.conn;
 
 
 public class CardDao {
-    
-
+    private CardDao(){
+        // Private constructor to prevent instantiation
+    }
 
     private static final Logger msg = Logger.getLogger(CardDao.class.getName());
 
