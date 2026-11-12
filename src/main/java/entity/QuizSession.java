@@ -10,6 +10,7 @@ public class QuizSession {
         private int questionIndex;
         private int score;
         private QuizQuestion currentQuestion;
+        private final Random random = new Random();
 
         public QuizSession(List<Card> cards) {
             questions = new ArrayList<>(cards);
@@ -24,12 +25,11 @@ public class QuizSession {
             Card card = questions.get(questionIndex);
             List<String> options = new ArrayList<>();
             options.add(card.getAnswer());
-            Random random = new Random();
 
             if (!questions.isEmpty()) {
                 while (options.size() < 3) {
                     options.add(questions.get(
-                            random.nextInt(questions.size())
+                            this.random.nextInt(questions.size())
                     ).getAnswer());
                 }
             }
