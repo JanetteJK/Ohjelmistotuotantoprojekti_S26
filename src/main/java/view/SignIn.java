@@ -1,9 +1,12 @@
 package view;
 import java.io.IOException;
+import java.util.List;
 
 import controller.LanguageManager;
 import controller.SignInController;
+import dao.LanguageDao;
 import datasource.MariaDBConnection;
+import entity.Language;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +16,7 @@ import javafx.stage.Stage;
 
 public class SignIn extends Application {
      SignInController controller;
+     LanguageDao ld;
 
     @Override
     public void init(){
@@ -22,6 +26,7 @@ public class SignIn extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         MariaDBConnection.connect();
+        LanguageManager.initializeLanguages();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/loginUi.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         controller = fxmlLoader.getController();

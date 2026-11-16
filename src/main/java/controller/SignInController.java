@@ -2,8 +2,10 @@ package controller;
 
 import dao.CardDao;
 import dao.UserDao;
+import entity.Language;
 import entity.User;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +32,7 @@ public class SignInController {
     private Scene scene;
     private User currentUser;
     final ChoiceBox<String> cb = new ChoiceBox<>(
-            FXCollections.observableArrayList("English", "Suomeksi", "日本語で", "한국어")
+            //FXCollections.observableArrayList("English", "Suomeksi", "日本語で", "한국어")
     );
     Locale locale = Locale.getDefault();
 
@@ -81,7 +83,12 @@ public class SignInController {
         }
         initializingLanguageChoice = true;
         try {
-            languageChoice.setItems(cb.getItems());
+            ObservableList<String> items = FXCollections.observableArrayList();
+
+            for (Language lang : LanguageManager.getLanguages()){
+                items.add(lang.getLanguage());
+            }
+            languageChoice.setItems(items);
             languageChoice.getSelectionModel().select(languageIndexForLocale(
                     LanguageManager.getLocale()
             ));
