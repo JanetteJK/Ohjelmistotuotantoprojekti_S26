@@ -18,7 +18,7 @@ The target audience for the application is students and teachers. Users are able
 
 ▪ Testing () --> JUnit 5
 
-▪ Dependencies () --> JaCoCo, Jenkins, Mockito
+▪ Dependencies () --> JaCoCo, Jenkins, Mockito, SonarQube, Docker
 
 ▪ Other tools or frameworks (e.g., authentication, APIs)
 
