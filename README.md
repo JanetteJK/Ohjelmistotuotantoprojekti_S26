@@ -32,6 +32,8 @@ The main program uses the MVC model, with multiple controller classes to handle 
 Unit test were implemented by using JUnit 5. Mockito was used to mock database and especially JavaFX components to prevent tests from opening GUI windows.
 ## Jenkins
 Jenkins was integrated to for CI/CD. The pipeline is as follows: Git repository >> Jenkins >> Maven build >> JUnit tests >> JACOCO  >> Docker image >> Docker Hub
+## Localisation
+Localisation was implemented by using resource bundles. The application supports English, Finnish, Korean and Japanese. The user can change the language before signing in. The database localisation is handled by a translation table, which contains the translations for the flashcards.
 
 # 5. Set-Up
 ### Requirements
