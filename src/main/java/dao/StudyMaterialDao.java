@@ -3,9 +3,13 @@ import entity.StudyMaterial;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Logger;
+
 import static datasource.MariaDBConnection.conn;
 
 public class StudyMaterialDao {
+
+    private static final Logger msg = Logger.getLogger(StudyMaterialDao.class.getName());
 
     public static void uploadStudyMaterial(StudyMaterial sm) {
         if (conn == null) {
@@ -24,7 +28,7 @@ public class StudyMaterialDao {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            msg.info("Error!");
         }
     }
 }
