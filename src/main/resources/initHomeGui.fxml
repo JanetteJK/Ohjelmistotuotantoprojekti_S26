@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" styleClass="anchorPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SignInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" styleClass="anchorPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SignInController">
    <children>
       <BorderPane layoutX="-3.0" layoutY="-1.0" prefHeight="700.0" prefWidth="906.0" styleClass="HBox" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -23,14 +23,14 @@
                               <Insets />
                            </HBox.margin>
                            <image>
-                              <Image url="flasherslogo.png" />
+                              <Image url="@flasherslogo.png" />
                            </image>
                         </ImageView>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="HBox" stylesheets="@style.css">
                      <children>
-                        <Label fx:id="createCardsMenu" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#switchToCreateCards" styleClass="menu-label" stylesheets="@style.css" text="%MENU_create_cards" textFill="#4a1b2a">
+                        <Label fx:id="createCardsMenu" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#switchToCreateCards" prefHeight="112.0" prefWidth="201.0" styleClass="menu-label" stylesheets="@style.css" text="%MENU_create_cards" textAlignment="CENTER" textFill="#4a1b2a" wrapText="true">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -42,7 +42,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="libraryMenu" onMouseClicked="#switchToLibrary" text="%MENU_library" textFill="#4a1b2a">
+                        <Label fx:id="libraryMenu" alignment="CENTER" onMouseClicked="#switchToLibrary" prefHeight="98.0" prefWidth="194.0" text="%MENU_library" textAlignment="CENTER" textFill="#4a1b2a" wrapText="true">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -51,7 +51,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="createQuizMenu" onMouseClicked="#switchToCreateQuiz" text="%MENU_create_quiz" textFill="#4a1b2a">
+                        <Label fx:id="createQuizMenu" alignment="CENTER" onMouseClicked="#switchToCreateQuiz" prefHeight="90.0" prefWidth="200.0" text="%MENU_create_quiz" textAlignment="CENTER" textFill="#4a1b2a" wrapText="true">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -60,7 +60,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="studyMaterialsMenu" onMouseClicked="#switchToStudyMaterials" text="%MENU_study_materials" textFill="#4a1b2a">
+                        <Label fx:id="studyMaterialsMenu" alignment="CENTER" onMouseClicked="#switchToStudyMaterials" prefHeight="113.0" prefWidth="200.0" text="%MENU_study_materials" textAlignment="CENTER" textFill="#4a1b2a" wrapText="true">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -69,7 +69,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="profileMenu" onMouseClicked="#switchToProfile" text="%MENU_profile" textFill="#4a1b2a">
+                        <Label fx:id="profileMenu" alignment="CENTER" onMouseClicked="#switchToProfile" prefHeight="99.0" prefWidth="197.0" text="%MENU_profile" textAlignment="CENTER" textFill="#4a1b2a" wrapText="true">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -90,7 +90,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="181.0" prefWidth="700.0">
                      <children>
-                        <Label text="%HEADER_welcome">
+                        <Label alignment="CENTER" prefHeight="134.0" prefWidth="307.0" text="%HEADER_welcome" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font name="Bell MT" size="24.0" />
                            </font>
@@ -98,7 +98,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label fx:id="nameTag" text="Käyttäjänimi">
+                        <Label fx:id="nameTag" alignment="CENTER" prefHeight="92.0" prefWidth="299.0" text="Käyttäjänimi" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font name="Bell MT Bold" size="24.0" />
                            </font>

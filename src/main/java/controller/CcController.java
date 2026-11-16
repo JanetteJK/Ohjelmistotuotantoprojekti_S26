@@ -62,6 +62,7 @@ public class CcController {
         CardDao.addCard(cardS);
         questionBox.clear();
         answerBox.clear();
+        categoryField.clear();
     }
 
     //switch funtions

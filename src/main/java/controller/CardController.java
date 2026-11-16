@@ -14,15 +14,18 @@ public class CardController {
     private Button showAnswerButton;
     @FXML
     private Button deleteCardButton;
+    @FXML
+    private Label cardCategory;
 
     private String answer;
     private String question;
     public User user;
     private boolean answerVisible = false;
 
-    public void setCardQuestion(String question) {
+    public void setCardQuestion(String question, String category) {
         this.question = question;
         cardText.setText(question);
+        cardCategory.setText(category);
     }
 
     public void getCardAnswer(String answer) {

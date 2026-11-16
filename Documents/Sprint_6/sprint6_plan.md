@@ -28,7 +28,7 @@ Database localisation and code review and cleanup.
 Team capacity remains the same
 
 ## Definition of Done
-- Database is localised and works
+- Database is localized and works
 - Code is reviewed and documented
 - Code is cleaned up and works
 - Acceptance tests are fully planned
