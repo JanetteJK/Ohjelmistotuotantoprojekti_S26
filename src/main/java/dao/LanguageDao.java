@@ -3,10 +3,13 @@ package dao;
 import entity.Language;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 import static datasource.MariaDBConnection.conn;
 
 public class LanguageDao {
+
+    private static final Logger msg = Logger.getLogger(LanguageDao.class.getName());
 
     public static void chooseLanguage(Language lang) {
         if (conn == null) {
@@ -24,7 +27,7 @@ public class LanguageDao {
             stmt.executeQuery();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            msg.info("Error!");
         }
 
 }

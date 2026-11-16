@@ -1,11 +1,15 @@
 package datasource;
 
+import dao.LanguageDao;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class MariaDBConnection {
     public static Connection conn = null;
+    private static final Logger msg = Logger.getLogger(MariaDBConnection.class.getName());
 
     public static Connection connect() {
         if (conn == null) {
@@ -28,8 +32,7 @@ public class MariaDBConnection {
                 );
 
             } catch (SQLException e) {
-                System.out.println("Connection failed.");
-                e.printStackTrace();
+                msg.info("Error!");
             }
         }
         return conn;
