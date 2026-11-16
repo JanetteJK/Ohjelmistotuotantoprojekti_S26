@@ -114,7 +114,6 @@ public class SignInController {
             String email = "teacher@email.fi";
             User teacher = new User(un, email, ps, User.Role.teacher);
             if (UserDao.logInUser(teacher)) {
-                UserDao.logInUser(teacher);
                 setCurrentUser(teacher);
                 FXMLLoader fxmlLoader = new FXMLLoader(
                         getClass().getResource(HOME_GUI_FXML_PATH),
@@ -143,7 +142,6 @@ public class SignInController {
             String email = "student@email.fi";
             User student = new User(un, email, ps, User.Role.student);
             if (UserDao.logInUser(student)) {
-                UserDao.logInUser(student);
                 setCurrentUser(student);
                 FXMLLoader fxmlLoader = new FXMLLoader(
                         getClass().getResource(HOME_GUI_FXML_PATH),

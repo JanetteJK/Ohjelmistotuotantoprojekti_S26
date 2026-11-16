@@ -92,6 +92,8 @@ class SignInControllerTest {
         setField(controller, "sPassw", sPassw);
         setField(controller, "nameTag", nameTag);
         setField(controller, "createAccount", createAccount);
+        setField(controller, "tOk", tOk);
+        setField(controller, "sOk", sOk);
     }
 
     @AfterEach
@@ -202,42 +204,122 @@ class SignInControllerTest {
         verifyNoInteractions(sPassw);
     }
 
+
     @Test
-    void tLogin_shouldReadCredentialsWhenSourceIsButton() throws Exception {
+    void tLogin_whenLoginSucceeds_shouldLoadHomeView() throws Exception {
+
         when(tUsername.getText()).thenReturn("teacher");
         when(tPassw.getText()).thenReturn("password");
 
-        try (MockedStatic<UserDao> mockedUserDao = mockStatic(UserDao.class)) {
-            mockedUserDao.when(() -> UserDao.logInUser(any(User.class)))
-                    .thenReturn(true);
+        runOnFxThread(() -> {
+            try (MockedStatic<UserDao> mockedUserDao =
+                         mockStatic(UserDao.class);
 
-            runOnFxThread(() -> {
-                try {
-                    controller.tLogin(tEvent);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        }
+                 MockedConstruction<FXMLLoader> loaders =
+                         mockConstruction(FXMLLoader.class, (loader, context) -> {
+                             when(loader.load()).thenReturn(mock(Parent.class));
+
+                             when(loader.getController())
+                                     .thenReturn(mock(SignInController.class));
+                         });
+
+                 MockedConstruction<Scene> scenes =
+                         mockConstruction(Scene.class)) {
+
+                mockedUserDao.when(() -> UserDao.logInUser(any(User.class)))
+                        .thenReturn(true);
+
+                Scene currentScene = mock(Scene.class);
+                Stage stage = mock(Stage.class);
+
+                when(tOk.getScene()).thenReturn(currentScene);
+                when(currentScene.getWindow()).thenReturn(stage);
+
+                controller.tLogin(tEvent);
+
+                mockedUserDao.verify(
+                        () -> UserDao.logInUser(any(User.class)),
+                        times(1)
+                );
+
+                verify(tUsername).getText();
+                verify(tPassw).getText();
+
+                verify(stage).setScene(any(Scene.class));
+                verify(stage).show();
+
+                FXMLLoader loader = loaders.constructed().get(0);
+
+                verify(loader).load();
+                verify(loader).getController();
+
+                mockedUserDao.verify(
+                        () -> UserDao.logInUser(any(User.class)),
+                        times(1)
+                );
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
+
     @Test
-    void sLogin_shouldReadCredentialsWhenSourceIsButton() throws Exception {
+    void sLogin_whenLoginSucceeds_shouldLoadHomeView() throws Exception {
+
         when(sUsername.getText()).thenReturn("student");
         when(sPassw.getText()).thenReturn("password");
 
-        try (MockedStatic<UserDao> mockedUserDao = mockStatic(UserDao.class)) {
-            mockedUserDao.when(() -> UserDao.logInUser(any(User.class)))
-                    .thenReturn(true);
+        runOnFxThread(() -> {
+            try (MockedStatic<UserDao> mockedUserDao =
+                         mockStatic(UserDao.class);
 
-            runOnFxThread(() -> {
-                try {
-                    controller.sLogin(sEvent);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        }
+                 MockedConstruction<FXMLLoader> loaders =
+                         mockConstruction(FXMLLoader.class, (loader, context) -> {
+                             when(loader.load()).thenReturn(mock(Parent.class));
+
+                             when(loader.getController())
+                                     .thenReturn(mock(SignInController.class));
+                         });
+
+                 MockedConstruction<Scene> scenes =
+                         mockConstruction(Scene.class)) {
+
+                mockedUserDao.when(() -> UserDao.logInUser(any(User.class)))
+                        .thenReturn(true);
+
+                Scene currentScene = mock(Scene.class);
+                Stage stage = mock(Stage.class);
+
+                when(sOk.getScene()).thenReturn(currentScene);
+                when(currentScene.getWindow()).thenReturn(stage);
+
+                controller.sLogin(sEvent);
+
+                mockedUserDao.verify(
+                        () -> UserDao.logInUser(any(User.class)),
+                        times(1)
+                );
+
+                verify(sUsername).getText();
+                verify(sPassw).getText();
+
+                verify(stage).setScene(any(Scene.class));
+                verify(stage).show();
+
+                FXMLLoader loader = loaders.constructed().get(0);
+
+                verify(loader).load();
+                verify(loader).getController();
+
+                mockedUserDao.verify(
+                        () -> UserDao.logInUser(any(User.class)),
+                        times(1)
+                );
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
 
