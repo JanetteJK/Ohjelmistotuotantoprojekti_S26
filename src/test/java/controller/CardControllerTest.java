@@ -29,6 +29,9 @@ class CardControllerTest {
     private Label cardText;
 
     @Mock
+    private Label cardCategory;
+
+    @Mock
     private Button showAnswerButton;
 
     @Mock
@@ -51,6 +54,7 @@ class CardControllerTest {
 
         controller = new CardController();
 
+        setPrivateField(controller, "cardCategory", cardCategory);
         setPrivateField(controller, "cardText", cardText);
         setPrivateField(controller, "showAnswerButton", showAnswerButton);
         setPrivateField(controller, "deleteCardButton", deleteCardButton);
@@ -63,9 +67,10 @@ class CardControllerTest {
 
     @Test
     void setCardQuestion_shouldSetLabelText() {
-        controller.setCardQuestion("What is Java?");
+        controller.setCardQuestion("What is Java?", "Coding");
 
         verify(cardText).setText("What is Java?");
+        verify(cardCategory).setText("Coding");
     }
 
     @Test
@@ -101,7 +106,7 @@ class CardControllerTest {
     void setCardAnswer_shouldHideAnswerWhenButtonSaysHideAnswer() {
         String showText = LanguageManager.getBundle().getString("ELEM_show_answer");
 
-        controller.setCardQuestion("What is Java?");
+        controller.setCardQuestion("What is Java?", "Coding");
         controller.getCardAnswer("Java is a programming language.");
 
         // First toggle shows answer; second toggle hides it.
@@ -111,6 +116,7 @@ class CardControllerTest {
 
         verify(showAnswerButton).setText(showText);
         verify(cardText).setText("What is Java?");
+        verify(cardCategory).setText("Coding");
     }
 
     @Test
