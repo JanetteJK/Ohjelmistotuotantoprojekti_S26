@@ -33,7 +33,8 @@ public class LanguageDao {
             stmt.executeQuery();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            msg.info("Error:" + e.getMessage()
+            );
         }
 
     }
