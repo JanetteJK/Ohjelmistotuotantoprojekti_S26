@@ -22,6 +22,9 @@ import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
 import javafx.embed.swing.JFXPanel;
 import javafx.application.Platform;
+import dao.LanguageDao;
+import entity.Language;
+import java.util.List;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -334,25 +337,51 @@ class SignInControllerTest {
         assertEquals(999, controller.getUserId());
     }
 
+
+
     @ParameterizedTest
     @CsvSource({
-            "en, English",
-            "fi, Suomeksi",
-            "ja, 日本語で",
-            "ko, 한국어"
+            "en, English, 0",
+            "fi, Suomeksi, 1",
+            "ja, 日本語で, 2",
+            "ko, 한국어, 3"
     })
     void initialize_selectsLanguageForCurrentLocale(
             String language,
-            String expectedChoice
+            String expectedChoice,
+            int expectedIndex
     ) throws Exception {
+
         ChoiceBox<String> languageChoice = new ChoiceBox<>();
         setField(controller, "languageChoice", languageChoice);
-        LanguageManager.setLocale(new Locale(language));
 
-        runOnFxThread(controller::initialize);
+        List<Language> languages = List.of(
+                new Language("en", "English", "English"),
+                new Language("fi", "Suomeksi", "Finnish"),
+                new Language("ja", "日本語で", "Japanese"),
+                new Language("ko", "한국어", "Korean")
+        );
 
-        assertEquals(expectedChoice, languageChoice.getValue());
+        try (MockedStatic<LanguageDao> mockedDao =
+                     mockStatic(LanguageDao.class)) {
+
+            mockedDao.when(LanguageDao::getAllLanguages)
+                    .thenReturn(languages);
+
+            LanguageManager.initializeLanguages();
+            LanguageManager.setLocale(new Locale(language));
+
+            runOnFxThread(controller::initialize);
+
+            assertEquals(expectedChoice, languageChoice.getValue());
+            assertEquals(
+                    expectedIndex,
+                    languageChoice.getSelectionModel().getSelectedIndex()
+            );
+        }
     }
+
+
 
     @ParameterizedTest
     @CsvSource({
