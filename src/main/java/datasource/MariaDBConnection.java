@@ -1,10 +1,12 @@
 package datasource;
 
-import dao.LanguageDao;
-
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 public class MariaDBConnection {
@@ -15,6 +17,12 @@ public class MariaDBConnection {
         if (conn == null) {
             try {
                 String host;
+                Properties props = new Properties();
+
+                props.load(new FileInputStream("config.properties"));
+
+                String user = props.getProperty("db.username");
+                String password = props.getProperty("db.password");
 
                 if (System.getenv("DOCKER") != null) {
                     host = "host.docker.internal";
@@ -27,12 +35,16 @@ public class MariaDBConnection {
 
                 conn = DriverManager.getConnection(
                         url,
-                        "flashcard_team",
-                        "salasana"
+                        user,
+                        password
                 );
 
             } catch (SQLException e) {
                 msg.info("Error!");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
         return conn;
