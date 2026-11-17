@@ -28,14 +28,16 @@ The goal for this sprint was database localisation, documentation and code clean
   ![Test results](testit.png)
 
 ## What Went Well
-- 
+- Good communication
+- It was (mostly) clear what we needed to do
+- Time management had improved
 
 ## What Could Be Improved
-- 
+- We didn't really understand the database localisation --> we didn't really have anything to add there
 
 ## Time spent by each member during the sprint
 | Team member     | Hours spent |
 |-----------------|-------------|
-| Aatu Laakso     | xx          |
-| Janette Kotanen | xx          |
-| Sonja Meskus    | xx          |
+| Aatu Laakso     | 20          |
+| Janette Kotanen | 20          |
+| Sonja Meskus    | 20          |
