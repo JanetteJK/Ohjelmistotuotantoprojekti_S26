@@ -20,7 +20,11 @@ The goal for this sprint was database localisation, documentation and code clean
   - The plan for acceptance test were made and added to documents folder
 
 ## Refactored Codebase
-- "Refactoring summary included in the sprint report."
+- Added private instances of DAOs and Language Manager
+- Added Loggers to replace terminal print outs and generic error handlers
+- Created static Strings to replace multiple instances of messages
+- Removed obsolete to-dos, imports and methods
+- Cleared up names of properties and private instances
   ![Test results](testit.png)
 
 ## What Went Well
