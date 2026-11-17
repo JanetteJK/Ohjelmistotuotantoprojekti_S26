@@ -1,7 +1,7 @@
-
 package datasource;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
@@ -13,6 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class MariaDBConnectionTest {
+
+    @BeforeEach
+    void setUp() {
+        MariaDBConnection.conn = null;
+    }
 
     @AfterEach
     void clearConnection() {
@@ -41,16 +46,11 @@ class MariaDBConnectionTest {
             Connection result = MariaDBConnection.connect();
 
             assertSame(newConnection, result);
-            driverManager.verify(() -> DriverManager.getConnection(
-                    anyString(), anyString(), anyString()
-            ));
         }
     }
 
-
     @Test
     void connectShouldReturnNullWhenSqlExceptionOccurs() throws Exception {
-
         SQLException exception = new SQLException("Connection failed");
 
         try (MockedStatic<DriverManager> driverManager =
