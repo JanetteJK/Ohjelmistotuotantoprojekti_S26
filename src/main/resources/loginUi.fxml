@@ -123,7 +123,7 @@
                               <Font name="Bell MT" size="24.0" />
                            </font>
                         </Label>
-                        <Hyperlink id="createAccount" fx:id="createAccount" onAction="#switchToCreateAccount" onMouseClicked="#switchToCreateAccount" styleClass="shadow" stylesheets="@style.css" text="%ELEM_create_account2" underline="true">
+                        <Hyperlink id="createAccount" fx:id="createAccount" onAction="#switchToCreateAccount" onMouseClicked="#switchToCreateAccount" styleClass="shadow" stylesheets="@style.css" text="%ELEM_create_account2" textFill="darkblue">
                            <font>
                               <Font name="Bell MT Bold" size="24.0" />
                            </font>
