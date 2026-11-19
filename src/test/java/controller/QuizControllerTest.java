@@ -18,7 +18,7 @@ class QuizControllerTest {
     @Test
     void createQuizShouldCreateQuizForCategoryAndUser() {
         Quiz expectedQuiz = new Quiz(1, 3, 0, 7);
-        QuizController controller = new QuizController(null);
+        QuizController controller = new QuizController();
 
         try (MockedStatic<QuizDao> quizDao = org.mockito.Mockito.mockStatic(QuizDao.class)) {
             quizDao.when(() -> QuizDao.createQuiz("Geography", 7))
@@ -32,7 +32,7 @@ class QuizControllerTest {
 
     @Test
     void createQuizShouldUseDefaultCategoryWhenCategoryIsBlank() {
-        QuizController controller = new QuizController(null);
+        QuizController controller = new QuizController();
 
         try (MockedStatic<QuizDao> quizDao = org.mockito.Mockito.mockStatic(QuizDao.class)) {
             quizDao.when(() -> QuizDao.createQuiz("default", 7))
@@ -46,7 +46,7 @@ class QuizControllerTest {
 
     @Test
     void createQuizShouldUseDefaultCategoryWhenCategoryIsNull() {
-        QuizController controller = new QuizController(null);
+        QuizController controller = new QuizController();
 
         try (MockedStatic<QuizDao> quizDao = org.mockito.Mockito.mockStatic(QuizDao.class)) {
             quizDao.when(() -> QuizDao.createQuiz("default", 7))
@@ -63,7 +63,7 @@ class QuizControllerTest {
         List<Card> cards = List.of(
                 new Card("Question", "Answer", "Geography", 7)
         );
-        QuizController controller = new QuizController(null);
+        QuizController controller = new QuizController();
 
         try (MockedStatic<CardDao> cardDao = org.mockito.Mockito.mockStatic(CardDao.class)) {
             cardDao.when(() -> CardDao.getCardsBasedOnCategory("Geography", 7))
@@ -78,7 +78,7 @@ class QuizControllerTest {
 
     @Test
     void openQuizShouldUseDefaultCategoryWhenCategoryIsBlank() {
-        QuizController controller = new QuizController(null);
+        QuizController controller = new QuizController();
 
         try (MockedStatic<CardDao> cardDao = org.mockito.Mockito.mockStatic(CardDao.class)) {
             cardDao.when(() -> CardDao.getCardsBasedOnCategory("default", 7))

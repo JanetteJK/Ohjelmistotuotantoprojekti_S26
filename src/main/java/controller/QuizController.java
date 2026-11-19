@@ -19,8 +19,7 @@ public class QuizController {
     @FXML
     Button startQuizButton;
 
-    public QuizController(QuizDao qd) {
-        this.qd = qd;
+    public QuizController() {
     }
 
     public Quiz createQuiz(String category, int userId) {
