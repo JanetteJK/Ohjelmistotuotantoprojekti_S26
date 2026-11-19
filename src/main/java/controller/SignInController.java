@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
 
@@ -209,6 +210,9 @@ public class SignInController {
         Locale localeCQ = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
+        QuizController qc = fxmlLoader.getController();
+        List<String> categories = CardDao.getCategories(currentUser.getUserId());
+        qc.populateCategorySelection(categories);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

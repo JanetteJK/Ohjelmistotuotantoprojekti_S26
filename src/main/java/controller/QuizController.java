@@ -5,14 +5,19 @@ import dao.QuizDao;
 import entity.QuizSession;
 import entity.Card;
 import entity.Quiz;
+import entity.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class QuizController {
+    private static final Logger msg = Logger.getLogger(QuizController.class.getName());
     QuizDao qd;
+    CardDao cd;
+    private List<String> categories;
     private static final String PLACEHOLDER_CATEGORY = "default";
     @FXML
     ChoiceBox<String> categorySelection;
@@ -21,6 +26,10 @@ public class QuizController {
 
     public QuizController() {
         // Default constructor
+    }
+
+    public void initialize() {
+        // Initialize the controller
     }
 
     public Quiz createQuiz(String category, int userId) {
@@ -40,4 +49,14 @@ public class QuizController {
         return new QuizSession(cards);
     }
 
+    public void setCategories (List<String> categories) {
+        this.categories = categories;
+    }
+
+    public void populateCategorySelection(List<String> categories) {
+        if (categorySelection != null && categories != null) {
+            categorySelection.getItems().clear();
+            categorySelection.getItems().addAll(categories);
+        }
+    }
 }
