@@ -9,17 +9,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+
 public class CcController {
 
     private static final Logger log = LoggerFactory.getLogger(CcController.class);
@@ -63,6 +69,16 @@ public class CcController {
         questionBox.clear();
         answerBox.clear();
         categoryField.clear();
+        showCardSubmittedAlert();
+    }
+
+    void showCardSubmittedAlert () {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Card Submitted");
+        alert.setHeaderText("Card Submitted");
+        alert.setDialogPane(alert.getDialogPane());
+        alert.setContentText("Your card has been submitted.");
+        alert.show();
     }
 
     //switch funtions
@@ -90,6 +106,7 @@ public class CcController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 
     public void switchToLibrary(javafx.scene.input.MouseEvent actionEvent) throws IOException{
