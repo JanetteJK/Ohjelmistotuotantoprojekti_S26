@@ -133,7 +133,7 @@ public class CardDao {
         return cardList;
     }
 
-    public static List<String> getCategorys(int userId) {
+    public static List<String> getCategories(int userId) {
         ArrayList<String> categoryList = new ArrayList<>();
 
         if (conn == null) {
@@ -150,9 +150,7 @@ public class CardDao {
             while (rs.next()) {
                 String category = rs.getString("category");
                 msg.info("Category: " + category);
-                if (categoryList.contains(category)) {
-                    continue; // Skip if the category is already in the list
-                } else {
+                if (!categoryList.contains(category)) {
                     categoryList.add(category);
                 }
             }
