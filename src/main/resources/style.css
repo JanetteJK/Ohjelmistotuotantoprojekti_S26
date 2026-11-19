@@ -29,3 +29,9 @@
 .green { -fx-background-color: #2e8f4c; }
 
 .cream { -fx-background-color: #FFDAC5; }
+
+.darkBlue {
+    -fx-text-fill: #0d3bc1;
+    -fx-font-weight: bold;
+    --toc-hover-color: #c505a0;
+}

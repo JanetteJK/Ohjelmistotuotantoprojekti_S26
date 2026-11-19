@@ -20,6 +20,7 @@ public class QuizController {
     Button startQuizButton;
 
     public QuizController() {
+        // Default constructor
     }
 
     public Quiz createQuiz(String category, int userId) {
