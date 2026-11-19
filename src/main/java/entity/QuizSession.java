@@ -4,63 +4,68 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class QuizSession {
-        private final List<Card> questions;
-        private int questionIndex;
-        private int score;
-        private QuizQuestion currentQuestion;
-        private final Random random = new Random();
+    private static final Logger msg = Logger.getLogger(QuizSession.class.getName());
+    private final List<Card> questions;
+    private int questionIndex;
+    private int score;
+    private QuizQuestion currentQuestion;
+    private final Random random = new Random();
 
-        public QuizSession(List<Card> cards) {
-            questions = new ArrayList<>(cards);
-            Collections.shuffle(questions);
+    public QuizSession(List<Card> cards) {
+        questions = new ArrayList<>(cards);
+        Collections.shuffle(questions);
+    }
+
+    public QuizQuestion nextQuestion() {
+        if (currentQuestion != null || questionIndex >= questions.size()) {
+            return null;
         }
 
-        public QuizQuestion nextQuestion() {
-            if (currentQuestion != null || questionIndex >= questions.size()) {
-                return null;
-            }
+        Card card = questions.get(questionIndex);
+        List<String> options = new ArrayList<>();
+        options.add(card.getAnswer());
 
-            Card card = questions.get(questionIndex);
-            List<String> options = new ArrayList<>();
-            options.add(card.getAnswer());
-
-            if (!questions.isEmpty()) {
-                while (options.size() < 3) {
-                    options.add(questions.get(
-                            this.random.nextInt(questions.size())
-                    ).getAnswer());
+        if (!questions.isEmpty()) {
+            while (options.size() < 3) {
+                String newAnswer = questions.get(
+                        this.random.nextInt(questions.size())
+                ).getAnswer();
+                if (!options.contains(newAnswer)) {
+                    options.add(newAnswer);
                 }
             }
-            Collections.shuffle(options);
+        }
+        Collections.shuffle(options);
 
-            System.out.println("Answer options:");
-            for (int i = 0; i < options.size(); i++) {
-                System.out.println((i + 1) + ". " + options.get(i));
-            }
-
-            return new QuizQuestion(card.getQuestion(), options);
+        msg.info("Answer options:");
+        for (int i = 0; i < options.size(); i++) {
+            msg.info((i + 1) + ". " + options.get(i));
         }
 
-        public boolean answer(String answer) {
-            if (currentQuestion == null || !currentQuestion.getOptions().contains(answer)) {
-                return false;
-            }
+        return new QuizQuestion(card.getQuestion(), options);
+    }
 
-            if (answer.equals(questions.get(questionIndex).getAnswer())) {
-                score++;
-            }
-            currentQuestion = null;
-            questionIndex++;
-            return true;
+    public boolean answer(String answer) {
+        if (currentQuestion == null || !currentQuestion.getOptions().contains(answer)) {
+            return false;
         }
 
-        public int getScore() {
-            return score;
+        if (answer.equals(questions.get(questionIndex).getAnswer())) {
+            score++;
         }
+        currentQuestion = null;
+        questionIndex++;
+        return true;
+    }
 
-        public boolean isFinished() {
+    public int getScore() {
+        return score;
+    }
+
+    public boolean isFinished() {
             return questionIndex >= questions.size() && currentQuestion == null;
         }
 }
