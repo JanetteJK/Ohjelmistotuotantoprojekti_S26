@@ -5,12 +5,19 @@ import dao.QuizDao;
 import entity.QuizSession;
 import entity.Card;
 import entity.Quiz;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 
 import java.util.List;
 
 public class QuizController {
     QuizDao qd;
     private static final String PLACEHOLDER_CATEGORY = "default";
+    @FXML
+    ChoiceBox<String> categorySelection;
+    @FXML
+    Button startQuizButton;
 
     public QuizController(QuizDao qd) {
         this.qd = qd;
