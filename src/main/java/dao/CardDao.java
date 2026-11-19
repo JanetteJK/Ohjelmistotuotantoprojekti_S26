@@ -133,6 +133,36 @@ public class CardDao {
         return cardList;
     }
 
+    public static List<String> getCategorys(int userId) {
+        ArrayList<String> categoryList = new ArrayList<>();
+
+        if (conn == null) {
+            return categoryList;
+        }
+
+        String sql = "SELECT DISTINCT category FROM flashcards WHERE user_id = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String category = rs.getString("category");
+                msg.info("Category: " + category);
+                if (categoryList.contains(category)) {
+                    continue; // Skip if the category is already in the list
+                } else {
+                    categoryList.add(category);
+                }
+            }
+
+        } catch (SQLException _) {
+            msg.info("No categories found!");
+        }
+        return categoryList;
+    }
+
     public static void deleteCard(String question) {
         if (conn == null) {
             return;
