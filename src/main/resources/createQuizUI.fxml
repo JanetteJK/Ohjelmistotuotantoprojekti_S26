@@ -96,7 +96,7 @@
                            <children>
                               <VBox alignment="TOP_CENTER" prefHeight="399.0" prefWidth="442.0">
                                  <children>
-                                    <Label fx:id="HEADER_quiz" text="Quiz">
+                                    <Label fx:id="HEADER_quiz" text="%HEADER_quiz">
                                        <font>
                                           <Font name="Bell MT" size="24.0" />
                                        </font>
@@ -104,7 +104,7 @@
                                           <Insets top="30.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label fx:id="SUBHEADER_testknowledge" text="Test your knowlegde ">
+                                    <Label fx:id="SUBHEADER_testknowledge" text="%SUBHEADER_quiz">
                                        <font>
                                           <Font name="Bell MT" size="18.0" />
                                        </font>
@@ -112,7 +112,7 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label fx:id="ELEM_choosecategory" prefHeight="71.0" prefWidth="376.0" text="Which category do you want the quiz to be from?" textAlignment="CENTER" wrapText="true">
+                                    <Label fx:id="ELEM_choosecategory" prefHeight="71.0" prefWidth="376.0" text="%SUBHEADER_quiz2" textAlignment="CENTER" wrapText="true">
                                        <VBox.margin>
                                           <Insets top="40.0" />
                                        </VBox.margin>
@@ -132,7 +132,7 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                     </ChoiceBox>
-                                    <Button fx:id="startQuizButton" mnemonicParsing="false" onAction="#startQuiz" prefHeight="38.0" prefWidth="56.0" stylesheets="@style.css" text="START">
+                                    <Button fx:id="startQuizButton" mnemonicParsing="false" onAction="#startQuiz" prefHeight="38.0" prefWidth="56.0" stylesheets="@style.css" text="%ELEM_start_quiz">
                                        <VBox.margin>
                                           <Insets top="50.0" />
                                        </VBox.margin>
