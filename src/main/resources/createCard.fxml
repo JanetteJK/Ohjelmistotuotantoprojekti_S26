@@ -166,17 +166,29 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="700.0">
+                  <HBox alignment="CENTER" prefHeight="151.0" prefWidth="700.0">
                      <children>
-                        <Button id="submitCard" fx:id="submitCard" mnemonicParsing="false" onAction="#submitCard" stylesheets="@style.css" text="%ELEM_submit">
-                           <font>
-                              <Font name="Bell MT" size="14.0" />
-                           </font>
-                           <styleClass>
-                              <String fx:value="shadow" />
-                              <String fx:value="cream" />
-                           </styleClass>
-                        </Button>
+                        <VBox alignment="CENTER" prefHeight="161.0" prefWidth="700.0">
+                           <children>
+                              <Button id="submitCard" fx:id="submitCard" mnemonicParsing="false" onAction="#submitCard" stylesheets="@style.css" text="%ELEM_submit" textAlignment="CENTER" wrapText="true">
+                                 <font>
+                                    <Font name="Bell MT" size="14.0" />
+                                 </font>
+                                 <styleClass>
+                                    <String fx:value="shadow" />
+                                    <String fx:value="cream" />
+                                 </styleClass>
+                              </Button>
+                              <Label fx:id="cardSentLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="700.0" textAlignment="CENTER" wrapText="true">
+                                 <font>
+                                    <Font name="Bell MT" size="24.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="50.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                </children>
