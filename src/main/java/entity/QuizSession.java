@@ -61,10 +61,6 @@ public class QuizSession {
         return true;
     }
 
-    public int getScore() {
-        return score;
-    }
-
     public boolean isFinished() {
             return questionIndex >= questions.size() && currentQuestion == null;
         }
@@ -76,4 +72,13 @@ public class QuizSession {
     public QuizQuestion getCurrentQuestion() {
         return currentQuestion;
     }
+
+    public int getQuestionIndex() {
+        return questionIndex;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
 }
