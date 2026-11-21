@@ -179,7 +179,7 @@
                                     <String fx:value="cream" />
                                  </styleClass>
                               </Button>
-                              <Label fx:id="cardSentLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="700.0" textAlignment="CENTER" wrapText="true">
+                              <Label fx:id="cardSentLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="700.0" text="placeholder" textAlignment="CENTER" visible="false" wrapText="true">
                                  <font>
                                     <Font name="Bell MT" size="24.0" />
                                  </font>

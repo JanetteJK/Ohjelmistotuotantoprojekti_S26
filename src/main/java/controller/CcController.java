@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -23,8 +23,7 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
+
 
 public class CcController {
 
@@ -41,6 +40,9 @@ public class CcController {
     TextArea answerBox;
     @FXML
     TextField categoryField;
+    @FXML
+    Label cardSentLabel;
+
 
     // cardCreation functions
     public String getQuestion() {
@@ -59,27 +61,25 @@ public class CcController {
         return categoryField.getText();
     }
 
-    public void submitCard() {
+    public void submitCard() throws InterruptedException {
         String question = getQuestion();
         String answer = getAnswer();
         String category = getCategory();
         Card cardS = new Card(question, answer, category, user.getUserId());
         log.info("Card submitted: {} - {}", question, answer);
         CardDao.addCard(cardS);
+        cardSubmitted();
         questionBox.clear();
         answerBox.clear();
         categoryField.clear();
-        showCardSubmittedAlert();
     }
 
-    void showCardSubmittedAlert () {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Card Submitted");
-        alert.setHeaderText("Card Submitted");
-        alert.setDialogPane(alert.getDialogPane());
-        alert.setContentText("Your card has been submitted.");
-        alert.show();
+    public void cardSubmitted() throws InterruptedException {
+        cardSentLabel.setVisible(true);
+        Thread.sleep(2000);
+        cardSentLabel.setVisible(false);
     }
+
 
     //switch funtions
     public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{

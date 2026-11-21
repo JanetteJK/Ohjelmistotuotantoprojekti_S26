@@ -2,10 +2,7 @@ package controller;
 
 import dao.CardDao;
 import dao.QuizDao;
-import entity.QuizSession;
-import entity.Card;
-import entity.Quiz;
-import entity.User;
+import entity.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -23,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.logging.Logger;
 
 public class QuizController {
@@ -38,6 +36,8 @@ public class QuizController {
     @FXML
     GridPane cardSlot;
     @FXML
+    Label questionSlot;
+    @FXML
     RadioButton answer1;
     @FXML
     RadioButton answer2;
@@ -50,6 +50,7 @@ public class QuizController {
 
     public void initialize() {
         // Initialize the controller
+
     }
 
     public Quiz createQuiz(String category, int userId) {
@@ -80,7 +81,7 @@ public class QuizController {
         }
     }
 
-
+    @FXML
     public void startQuiz(javafx.event.ActionEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/quizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
