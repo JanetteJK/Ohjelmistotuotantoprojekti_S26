@@ -61,24 +61,18 @@ public class CcController {
         return categoryField.getText();
     }
 
-    public void submitCard() throws InterruptedException {
+    public void submitCard(){
         String question = getQuestion();
         String answer = getAnswer();
         String category = getCategory();
         Card cardS = new Card(question, answer, category, user.getUserId());
         log.info("Card submitted: {} - {}", question, answer);
         CardDao.addCard(cardS);
-        cardSubmitted();
         questionBox.clear();
         answerBox.clear();
         categoryField.clear();
     }
 
-    public void cardSubmitted() throws InterruptedException {
-        cardSentLabel.setVisible(true);
-        Thread.sleep(2000);
-        cardSentLabel.setVisible(false);
-    }
 
 
     //switch funtions

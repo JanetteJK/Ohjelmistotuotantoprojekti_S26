@@ -49,7 +49,6 @@ public class QuizController {
     }
 
     public void initialize() {
-        // Initialize the controller
 
     }
 
@@ -80,14 +79,32 @@ public class QuizController {
             categorySelection.getItems().addAll(categories);
         }
     }
-
     @FXML
+    public void setInitialQuestion(List<Card> cards) {
+        List<String> options = new java.util.ArrayList<>();
+        for (Card card : cards) {
+            questionSlot.setText(card.getQuestion());
+            options.add(card.getAnswer());
+            String answer = card.getAnswer();
+            String random1 = options.get(new Random().nextInt(options.size()));
+            String random2 = options.get(new Random().nextInt(options.size()));
+            answer1.setText(answer);
+            answer2.setText(random1);
+            answer3.setText(random2);
+        }
+    }
+
     public void startQuiz(javafx.event.ActionEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/quizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
+        QuizController qc = fxmlLoader.getController();
+        List<Card> cards = CardDao.getCardsBasedOnCategory(categorySelection.getValue(), 1);
+        qc.setInitialQuestion(cards);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
+
 }

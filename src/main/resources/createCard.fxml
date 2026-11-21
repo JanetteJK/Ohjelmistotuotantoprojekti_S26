@@ -143,7 +143,11 @@
                                     <Insets bottom="5.0" />
                                  </padding>
                               </Label>
-                              <TextArea id="questionBox" fx:id="questionBox" prefHeight="200.0" prefWidth="170.0" styleClass="shadow" />
+                              <TextArea id="questionBox" fx:id="questionBox" prefHeight="200.0" prefWidth="170.0">
+                                 <styleClass>
+                                    <String fx:value="shadow" />
+                                    <String fx:value="cream" />
+                                 </styleClass></TextArea>
                            </children>
                         </VBox>
                      </children>
@@ -161,7 +165,11 @@
                                     <Insets bottom="5.0" />
                                  </padding>
                               </Label>
-                              <TextArea id="answerBox" fx:id="answerBox" prefHeight="200.0" prefWidth="200.0" styleClass="shadow" />
+                              <TextArea id="answerBox" fx:id="answerBox" prefHeight="200.0" prefWidth="200.0">
+                                 <styleClass>
+                                    <String fx:value="shadow" />
+                                    <String fx:value="cream" />
+                                 </styleClass></TextArea>
                            </children>
                         </VBox>
                      </children>
