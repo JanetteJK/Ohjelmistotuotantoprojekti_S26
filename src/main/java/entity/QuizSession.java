@@ -68,4 +68,12 @@ public class QuizSession {
     public boolean isFinished() {
             return questionIndex >= questions.size() && currentQuestion == null;
         }
+
+    public List<Card> getQuestions() {
+        return questions;
+    }
+
+    public QuizQuestion getCurrentQuestion() {
+        return currentQuestion;
+    }
 }
