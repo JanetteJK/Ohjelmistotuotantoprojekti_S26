@@ -105,7 +105,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="184.0" prefWidth="900.0">
                             <children>
-                                <Button id="submitCard" fx:id="submitAnswer" mnemonicParsing="false" stylesheets="@style.css" text="%ELEM_submit_answer">
+                                <Button id="submitCard" fx:id="submitAnswer" mnemonicParsing="false" onAction="#checkAnswer" stylesheets="@style.css" text="%ELEM_submit_answer">
                                     <font>
                                         <Font name="Bell MT" size="14.0" />
                                     </font>
