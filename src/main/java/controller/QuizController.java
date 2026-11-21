@@ -97,7 +97,7 @@ public class QuizController {
             answer1.setText(correctAnswer);
             answer2.setText(random1);
             answer3.setText(random2);
-        }
+        }else questionSlot.setText("Quiz Completed!");
     }
 
     public void startQuiz(javafx.event.ActionEvent actionEvent) throws IOException{

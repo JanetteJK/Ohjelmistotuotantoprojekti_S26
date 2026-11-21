@@ -51,7 +51,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label fx:id="questionSlot" alignment="CENTER" contentDisplay="CENTER" prefHeight="222.0" prefWidth="328.0" text="placeholder">
+                                    <Label fx:id="questionSlot" alignment="CENTER" contentDisplay="CENTER" prefHeight="222.0" prefWidth="328.0" text="placeholder" textAlignment="CENTER" wrapText="true">
                                        <font>
                                           <Font name="Bell MT" size="18.0" />
                                        </font>
