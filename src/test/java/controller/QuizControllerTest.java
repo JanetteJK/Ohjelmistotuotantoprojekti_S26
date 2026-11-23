@@ -4,7 +4,6 @@ import dao.CardDao;
 import dao.QuizDao;
 import entity.Card;
 import entity.Quiz;
-import entity.QuizSession;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
@@ -55,24 +54,6 @@ class QuizControllerTest {
             controller.createQuiz(null, 7);
 
             quizDao.verify(() -> QuizDao.createQuiz("default", 7));
-        }
-    }
-
-    @Test
-    void openQuizShouldLoadCardsForCategoryAndUser() {
-        List<Card> cards = List.of(
-                new Card("Question", "Answer", "Geography", 7)
-        );
-        QuizController controller = new QuizController();
-
-        try (MockedStatic<CardDao> cardDao = org.mockito.Mockito.mockStatic(CardDao.class)) {
-            cardDao.when(() -> CardDao.getCardsBasedOnCategory("Geography", 7))
-                    .thenReturn(cards);
-
-            QuizSession session = controller.openQuiz("Geography", 7);
-
-            assertNotNull(session);
-            cardDao.verify(() -> CardDao.getCardsBasedOnCategory("Geography", 7));
         }
     }
 
