@@ -87,38 +87,34 @@ public class QuizController {
     }
     @FXML
     public void setQuestion() {
-        if (!quizCards.isEmpty()) {
-            if (quizCards.size() >= 3) {
-                if (index < quizCards.size()) {
-                    Card card = quizCards.get(index);
-                    options.add(card.getAnswer());
+        if (!quizCards.isEmpty() && quizCards.size() >= 3) {
+            if (index < quizCards.size()) {
+                Card card = quizCards.get(index);
+                options.add(card.getAnswer());
 
-                    while (options.size() < 3) {
-                        String newAnswer = quizCards.get(
-                                this.random.nextInt(quizCards.size())
-                        ).getAnswer();
-                        if (!options.contains(newAnswer)) {
-                            options.add(newAnswer);
-                        }
+                while (options.size() < 3) {
+                    String newAnswer = quizCards.get(
+                            this.random.nextInt(quizCards.size())
+                    ).getAnswer();
+                    if (!options.contains(newAnswer)) {
+                        options.add(newAnswer);
                     }
-                    Collections.shuffle(options);
-
-                    questionSlot.setText(quizCards.get(index).getQuestion());
-                    String random1 = options.removeFirst();
-                    String random2 = options.removeFirst();
-                    String random3 = options.removeFirst();
-                    answer1.setText(random3);
-                    answer2.setText(random1);
-                    answer3.setText(random2);
-                } else {
-                    questionSlot.setText("Quiz Completed!");
                 }
+                Collections.shuffle(options);
+
+                questionSlot.setText(quizCards.get(index).getQuestion());
+                String random1 = options.removeFirst();
+                String random2 = options.removeFirst();
+                String random3 = options.removeFirst();
+                answer1.setText(random3);
+                answer2.setText(random1);
+                answer3.setText(random2);
             } else {
-                questionSlot.setText("Not enough questions available for this category.");
-                // todo: disable the answer buttons and add a "go back" button to return to the previous scene
+                questionSlot.setText("Quiz Completed!");
             }
-        }else {
-            questionSlot.setText("No questions available.");
+        } else {
+        questionSlot.setText("Not enough questions in this category.");
+        // todo: disable the answer buttons and add a "go back" button to return to the previous scene
         }
     }
 
