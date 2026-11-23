@@ -212,6 +212,7 @@ public class SignInController {
         Parent root = fxmlLoader.load();
         QuizController qc = fxmlLoader.getController();
         List<String> categories = CardDao.getCategories(currentUser.getUserId());
+        qc.currentUser = currentUser;
         qc.populateCategorySelection(categories);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);

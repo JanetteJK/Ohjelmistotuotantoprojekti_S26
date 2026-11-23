@@ -18,13 +18,12 @@ import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class QuizController {
     private static final Logger msg = Logger.getLogger(QuizController.class.getName());
+    User currentUser;
     QuizDao qd;
     CardDao cd;
     private List<String> categories;
@@ -34,6 +33,8 @@ public class QuizController {
     private int index = 0;
     private List<String> options = new java.util.ArrayList<>();
     private List<Card> quizCards;
+    private final Random random = new Random();
+
     @FXML
     ChoiceBox<String> categorySelection;
     @FXML
@@ -86,26 +87,49 @@ public class QuizController {
     }
     @FXML
     public void setQuestion() {
-        for (Card card : quizCards) {
-            options.add(card.getAnswer());
+        if (!quizCards.isEmpty()) {
+            if (quizCards.size() >= 3) {
+                if (index < quizCards.size()) {
+                    Card card = quizCards.get(index);
+                    options.add(card.getAnswer());
+
+                    while (options.size() < 3) {
+                        String newAnswer = quizCards.get(
+                                this.random.nextInt(quizCards.size())
+                        ).getAnswer();
+                        if (!options.contains(newAnswer)) {
+                            options.add(newAnswer);
+                        }
+                    }
+                    Collections.shuffle(options);
+
+                    questionSlot.setText(quizCards.get(index).getQuestion());
+                    String random1 = options.removeFirst();
+                    String random2 = options.removeFirst();
+                    String random3 = options.removeFirst();
+                    answer1.setText(random3);
+                    answer2.setText(random1);
+                    answer3.setText(random2);
+                } else {
+                    questionSlot.setText("Quiz Completed!");
+                }
+            } else {
+                questionSlot.setText("Not enough questions available for this category.");
+                // todo: disable the answer buttons and add a "go back" button to return to the previous scene
+            }
+        }else {
+            questionSlot.setText("No questions available.");
         }
-        if (index < quizCards.size()) {
-            questionSlot.setText(quizCards.get(index).getQuestion());
-            correctAnswer = quizCards.get(index).getAnswer();
-            String random1 = options.get(new Random().nextInt(options.size()));
-            String random2 = options.get(new Random().nextInt(options.size()));
-            answer1.setText(correctAnswer);
-            answer2.setText(random1);
-            answer3.setText(random2);
-        }else questionSlot.setText("Quiz Completed!");
     }
 
     public void startQuiz(javafx.event.ActionEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/quizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         QuizController qc = fxmlLoader.getController();
-        List<Card> cards = CardDao.getCardsBasedOnCategory(categorySelection.getValue(), 1);
+        System.out.println("Current user ID: " + currentUser.getUserId());
+        List<Card> cards = CardDao.getCardsBasedOnCategory(categorySelection.getValue(), currentUser.getUserId());
         qc.quizCards = cards;
+        Collections.shuffle(qc.quizCards);
         qc.setQuestion();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
