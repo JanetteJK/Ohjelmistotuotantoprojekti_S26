@@ -56,14 +56,6 @@ public class QuizController {
 
     }
 
-    public Quiz createQuiz(String category, int userId) {
-        if (category == null || category.isBlank()) {
-            category = PLACEHOLDER_CATEGORY;
-        }
-
-        return QuizDao.createQuiz(category, userId);
-    }
-
     public void setCategories (List<String> categories) {
         this.categories = categories;
     }
