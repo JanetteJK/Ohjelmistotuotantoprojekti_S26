@@ -11,11 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
+
+
 
 public class QuizController {
     private static final Logger msg = Logger.getLogger(QuizController.class.getName());
@@ -27,6 +30,8 @@ public class QuizController {
     private List<String> options = new java.util.ArrayList<>();
     private List<Card> quizCards;
     private final Random random = new Random();
+    private Stage stage;
+    private Scene scene;
 
     @FXML
     ChoiceBox<String> categorySelection;
@@ -113,8 +118,8 @@ public class QuizController {
         qc.quizCards = cards;
         Collections.shuffle(qc.quizCards);
         qc.setQuestion();
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
 
@@ -146,8 +151,57 @@ public class QuizController {
     public void returnToQuiz(javafx.event.ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        Locale localeP = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"), LanguageManager.getBundle());
+        Parent root = fxmlLoader.load();
+
+        SignInController controller = fxmlLoader.getController();
+        controller.setUserGreeting(currentUser.getUserName());
+
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToStudyMaterials(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        Locale localeSM = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"), LanguageManager.getBundle());
+        Parent root = fxmlLoader.load();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToLibrary(MouseEvent actionEvent) throws IOException {
+        Locale localeL = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUI.fxml"), LanguageManager.getBundle());
+        Parent root = fxmlLoader.load();
+        LibraryController lc = fxmlLoader.getController();
+        lc.setUser(currentUser);
+        lc.getAllCards();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        Locale localeCC = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"), LanguageManager.getBundle());
+        Parent root = fxmlLoader.load();
+        CcController cardCtrl = fxmlLoader.getController();
+        cardCtrl.setUser(currentUser);
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }

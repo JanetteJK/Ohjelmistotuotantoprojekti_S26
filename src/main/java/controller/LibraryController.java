@@ -18,12 +18,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 public class LibraryController implements Initializable {
 
     private User user;
+    private Stage stage;
+    private Scene scene;
+    private User currentUser;
+    private static final String HOME_GUI_FXML_PATH = "/initHomeGui.fxml";
 
 
     @FXML
@@ -31,6 +36,7 @@ public class LibraryController implements Initializable {
 
     public void setUser(User user) {
         this.user = user;
+        this.currentUser = user;
     }
 
 
@@ -97,8 +103,46 @@ public class LibraryController implements Initializable {
         Parent root = fxmlLoader.load();
         CcController cardCtrl = fxmlLoader.getController();
         cardCtrl.setUser(user);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        Locale localeCQ = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
+        Parent root = fxmlLoader.load();
+        QuizController qc = fxmlLoader.getController();
+        List<String> categories = CardDao.getCategories(currentUser.getUserId());
+        qc.currentUser = currentUser;
+        qc.populateCategorySelection(categories);
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToStudyMaterials(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        Locale localeSM = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"), LanguageManager.getBundle());
+        Parent root = fxmlLoader.load();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        Locale localeP = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(HOME_GUI_FXML_PATH), LanguageManager.getBundle());
+        Parent root = fxmlLoader.load();
+
+        SignInController controller = fxmlLoader.getController();
+        controller.setUserGreeting(currentUser.getUserName());
+
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
