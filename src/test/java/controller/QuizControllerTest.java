@@ -1,73 +1,336 @@
 package controller;
 
-import dao.CardDao;
-import dao.QuizDao;
 import entity.Card;
-import entity.Quiz;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 class QuizControllerTest {
 
-    @Test
-    void createQuizShouldCreateQuizForCategoryAndUser() {
-        Quiz expectedQuiz = new Quiz(1, 3, 0, 7);
-        QuizController controller = new QuizController();
+    private QuizController controller;
 
-        try (MockedStatic<QuizDao> quizDao = org.mockito.Mockito.mockStatic(QuizDao.class)) {
-            quizDao.when(() -> QuizDao.createQuiz("Geography", 7))
-                    .thenReturn(expectedQuiz);
+    @BeforeAll
+    static void startJavaFxToolkit() {
+        /*
+         * Initializes the JavaFX toolkit so JavaFX controls can be created in tests.
+         * JFXPanel is enough for headless controller-level testing.
+         */
+        new JFXPanel();
+    }
 
-            assertSame(expectedQuiz, controller.createQuiz("Geography", 7));
+    @BeforeEach
+    void setUp() {
+        controller = new QuizController();
 
-            quizDao.verify(() -> QuizDao.createQuiz("Geography", 7));
-        }
+        controller.categorySelection = new ChoiceBox<>();
+        controller.startQuizButton = new Button();
+        controller.cardSlot = new javafx.scene.layout.GridPane();
+        controller.questionSlot = new Label();
+        controller.answer1 = new RadioButton();
+        controller.answer2 = new RadioButton();
+        controller.answer3 = new RadioButton();
+        controller.submitAnswer = new Button();
     }
 
     @Test
-    void createQuizShouldUseDefaultCategoryWhenCategoryIsBlank() {
-        QuizController controller = new QuizController();
-
-        try (MockedStatic<QuizDao> quizDao = org.mockito.Mockito.mockStatic(QuizDao.class)) {
-            quizDao.when(() -> QuizDao.createQuiz("default", 7))
-                    .thenReturn(null);
-
-            controller.createQuiz("  ", 7);
-
-            quizDao.verify(() -> QuizDao.createQuiz("default", 7));
-        }
+    void constructorShouldInitializeScoreToZero() throws Exception {
+        assertEquals(0, getPrivateInt("score"));
     }
 
     @Test
-    void createQuizShouldUseDefaultCategoryWhenCategoryIsNull() {
-        QuizController controller = new QuizController();
+    void setCategoriesShouldStoreProvidedCategories() throws Exception {
+        List<String> categories = List.of("Math", "History", "Science");
 
-        try (MockedStatic<QuizDao> quizDao = org.mockito.Mockito.mockStatic(QuizDao.class)) {
-            quizDao.when(() -> QuizDao.createQuiz("default", 7))
-                    .thenReturn(null);
+        controller.setCategories(categories);
 
-            controller.createQuiz(null, 7);
-
-            quizDao.verify(() -> QuizDao.createQuiz("default", 7));
-        }
+        assertSame(categories, getPrivateField("categories"));
     }
 
     @Test
-    void openQuizShouldUseDefaultCategoryWhenCategoryIsBlank() {
-        QuizController controller = new QuizController();
+    void populateCategorySelectionShouldAddAllCategories() {
+        List<String> categories = List.of("Math", "History", "Science");
 
-        try (MockedStatic<CardDao> cardDao = org.mockito.Mockito.mockStatic(CardDao.class)) {
-            cardDao.when(() -> CardDao.getCardsBasedOnCategory("default", 7))
-                    .thenReturn(List.of());
+        controller.populateCategorySelection(categories);
 
-            assertNotNull(controller.openQuiz("", 7));
+        assertEquals(categories, controller.categorySelection.getItems());
+    }
 
-            cardDao.verify(() -> CardDao.getCardsBasedOnCategory("default", 7));
+    @Test
+    void populateCategorySelectionShouldClearExistingItemsBeforeAddingNewCategories() {
+        controller.categorySelection.getItems().addAll("Old category", "Another old category");
+
+        controller.populateCategorySelection(List.of("New category"));
+
+        assertEquals(List.of("New category"), controller.categorySelection.getItems());
+    }
+
+    @Test
+    void populateCategorySelectionShouldDoNothingWhenCategoriesAreNull() {
+        controller.categorySelection.getItems().add("Existing category");
+
+        controller.populateCategorySelection(null);
+
+        assertEquals(List.of("Existing category"), controller.categorySelection.getItems());
+    }
+
+    @Test
+    void populateCategorySelectionShouldDoNothingWhenChoiceBoxIsNull() {
+        controller.categorySelection = null;
+
+        assertDoesNotThrow(() -> controller.populateCategorySelection(List.of("Math")));
+    }
+
+    @Test
+    void setQuestionShouldShowNotEnoughQuestionsMessageWhenQuizCardsAreEmpty() throws Exception {
+        setPrivateField("quizCards", List.of());
+
+        controller.setQuestion();
+
+        assertEquals("Not enough questions in this category.", controller.questionSlot.getText());
+    }
+
+    @Test
+    void setQuestionShouldShowNotEnoughQuestionsMessageWhenQuizCardsAreFewerThanThree() throws Exception {
+        setPrivateField("quizCards", List.of(
+                card("Question 1", "Answer 1"),
+                card("Question 2", "Answer 2")
+        ));
+
+        controller.setQuestion();
+
+        assertEquals("Not enough questions in this category.", controller.questionSlot.getText());
+    }
+
+    @Test
+    void setQuestionShouldDisplayCurrentQuestionAndThreeAnswerOptions() throws Exception {
+        Card firstCard = card("What is 2 + 2?", "4");
+        Card secondCard = card("Capital of Finland?", "Helsinki");
+        Card thirdCard = card("Color of the sky?", "Blue");
+
+        setPrivateField("quizCards", List.of(firstCard, secondCard, thirdCard));
+
+        controller.setQuestion();
+
+        List<String> displayedAnswers = displayedAnswers();
+
+        assertEquals("What is 2 + 2?", controller.questionSlot.getText());
+        assertEquals(3, displayedAnswers.size());
+        assertTrue(displayedAnswers.contains("4"));
+        assertTrue(displayedAnswers.contains("Helsinki"));
+        assertTrue(displayedAnswers.contains("Blue"));
+        assertEquals("4", getPrivateField("correctAnswer"));
+    }
+
+    @Test
+    void setQuestionShouldUseCardAtCurrentIndex() throws Exception {
+        setPrivateField("quizCards", List.of(
+                card("Question 1", "Answer 1"),
+                card("Question 2", "Answer 2"),
+                card("Question 3", "Answer 3")
+        ));
+        setPrivateField("index", 1);
+
+        controller.setQuestion();
+
+        assertEquals("Question 2", controller.questionSlot.getText());
+        assertEquals("Answer 2", getPrivateField("correctAnswer"));
+        assertTrue(displayedAnswers().contains("Answer 2"));
+    }
+
+    @Test
+    void setQuestionShouldShowCompletionStateWhenIndexIsPastLastCard() throws Exception {
+        setPrivateField("quizCards", List.of(
+                card("Question 1", "Answer 1"),
+                card("Question 2", "Answer 2"),
+                card("Question 3", "Answer 3")
+        ));
+        setPrivateField("index", 3);
+        setPrivateField("score", 2);
+
+        controller.setQuestion();
+
+        assertEquals("Quiz Completed!\nYour score: 2", controller.questionSlot.getText());
+        assertFalse(controller.answer1.isVisible());
+        assertFalse(controller.answer2.isVisible());
+        assertFalse(controller.answer3.isVisible());
+        assertEquals("Return", controller.submitAnswer.getText());
+        assertNotNull(controller.submitAnswer.getOnAction());
+    }
+
+    @Test
+    void checkAnswerShouldIncreaseScoreWhenSelectedAnswerIsCorrect() throws Exception {
+        setPrivateField("quizCards", List.of(
+                card("Question 1", "Answer 1"),
+                card("Question 2", "Answer 2"),
+                card("Question 3", "Answer 3")
+        ));
+
+        controller.setQuestion();
+
+        String correctAnswer = (String) getPrivateField("correctAnswer");
+        selectAnswerByText(correctAnswer);
+
+        controller.checkAnswer(null);
+
+        assertEquals(1, getPrivateInt("score"));
+        assertEquals(1, getPrivateInt("index"));
+    }
+
+    @Test
+    void checkAnswerShouldNotIncreaseScoreWhenSelectedAnswerIsWrong() throws Exception {
+        setPrivateField("quizCards", List.of(
+                card("Question 1", "Answer 1"),
+                card("Question 2", "Answer 2"),
+                card("Question 3", "Answer 3")
+        ));
+
+        controller.setQuestion();
+
+        String correctAnswer = (String) getPrivateField("correctAnswer");
+        selectFirstWrongAnswer(correctAnswer);
+
+        controller.checkAnswer(null);
+
+        assertEquals(0, getPrivateInt("score"));
+        assertEquals(1, getPrivateInt("index"));
+    }
+
+    @Test
+    void checkAnswerShouldClearSelectedAnswerAfterSubmitting() throws Exception {
+        setPrivateField("quizCards", List.of(
+                card("Question 1", "Answer 1"),
+                card("Question 2", "Answer 2"),
+                card("Question 3", "Answer 3")
+        ));
+
+        controller.setQuestion();
+        controller.answer1.setSelected(true);
+
+        controller.checkAnswer(null);
+
+        assertFalse(controller.answer1.isSelected());
+        assertFalse(controller.answer2.isSelected());
+        assertFalse(controller.answer3.isSelected());
+    }
+
+    @Test
+    void checkAnswerShouldAdvanceToNextQuestion() throws Exception {
+        setPrivateField("quizCards", List.of(
+                card("Question 1", "Answer 1"),
+                card("Question 2", "Answer 2"),
+                card("Question 3", "Answer 3")
+        ));
+
+        controller.setQuestion();
+
+        controller.checkAnswer(null);
+
+        assertEquals(1, getPrivateInt("index"));
+        assertEquals("Question 2", controller.questionSlot.getText());
+    }
+
+    @Test
+    void checkAnswerShouldCompleteQuizAfterLastQuestion() throws Exception {
+        setPrivateField("quizCards", List.of(
+                card("Question 1", "Answer 1"),
+                card("Question 2", "Answer 2"),
+                card("Question 3", "Answer 3")
+        ));
+        setPrivateField("index", 2);
+
+        controller.setQuestion();
+
+        String correctAnswer = (String) getPrivateField("correctAnswer");
+        selectAnswerByText(correctAnswer);
+
+        controller.checkAnswer(null);
+
+        assertEquals(3, getPrivateInt("index"));
+        assertEquals(1, getPrivateInt("score"));
+        assertEquals("Quiz Completed!\nYour score: 1", controller.questionSlot.getText());
+        assertEquals("Return", controller.submitAnswer.getText());
+        assertFalse(controller.answer1.isVisible());
+        assertFalse(controller.answer2.isVisible());
+        assertFalse(controller.answer3.isVisible());
+    }
+
+    @Test
+    void checkAnswerShouldNotIncreaseScoreWhenNoAnswerIsSelected() throws Exception {
+        setPrivateField("quizCards", List.of(
+                card("Question 1", "Answer 1"),
+                card("Question 2", "Answer 2"),
+                card("Question 3", "Answer 3")
+        ));
+
+        controller.setQuestion();
+
+        controller.checkAnswer(null);
+
+        assertEquals(0, getPrivateInt("score"));
+        assertEquals(1, getPrivateInt("index"));
+    }
+
+    private Card card(String question, String answer) {
+        return new Card(question, answer, "Test category", 1);
+    }
+
+    private List<String> displayedAnswers() {
+        return List.of(
+                controller.answer1.getText(),
+                controller.answer2.getText(),
+                controller.answer3.getText()
+        );
+    }
+
+    private void selectAnswerByText(String text) {
+        if (controller.answer1.getText().equals(text)) {
+            controller.answer1.setSelected(true);
+        } else if (controller.answer2.getText().equals(text)) {
+            controller.answer2.setSelected(true);
+        } else if (controller.answer3.getText().equals(text)) {
+            controller.answer3.setSelected(true);
+        } else {
+            fail("Expected answer option was not displayed: " + text);
         }
+    }
+
+    private void selectFirstWrongAnswer(String correctAnswer) {
+        if (!controller.answer1.getText().equals(correctAnswer)) {
+            controller.answer1.setSelected(true);
+        } else if (!controller.answer2.getText().equals(correctAnswer)) {
+            controller.answer2.setSelected(true);
+        } else if (!controller.answer3.getText().equals(correctAnswer)) {
+            controller.answer3.setSelected(true);
+        } else {
+            fail("No wrong answer option was available.");
+        }
+    }
+
+    private Object getPrivateField(String fieldName) throws Exception {
+        Field field = QuizController.class.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        return field.get(controller);
+    }
+
+    private int getPrivateInt(String fieldName) throws Exception {
+        Field field = QuizController.class.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        return field.getInt(controller);
+    }
+
+    private void setPrivateField(String fieldName, Object value) throws Exception {
+        Field field = QuizController.class.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(controller, value);
     }
 }
