@@ -1,5 +1,7 @@
 package dao;
+
 import entity.Card;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +13,7 @@ import static datasource.MariaDBConnection.conn;
 
 
 public class CardDao {
-    private CardDao(){
+    private CardDao() {
         // Private constructor to prevent instantiation
     }
 

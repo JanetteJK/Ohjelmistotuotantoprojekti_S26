@@ -3,6 +3,7 @@ package controller;
 import dao.CardDao;
 import dao.QuizDao;
 import entity.*;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,9 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
@@ -47,9 +50,12 @@ public class QuizController {
     RadioButton answer2;
     @FXML
     RadioButton answer3;
+    @FXML
+    Button submitAnswer;
 
     public QuizController() {
         // Default constructor
+        this.score = 0;
     }
 
     public void initialize() {
@@ -72,6 +78,7 @@ public class QuizController {
             if (index < quizCards.size()) {
                 Card card = quizCards.get(index);
                 options.add(card.getAnswer());
+                correctAnswer = card.getAnswer();
 
                 while (options.size() < 3) {
                     String newAnswer = quizCards.get(
@@ -91,7 +98,16 @@ public class QuizController {
                 answer2.setText(random1);
                 answer3.setText(random2);
             } else {
-                questionSlot.setText("Quiz Completed!");
+                questionSlot.setText("Quiz Completed!\nYour score: " + this.score );
+                submitAnswer.setText("Return");
+                submitAnswer.setOnAction(e -> {
+                    try {
+                        returnToQuiz(e);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+
             }
         } else {
         questionSlot.setText("Not enough questions in this category.");
@@ -118,23 +134,33 @@ public class QuizController {
     public void checkAnswer(javafx.event.ActionEvent actionEvent) {
     if (answer1.isSelected()) {
         if (answer1.getText().equals(correctAnswer)) {
-            score++;
+            this.score++;
         }
         answer1.setSelected(false);
     }
     if (answer2.isSelected()) {
         if (answer2.getText().equals(correctAnswer)) {
-            score++;
+            this.score++;
         }
         answer2.setSelected(false);
     }
     if (answer3.isSelected()) {
         if (answer3.getText().equals(correctAnswer)) {
-            score++;
+            this.score++;
         }
         answer3.setSelected(false);
     }
     index++;
     setQuestion();
     }
+
+    public void returnToQuiz(javafx.event.ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
+        Parent root = fxmlLoader.load();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }
