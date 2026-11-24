@@ -1,9 +1,7 @@
 package controller;
 
 import dao.CardDao;
-import dao.QuizDao;
 import entity.*;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,11 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
@@ -25,12 +20,9 @@ import java.util.logging.Logger;
 public class QuizController {
     private static final Logger msg = Logger.getLogger(QuizController.class.getName());
     User currentUser;
-    QuizDao qd;
-    CardDao cd;
     private List<String> categories;
-    private static final String PLACEHOLDER_CATEGORY = "default";
     private String correctAnswer;
-    private int score = 0;
+    private int score;
     private int index = 0;
     private List<String> options = new java.util.ArrayList<>();
     private List<Card> quizCards;
@@ -56,10 +48,6 @@ public class QuizController {
     public QuizController() {
         // Default constructor
         this.score = 0;
-    }
-
-    public void initialize() {
-
     }
 
     public void setCategories (List<String> categories) {
@@ -99,19 +87,21 @@ public class QuizController {
                 answer3.setText(random2);
             } else {
                 questionSlot.setText("Quiz Completed!\nYour score: " + this.score );
+                answer1.setVisible(false);
+                answer2.setVisible(false);
+                answer3.setVisible(false);
                 submitAnswer.setText("Return");
                 submitAnswer.setOnAction(e -> {
                     try {
                         returnToQuiz(e);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
+                    } catch (IOException _) {
+                        msg.severe("Error loading quizUI.fxml");
                     }
                 });
 
             }
         } else {
         questionSlot.setText("Not enough questions in this category.");
-        // todo: disable the answer buttons and add a "go back" button to return to the previous scene
         }
     }
 
@@ -119,7 +109,6 @@ public class QuizController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/quizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         QuizController qc = fxmlLoader.getController();
-        System.out.println("Current user ID: " + currentUser.getUserId());
         List<Card> cards = CardDao.getCardsBasedOnCategory(categorySelection.getValue(), currentUser.getUserId());
         qc.quizCards = cards;
         Collections.shuffle(qc.quizCards);
