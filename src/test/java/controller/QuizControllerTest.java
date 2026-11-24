@@ -14,6 +14,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class QuizControllerTest {
 
@@ -157,13 +158,15 @@ class QuizControllerTest {
         setPrivateField("index", 3);
         setPrivateField("score", 2);
 
+        setPrivateField("chooseAnswerLabel", mock(Label.class));
+
         controller.setQuestion();
 
         assertEquals("Quiz Completed!\nYour score: 2", controller.questionSlot.getText());
         assertFalse(controller.answer1.isVisible());
         assertFalse(controller.answer2.isVisible());
         assertFalse(controller.answer3.isVisible());
-        assertEquals("Return", controller.submitAnswer.getText());
+        assertEquals("Back", controller.submitAnswer.getText());
         assertNotNull(controller.submitAnswer.getOnAction());
     }
 
@@ -247,6 +250,7 @@ class QuizControllerTest {
                 card("Question 3", "Answer 3")
         ));
         setPrivateField("index", 2);
+        setPrivateField("chooseAnswerLabel", mock(Label.class));
 
         controller.setQuestion();
 
@@ -258,7 +262,7 @@ class QuizControllerTest {
         assertEquals(3, getPrivateInt("index"));
         assertEquals(1, getPrivateInt("score"));
         assertEquals("Quiz Completed!\nYour score: 1", controller.questionSlot.getText());
-        assertEquals("Return", controller.submitAnswer.getText());
+        assertEquals("Back", controller.submitAnswer.getText());
         assertFalse(controller.answer1.isVisible());
         assertFalse(controller.answer2.isVisible());
         assertFalse(controller.answer3.isVisible());

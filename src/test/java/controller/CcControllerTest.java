@@ -339,17 +339,25 @@ class CcControllerTest {
         Pane node = mock(Pane.class);
         Scene scene = mock(Scene.class);
         Stage stage = mock(Stage.class);
+
         when(mouseEvent.getSource()).thenReturn(node);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWindow()).thenReturn(stage);
+
         Parent root = mock(Parent.class);
+        SignInController signInController = mock(SignInController.class);
 
         try (MockedConstruction<FXMLLoader> loaders = mockConstruction(
-                FXMLLoader.class, (loader, context) -> when(loader.load()).thenReturn(root));
+                FXMLLoader.class, (loader, context) -> {
+                    when(loader.load()).thenReturn(root);
+                    when(loader.getController()).thenReturn(signInController);
+                });
              MockedConstruction<Scene> scenes = mockConstruction(Scene.class)) {
+
             controller.switchToProfile(mouseEvent);
 
             verify(loaders.constructed().get(0)).load();
+            verify(signInController).setUserGreeting(user.getUserName());
             verify(stage).setScene(any(Scene.class));
             verify(stage).show();
         }
