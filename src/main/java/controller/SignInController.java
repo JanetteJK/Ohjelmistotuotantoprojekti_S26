@@ -222,7 +222,7 @@ public class SignInController {
 
     public void switchToStudyMaterials(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         Locale localeSM = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"), LanguageManager.getBundle());
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/studyMaterialsUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);

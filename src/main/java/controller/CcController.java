@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class CcController {
@@ -145,13 +146,14 @@ public class CcController {
         stage.show();
     }
 
-    public void switchToProfile(javafx.scene.input.@MonotonicNonNull MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/createAccount.fxml"),
-                LanguageManager.getBundle()
-        );
+    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        Locale localeP = LanguageManager.getLocale();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
-        cac = fxmlLoader.getController();
+
+        SignInController controller = fxmlLoader.getController();
+        controller.setUserGreeting(user.getUserName());
+
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
