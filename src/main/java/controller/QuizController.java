@@ -49,6 +49,8 @@ public class QuizController {
     RadioButton answer3;
     @FXML
     Button submitAnswer;
+    @FXML
+    Label chooseAnswerLabel;
 
     public QuizController() {
         // Default constructor
@@ -95,7 +97,8 @@ public class QuizController {
                 answer1.setVisible(false);
                 answer2.setVisible(false);
                 answer3.setVisible(false);
-                submitAnswer.setText("Return");
+                chooseAnswerLabel.setVisible(false);
+                submitAnswer.setText("Back");
                 submitAnswer.setOnAction(e -> {
                     try {
                         returnToQuiz(e);

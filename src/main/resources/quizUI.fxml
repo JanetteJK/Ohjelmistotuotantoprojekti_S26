@@ -67,7 +67,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="142.0" prefWidth="429.0">
                            <children>
-                              <Label text="Choose correct answer below">
+                              <Label fx:id="chooseAnswerLabel" text="%SUBHEADER_quiz3">
                                  <font>
                                     <Font name="Bell MT" size="18.0" />
                                  </font>
