@@ -133,18 +133,6 @@ public class CcController {
         stage.show();
     }
 
-    public void switchToStudyMaterials(javafx.scene.input.@MonotonicNonNull MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/createAccount.fxml"),
-                LanguageManager.getBundle()
-        );
-        Parent root = fxmlLoader.load();
-        cac = fxmlLoader.getController();
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         Locale localeP = LanguageManager.getLocale();

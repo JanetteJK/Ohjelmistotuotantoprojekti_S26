@@ -174,15 +174,6 @@ public class QuizController {
         stage.show();
     }
 
-    public void switchToStudyMaterials(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        Locale localeSM = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/studyMaterialsUI.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void switchToLibrary(MouseEvent actionEvent) throws IOException {
         Locale localeL = LanguageManager.getLocale();

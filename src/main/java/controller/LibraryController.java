@@ -123,15 +123,6 @@ public class LibraryController implements Initializable {
         stage.show();
     }
 
-    public void switchToStudyMaterials(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        Locale localeSM = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/studyMaterialsUI.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         Locale localeP = LanguageManager.getLocale();
