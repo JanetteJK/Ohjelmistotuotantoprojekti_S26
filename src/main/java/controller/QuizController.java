@@ -12,6 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.input.MouseEvent;
+import javafx.event.ActionEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -23,11 +24,11 @@ import java.util.logging.Logger;
 public class QuizController {
     private static final Logger msg = Logger.getLogger(QuizController.class.getName());
     User currentUser;
-    private List<String> categories;
+    List<String> categories;
     private String correctAnswer;
     private int score;
     private int index = 0;
-    private List<String> options = new java.util.ArrayList<>();
+    private final List<String> options = new java.util.ArrayList<>();
     private List<Card> quizCards;
     private final Random random = new Random();
     private Stage stage;
@@ -70,7 +71,7 @@ public class QuizController {
     }
     @FXML
     public void setQuestion() {
-        if (!quizCards.isEmpty() && quizCards.size() >= 3) {
+        if (quizCards.size() >= 3) {
             if (index < quizCards.size()) {
                 Card card = quizCards.get(index);
                 options.add(card.getAnswer());
@@ -94,27 +95,30 @@ public class QuizController {
                 answer2.setText(random1);
                 answer3.setText(random2);
             } else {
-                questionSlot.setText(bundle.getString("SUBHEADER_quiz_score") + this.score );
-                answer1.setVisible(false);
-                answer2.setVisible(false);
-                answer3.setVisible(false);
-                chooseAnswerLabel.setVisible(false);
-                submitAnswer.setText(bundle.getString("ELEM_back"));
-                submitAnswer.setOnAction(e -> {
-                    try {
-                        returnToQuiz(e);
-                    } catch (IOException _) {
-                        msg.severe("Error");
-                    }
-                });
-
+                endQuiz();
             }
         } else {
-        questionSlot.setText("Not enough questions in this category.");
+            questionSlot.setText("Not enough questions in this category.");
         }
     }
 
-    public void startQuiz(javafx.event.ActionEvent actionEvent) throws IOException{
+    public void endQuiz(){
+        questionSlot.setText(bundle.getString("SUBHEADER_quiz_score") + this.score );
+        answer1.setVisible(false);
+        answer2.setVisible(false);
+        answer3.setVisible(false);
+        chooseAnswerLabel.setVisible(false);
+        submitAnswer.setText(bundle.getString("ELEM_back"));
+        submitAnswer.setOnAction(e -> {
+            try {
+                returnToQuiz(e);
+            } catch (IOException _) {
+                msg.severe("Error");
+            }
+        });
+    }
+
+    public void startQuiz(ActionEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/quizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         QuizController qc = fxmlLoader.getController();
@@ -129,7 +133,7 @@ public class QuizController {
 
     }
 
-    public void checkAnswer(javafx.event.ActionEvent actionEvent) {
+    public void checkAnswer(ActionEvent actionEvent) {
     if (answer1.isSelected()) {
         if (answer1.getText().equals(correctAnswer)) {
             this.score++;
@@ -152,7 +156,7 @@ public class QuizController {
     setQuestion();
     }
 
-    public void returnToQuiz(javafx.event.ActionEvent actionEvent) throws IOException {
+    public void returnToQuiz(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -161,7 +165,7 @@ public class QuizController {
         stage.show();
     }
 
-    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public void switchToProfile(MouseEvent actionEvent) throws IOException {
         Locale localeP = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
@@ -189,7 +193,7 @@ public class QuizController {
         stage.show();
     }
 
-    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public void switchToCreateCards(MouseEvent actionEvent) throws IOException {
         Locale localeCC = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
