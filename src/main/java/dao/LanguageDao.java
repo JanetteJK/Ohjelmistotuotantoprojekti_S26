@@ -11,11 +11,12 @@ import java.util.logging.Logger;
 import static datasource.MariaDBConnection.conn;
 
 public class LanguageDao {
+
     private LanguageDao () {
         // Private constructor to prevent instantiation
     }
 
-    private final static Logger msg = Logger.getLogger(LanguageDao.class.getName());
+    private static final Logger msg = Logger.getLogger(LanguageDao.class.getName());
 
     public static void chooseLanguage(Language lang) {
         if (conn == null) {
@@ -26,7 +27,7 @@ public class LanguageDao {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            System.out.println("Language chosen: " + lang.getTranslation());
+            msg.info("Language chosen: " + lang.getTranslation());
 
             stmt.setString(1, lang.getLangCode());
 

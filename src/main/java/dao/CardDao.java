@@ -151,7 +151,7 @@ public class CardDao {
 
             while (rs.next()) {
                 String category = rs.getString("category");
-                msg.info("Category: " + category);
+                msg.info(category);
                 if (!categoryList.contains(category)) {
                     categoryList.add(category);
                 }

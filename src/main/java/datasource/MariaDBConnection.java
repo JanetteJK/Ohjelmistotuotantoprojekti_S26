@@ -12,6 +12,10 @@ public class MariaDBConnection {
     public static Connection conn = null;
     private static final Logger msg = Logger.getLogger(MariaDBConnection.class.getName());
 
+    private MariaDBConnection(){
+        // Private constructor to prevent instantiation
+    }
+
     public static Connection connect() {
         if (conn == null) {
             try {
@@ -38,7 +42,7 @@ public class MariaDBConnection {
                         password
                 );
 
-            } catch (SQLException e) {
+            } catch (SQLException _) {
                 msg.info("Error!");
             } catch (IOException e) {
                 throw new RuntimeException(e);

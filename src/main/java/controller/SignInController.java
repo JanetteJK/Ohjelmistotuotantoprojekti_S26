@@ -197,6 +197,10 @@ public class SignInController {
 
     }
 
+    public void switchToProfile(MouseEvent actionEvent) throws IOException {
+        PageController.switchToProfile(actionEvent);
+    }
+
     public void setUserGreeting(String un) {
         nameTag.setText(un);
     }
