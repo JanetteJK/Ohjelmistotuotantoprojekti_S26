@@ -1,8 +1,8 @@
 package entity;
 
 public class UserProfile {
-    private String username;
-    private int userId;
+    private final String username;
+    private final int userId;
 
     public UserProfile(String un, int id){
         this.username = un;

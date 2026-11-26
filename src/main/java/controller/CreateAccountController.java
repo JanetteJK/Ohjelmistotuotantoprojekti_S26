@@ -42,10 +42,10 @@ public class CreateAccountController {
         String passw = newPassw.getText();
         String email = null;
         if (teacherButton.isSelected()) {
-            role = User.Role.teacher;
+            role = User.Role.TEACHER;
             email = "teacher@email.com";
         } else if (studentButton.isSelected()) {
-            role = User.Role.student;
+            role = User.Role.STUDENT;
             email = "student@email.com";
         } else {
             log.info("no role selected");

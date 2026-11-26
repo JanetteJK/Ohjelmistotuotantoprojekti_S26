@@ -26,7 +26,7 @@ public class LanguageDao {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            System.out.println("Language chosen: " + lang.getLanguage());
+            System.out.println("Language chosen: " + lang.getTranslation());
 
             stmt.setString(1, lang.getLangCode());
 

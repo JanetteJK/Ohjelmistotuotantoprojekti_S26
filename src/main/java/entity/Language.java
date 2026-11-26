@@ -1,28 +1,28 @@
 package entity;
 
 public class Language {
-    private String lang_code;
-    private String language;
+    private String lang;
+    private String translation;
     private String message;
 
 
-    public Language(String lang_code, String language, String message) {
-        this.lang_code = lang_code;
-        this.language = language;
+    public Language(String lang, String translation, String message) {
+        this.lang = lang;
+        this.translation = translation;
         this.message = message;
     }
 
     public String getLangCode() {
-        return lang_code;
+        return lang;
     }
-    public void setLangCode(String lang_code) {
-        this.lang_code = lang_code;
+    public void setLangCode(String lang) {
+        this.lang = lang;
     }
-    public String getLanguage() {
-        return language;
+    public String getTranslation() {
+        return translation;
     }
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setTranslation(String translation) {
+        this.translation = translation;
     }
     public String getMessage() {
         return message;

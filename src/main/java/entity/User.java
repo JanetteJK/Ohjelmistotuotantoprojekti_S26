@@ -8,8 +8,8 @@ public class User {
     private int userId;
 
     public enum Role {
-        student,
-        teacher
+        STUDENT,
+        TEACHER
     }
 
     public User(String userName, String email, String password, Role role) {

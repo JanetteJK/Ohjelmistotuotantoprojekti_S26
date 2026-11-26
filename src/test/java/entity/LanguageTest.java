@@ -11,7 +11,7 @@ class LanguageTest {
         Language language = new Language("FI", "Finnish", "Hei!");
 
         assertEquals("FI", language.getLangCode());
-        assertEquals("Finnish", language.getLanguage());
+        assertEquals("Finnish", language.getTranslation());
         assertEquals("Hei!", language.getMessage());
     }
 
@@ -28,9 +28,9 @@ class LanguageTest {
     void setLanguage_shouldUpdateLanguage() {
         Language language = new Language("FI", "Finnish", "Hei!");
 
-        language.setLanguage("English");
+        language.setTranslation("English");
 
-        assertEquals("English", language.getLanguage());
+        assertEquals("English", language.getTranslation());
     }
 
     @Test

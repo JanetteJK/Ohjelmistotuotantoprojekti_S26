@@ -87,7 +87,7 @@ public class SignInController {
             ObservableList<String> items = FXCollections.observableArrayList();
 
             for (Language lang : LanguageManager.getLanguages()){
-                items.add(lang.getLanguage());
+                items.add(lang.getTranslation());
             }
             languageChoice.setItems(items);
             languageChoice.getSelectionModel().select(languageIndexForLocale(
@@ -120,7 +120,7 @@ public class SignInController {
             String un = getTUsername();
             String ps = getTPassw();
             String email = "teacher@email.fi";
-            User teacher = new User(un, email, ps, User.Role.teacher);
+            User teacher = new User(un, email, ps, User.Role.TEACHER);
             if (UserDao.logInUser(teacher)) {
                 setCurrentUser(teacher);
                 FXMLLoader fxmlLoader = new FXMLLoader(
@@ -149,7 +149,7 @@ public class SignInController {
             String un = getSUsername();
             String ps = getsPassw();
             String email = "student@email.fi";
-            User student = new User(un, email, ps, User.Role.student);
+            User student = new User(un, email, ps, User.Role.STUDENT);
             if (UserDao.logInUser(student)) {
                 setCurrentUser(student);
                 FXMLLoader fxmlLoader = new FXMLLoader(
