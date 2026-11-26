@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -26,7 +25,6 @@ public class LibraryController implements Initializable {
     private Stage stage;
     private Scene scene;
     private User currentUser;
-    private static final String HOME_GUI_FXML_PATH = "/initHomeGui.fxml";
 
 
     @FXML
@@ -94,16 +92,12 @@ public class LibraryController implements Initializable {
         PageController.switchToCreateCards(actionEvent);
     }
 
-
     public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateQuiz(actionEvent);
 
     }
 
-
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         PageController.switchToProfile(actionEvent);
     }
-
-
 }

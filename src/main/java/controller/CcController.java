@@ -66,20 +66,15 @@ public class CcController {
         categoryField.clear();
     }
 
-
-
     //switch funtions
 
     public void switchToLibrary(MouseEvent actionEvent) throws IOException {
         PageController.switchToLibrary(actionEvent);
     }
 
-
     public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateQuiz(actionEvent);
-
     }
-
 
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         PageController.switchToProfile(actionEvent);
