@@ -75,32 +75,6 @@ public class CcController {
 
 
     //switch funtions
-    public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/createAccount.fxml"),
-                LanguageManager.getBundle()
-        );
-        Parent root = fxmlLoader.load();
-        cac = fxmlLoader.getController();
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void switchToCreateCard(MouseEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/createCard.fxml"),
-                LanguageManager.getBundle()
-        );
-        Parent root = fxmlLoader.load();
-        cac = fxmlLoader.getController();
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-    }
 
     public void switchToLibrary(javafx.scene.input.MouseEvent actionEvent) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(
@@ -124,7 +98,10 @@ public class CcController {
                 LanguageManager.getBundle()
         );
         Parent root = fxmlLoader.load();
-        cac = fxmlLoader.getController();
+        QuizController qc = fxmlLoader.getController();
+        List<String> categories = CardDao.getCategories(user.getUserId());
+        qc.currentUser = user;
+        qc.populateCategorySelection(categories);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -138,6 +115,7 @@ public class CcController {
         Parent root = fxmlLoader.load();
 
         SignInController controller = fxmlLoader.getController();
+        controller.setCurrentUser(user);
         controller.setUserGreeting(user.getUserName());
 
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

@@ -130,6 +130,7 @@ public class LibraryController implements Initializable {
         Parent root = fxmlLoader.load();
 
         SignInController controller = fxmlLoader.getController();
+        controller.setCurrentUser(currentUser);
         controller.setUserGreeting(currentUser.getUserName());
 
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
