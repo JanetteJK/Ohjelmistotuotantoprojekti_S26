@@ -22,7 +22,7 @@ class UserDaoTest {
         when(mockConnection.prepareStatement(anyString()))
                 .thenReturn(mockStatement);
 
-        User user = new User("Veela", "Veela@student.com", "salasana", User.Role.student);
+        User user = new User("Veela", "Veela@student.com", "salasana", User.Role.STUDENT);
 
         UserDao.registerUser(user);
 
@@ -33,7 +33,7 @@ class UserDaoTest {
         verify(mockStatement).setString(1, "Veela");
         verify(mockStatement).setString(2, "salasana");
         verify(mockStatement).setString(3, "Veela@student.com");
-        verify(mockStatement).setString(4, User.Role.student.toString());
+        verify(mockStatement).setString(4, User.Role.STUDENT.toString());
 
         verify(mockStatement).executeUpdate();
     }
@@ -42,7 +42,7 @@ class UserDaoTest {
     void registerUserDoesNothingWhenConnectionIsNull() {
         conn = null;
 
-        User user = new User("Veela", "Veela@student.com", "salasana", User.Role.student);
+        User user = new User("Veela", "Veela@student.com", "salasana", User.Role.STUDENT);
 
         assertDoesNotThrow(() ->
                 UserDao.registerUser(user));
@@ -66,7 +66,7 @@ class UserDaoTest {
                 "Veela",
                 "test@veela.com",
                 "salasana",
-                User.Role.student
+                User.Role.STUDENT
         );
 
         assertDoesNotThrow(() ->
@@ -93,7 +93,7 @@ class UserDaoTest {
         when(mockResultSet.next())
                 .thenReturn(true);
 
-        User user = new User("Veela", "Veela@student.com", "salasana", User.Role.student);
+        User user = new User("Veela", "Veela@student.com", "salasana", User.Role.STUDENT);
 
         boolean result = UserDao.logInUser(user);
 
@@ -105,7 +105,7 @@ class UserDaoTest {
 
         verify(mockStatement).setString(1, "Veela");
         verify(mockStatement).setString(2, "salasana");
-        verify(mockStatement).setString(3, User.Role.student.toString());
+        verify(mockStatement).setString(3, User.Role.STUDENT.toString());
         verify(mockStatement).executeQuery();
 
         verify(mockResultSet).next();
@@ -115,7 +115,7 @@ class UserDaoTest {
     void loginUserDoesNothingWhenConnectionIsNull() {
         conn = null;
 
-        User user = new User("Veela", "Veela@student.com", "salasana", User.Role.student);
+        User user = new User("Veela", "Veela@student.com", "salasana", User.Role.STUDENT);
 
         assertDoesNotThrow(() ->
                 UserDao.logInUser(user));
@@ -134,7 +134,7 @@ class UserDaoTest {
                 "Veela",
                 "Veela@student.com",
                 "Salasana",
-                User.Role.student
+                User.Role.STUDENT
         );
 
         assertDoesNotThrow(() ->

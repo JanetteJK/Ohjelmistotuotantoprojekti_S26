@@ -6,17 +6,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.input.MouseEvent;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
 
 class QuizControllerTest {
 
@@ -95,24 +96,36 @@ class QuizControllerTest {
     }
 
     @Test
-    void setQuestionShouldShowNotEnoughQuestionsMessageWhenQuizCardsAreEmpty() throws Exception {
-        setPrivateField("quizCards", List.of());
+    void setQuestionShouldNotSetQuestionWhenQuizCardsAreEmpty() throws Exception {
+        QuizController controller = new QuizController();
+
+        controller.questionSlot = new Label();
+
+        Field field = QuizController.class.getDeclaredField("quizCards");
+        field.setAccessible(true);
+        field.set(controller, new ArrayList<Card>());
 
         controller.setQuestion();
 
-        assertEquals("Not enough questions in this category.", controller.questionSlot.getText());
+        assertEquals("", controller.questionSlot.getText());
     }
 
     @Test
-    void setQuestionShouldShowNotEnoughQuestionsMessageWhenQuizCardsAreFewerThanThree() throws Exception {
-        setPrivateField("quizCards", List.of(
-                card("Question 1", "Answer 1"),
-                card("Question 2", "Answer 2")
-        ));
+    void setQuestionShouldNotSetQuestionWhenQuizCardsAreFewerThanThree() throws Exception {
+        QuizController controller = new QuizController();
+
+        controller.questionSlot = new Label();
+
+        Card card1 = mock(Card.class);
+        Card card2 = mock(Card.class);
+
+        Field field = QuizController.class.getDeclaredField("quizCards");
+        field.setAccessible(true);
+        field.set(controller, Arrays.asList(card1, card2));
 
         controller.setQuestion();
 
-        assertEquals("Not enough questions in this category.", controller.questionSlot.getText());
+        assertEquals("", controller.questionSlot.getText());
     }
 
     @Test
@@ -297,6 +310,48 @@ class QuizControllerTest {
 
         assertEquals(0, getPrivateInt("score"));
         assertEquals(1, getPrivateInt("index"));
+    }
+
+    @Test
+    void switchToCreateCards_shouldDelegateToPageController() throws Exception {
+        MouseEvent mouseEvent = mock(MouseEvent.class);
+
+        try (MockedStatic<PageController> pageController =
+                     mockStatic(PageController.class)) {
+
+            controller.switchToCreateCards(mouseEvent);
+
+            pageController.verify(() ->
+                    PageController.switchToCreateCards(mouseEvent));
+        }
+    }
+
+    @Test
+    void switchToLibrary_shouldDelegateToPageController() throws Exception {
+        MouseEvent mouseEvent = mock(MouseEvent.class);
+
+        try (MockedStatic<PageController> pageController =
+                     mockStatic(PageController.class)) {
+
+            controller.switchToLibrary(mouseEvent);
+
+            pageController.verify(() ->
+                    PageController.switchToLibrary(mouseEvent));
+        }
+    }
+
+    @Test
+    void switchToProfile_shouldDelegateToPageController() throws Exception {
+        MouseEvent mouseEvent = mock(MouseEvent.class);
+
+        try (MockedStatic<PageController> pageController =
+                     mockStatic(PageController.class)) {
+
+            controller.switchToProfile(mouseEvent);
+
+            pageController.verify(() ->
+                    PageController.switchToProfile(mouseEvent));
+        }
     }
 
     private Card card(String question, String answer) {

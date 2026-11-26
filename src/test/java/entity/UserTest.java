@@ -8,21 +8,21 @@ public class UserTest {
 
     @Test
     void testUserGettersAndSetters() {
-        User u = new User("testiukko", "testiukko@email.fi", "testiukonsalasana", student);
+        User u = new User("testiukko", "testiukko@email.fi", "testiukonsalasana", STUDENT);
 
     assertEquals("testiukko", u.getUserName());
     assertEquals("testiukko@email.fi", u.getEmail());
     assertEquals("testiukonsalasana", u.getPassword());
-    assertEquals(student, u.getRole());
+    assertEquals(STUDENT, u.getRole());
 
     u.setUserName("testiakka");
     u.setEmail("testiakka@email.fi");
     u.setPassword("testiakansalasana");
-    u.setRole(teacher);
+    u.setRole(TEACHER);
     assertEquals("testiakka", u.getUserName());
     assertEquals("testiakka@email.fi", u.getEmail());
     assertEquals("testiakansalasana", u.getPassword());
-    assertEquals(teacher, u.getRole());
+    assertEquals(TEACHER, u.getRole());
 
     u.setUserId(1);
     assertEquals(1, u.getUserId());

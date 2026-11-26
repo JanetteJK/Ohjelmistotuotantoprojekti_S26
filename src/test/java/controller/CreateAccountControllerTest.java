@@ -79,7 +79,7 @@ class CreateAccountControllerTest {
         assertEquals("teacherUser", user.getUserName());
         assertEquals("teacherPassword", user.getPassword());
         assertEquals("teacher@email.com", user.getEmail());
-        assertEquals(User.Role.teacher, user.getRole());
+        assertEquals(User.Role.TEACHER, user.getRole());
     }
 
     @Test
@@ -94,7 +94,7 @@ class CreateAccountControllerTest {
         assertEquals("studentUser", user.getUserName());
         assertEquals("studentPassword", user.getPassword());
         assertEquals("student@email.com", user.getEmail());
-        assertEquals(User.Role.student, user.getRole());
+        assertEquals(User.Role.STUDENT, user.getRole());
     }
 
     @Test
@@ -155,7 +155,7 @@ class CreateAccountControllerTest {
             userDao.verify(() -> UserDao.registerUser(org.mockito.ArgumentMatchers.argThat(
                     user -> "newUser".equals(user.getUserName())
                             && "newPassword".equals(user.getPassword())
-                            && User.Role.student == user.getRole()
+                            && User.Role.STUDENT == user.getRole()
             )));
         }
     }
