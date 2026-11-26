@@ -248,45 +248,44 @@ class LibraryControllerTest {
     }
 
     @Test
-    void switchToCreateCards_shouldLoadViewAndSetUser()
-            throws Exception {
-
+    void switchToCreateCards_shouldDelegateToPageController() throws Exception {
         MouseEvent mouseEvent = mock(MouseEvent.class);
-        Pane node = mock(Pane.class);
-        Scene scene = mock(Scene.class);
-        Stage stage = mock(Stage.class);
 
-        when(mouseEvent.getSource()).thenReturn(node);
-        when(node.getScene()).thenReturn(scene);
-        when(scene.getWindow()).thenReturn(stage);
-
-        Parent root = mock(Parent.class);
-        CcController cardController = mock(CcController.class);
-
-        controller.setUser(user);
-
-        try (MockedConstruction<FXMLLoader> loaders =
-                     mockConstruction(
-                             FXMLLoader.class,
-                             (loader, context) -> {
-                                 when(loader.load()).thenReturn(root);
-                                 when(loader.getController())
-                                         .thenReturn(cardController);
-                             });
-             MockedConstruction<Scene> scenes =
-                     mockConstruction(Scene.class)) {
+        try (MockedStatic<PageController> pageController =
+                     mockStatic(PageController.class)) {
 
             controller.switchToCreateCards(mouseEvent);
 
-            assertEquals(1, loaders.constructed().size());
+            pageController.verify(() ->
+                    PageController.switchToCreateCards(mouseEvent));
+        }
+    }
 
-            FXMLLoader loader = loaders.constructed().get(0);
+    @Test
+    void switchToCreateQuiz_shouldDelegateToPageController() throws Exception {
+        MouseEvent mouseEvent = mock(MouseEvent.class);
 
-            verify(loader).load();
-            verify(loader).getController();
-            verify(cardController).setUser(user);
-            verify(stage).setScene(any(Scene.class));
-            verify(stage).show();
+        try (MockedStatic<PageController> pageController =
+                     mockStatic(PageController.class)) {
+
+            controller.switchToCreateQuiz(mouseEvent);
+
+            pageController.verify(() ->
+                    PageController.switchToCreateQuiz(mouseEvent));
+        }
+    }
+
+    @Test
+    void switchToProfile_shouldDelegateToPageController() throws Exception {
+        MouseEvent mouseEvent = mock(MouseEvent.class);
+
+        try (MockedStatic<PageController> pageController =
+                     mockStatic(PageController.class)) {
+
+            controller.switchToProfile(mouseEvent);
+
+            pageController.verify(() ->
+                    PageController.switchToProfile(mouseEvent));
         }
     }
 
