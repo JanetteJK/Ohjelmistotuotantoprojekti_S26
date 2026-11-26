@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.GridPane;
@@ -69,6 +66,15 @@ public class QuizController {
             categorySelection.getItems().addAll(categories);
         }
     }
+
+    void showQuizAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Error making quiz");
+        alert.setHeaderText("Error making quiz");
+        alert.setContentText("Not enough cards in category.");
+        alert.showAndWait();
+    }
+
     @FXML
     public void setQuestion() {
         if (quizCards.size() >= 3) {
