@@ -77,30 +77,33 @@ public class QuizController {
 
     @FXML
     public void setQuestion() {
-        if (index < quizCards.size()) {
-            Card card = quizCards.get(index);
-            options.add(card.getAnswer());
-            correctAnswer = card.getAnswer();
+        if (quizCards.size() >= 3) {
+            if (index < quizCards.size()) {
+                Card card = quizCards.get(index);
+                options.add(card.getAnswer());
+                correctAnswer = card.getAnswer();
 
-            while (options.size() < 3) {
-                String newAnswer = quizCards.get(
-                        this.random.nextInt(quizCards.size())
-                ).getAnswer();
-                if (!options.contains(newAnswer)) {
-                    options.add(newAnswer);
+                while (options.size() < 3) {
+                    String newAnswer = quizCards.get(
+                            this.random.nextInt(quizCards.size())
+                    ).getAnswer();
+                    if (!options.contains(newAnswer)) {
+                        options.add(newAnswer);
+                    }
                 }
-            }
-            Collections.shuffle(options);
+                Collections.shuffle(options);
 
-            questionSlot.setText(quizCards.get(index).getQuestion());
-            String random1 = options.removeFirst();
-            String random2 = options.removeFirst();
-            String random3 = options.removeFirst();
-            answer1.setText(random3);
-            answer2.setText(random1);
-            answer3.setText(random2);
-        } else {
-            endQuiz();
+                questionSlot.setText(quizCards.get(index).getQuestion());
+                String random1 = options.removeFirst();
+                String random2 = options.removeFirst();
+                String random3 = options.removeFirst();
+                answer1.setText(random3);
+                answer2.setText(random1);
+                answer3.setText(random2);
+            } else {
+                endQuiz();
+            }
+
         }
     }
 
@@ -126,18 +129,20 @@ public class QuizController {
         QuizController qc = fxmlLoader.getController();
         List<Card> cards = CardDao.getCardsBasedOnCategory(categorySelection.getValue(), currentUser.getUserId());
         qc.quizCards = cards;
-        Collections.shuffle(qc.quizCards);
         qc.currentUser = currentUser;
-        if (quizCards.size() >= 3) {
+        Collections.shuffle(qc.quizCards);
+        if (cards.size() < 3) {
+            showQuizAlert();
+            returnToQuiz(actionEvent);
+        }
+        else {
             qc.setQuestion();
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        } else {
-            showQuizAlert();
-            returnToQuiz(actionEvent);
         }
+
     }
 
     public void checkAnswer(ActionEvent actionEvent) {
@@ -176,45 +181,23 @@ public class QuizController {
         stage.show();
     }
 
-    public void switchToProfile(MouseEvent actionEvent) throws IOException {
-        Locale localeP = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-
-        SignInController controller = fxmlLoader.getController();
-        controller.setCurrentUser(currentUser);
-        controller.setUserGreeting(currentUser.getUserName());
-
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        PageController.switchToCreateCards(actionEvent);
     }
-
 
     public void switchToLibrary(MouseEvent actionEvent) throws IOException {
-        Locale localeL = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUI.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-        LibraryController lc = fxmlLoader.getController();
-        lc.setUser(currentUser);
-        lc.getAllCards();
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        PageController.switchToLibrary(actionEvent);
     }
 
-    public void switchToCreateCards(MouseEvent actionEvent) throws IOException {
-        Locale localeCC = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-        CcController cardCtrl = fxmlLoader.getController();
-        cardCtrl.setUser(currentUser);
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+
+    public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        PageController.switchToCreateQuiz(actionEvent);
+
+    }
+
+
+    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        PageController.switchToProfile(actionEvent);
     }
 
 }

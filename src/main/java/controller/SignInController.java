@@ -29,6 +29,7 @@ public class SignInController {
     UserDao ud;
     CardDao cd;
     CreateAccountController cac;
+    PageController pc;
     private Stage stage;
     private Scene scene;
     private User currentUser;
@@ -131,6 +132,7 @@ public class SignInController {
                 SignInController controller = fxmlLoader.getController();
                 controller.setUserGreeting(currentUser.getUserName());
                 controller.setCurrentUser(currentUser);
+                pc.setUser(currentUser);
                 stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -159,6 +161,7 @@ public class SignInController {
                 SignInController controller = fxmlLoader.getController();
                 controller.setUserGreeting(currentUser.getUserName());
                 controller.setCurrentUser(currentUser);
+                PageController.setUser(currentUser);
                 stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -182,58 +185,22 @@ public class SignInController {
     }
 
     public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        Locale localeCC = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-        CcController cardCtrl = fxmlLoader.getController();
-        cardCtrl.setUser(currentUser);
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        PageController.switchToCreateCards(actionEvent);
     }
 
     public void switchToLibrary(MouseEvent actionEvent) throws IOException {
-        Locale localeL = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUI.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-        LibraryController lc = fxmlLoader.getController();
-        lc.setUser(currentUser);
-        lc.getAllCards();
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        PageController.switchToLibrary(actionEvent);
     }
 
+
     public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        Locale localeCQ = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-        QuizController qc = fxmlLoader.getController();
-        List<String> categories = CardDao.getCategories(currentUser.getUserId());
-        qc.currentUser = currentUser;
-        qc.populateCategorySelection(categories);
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        PageController.switchToCreateQuiz(actionEvent);
+
     }
 
 
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        Locale localeP = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(HOME_GUI_FXML_PATH), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-
-        SignInController controller = fxmlLoader.getController();
-        controller.setCurrentUser(currentUser);
-        controller.setUserGreeting(currentUser.getUserName());
-
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        PageController.switchToProfile(actionEvent);
     }
 
     public void setUserGreeting(String un) {
