@@ -5,29 +5,21 @@ import javafx.fxml.FXML;
 import dao.CardDao;
 import entity.Card;
 import entity.User;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 public class CcController {
 
-    private static final Logger log = LoggerFactory.getLogger(CcController.class);
     private Stage stage;
     private Scene scene;
     List<Card> cards = new ArrayList<>();
@@ -70,13 +62,7 @@ public class CcController {
         categoryField.clear();
     }
 
-
-
     //switch funtions
-
-    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        PageController.switchToCreateCards(actionEvent);
-    }
 
     public void switchToLibrary(MouseEvent actionEvent) throws IOException {
         PageController.switchToLibrary(actionEvent);
@@ -84,7 +70,6 @@ public class CcController {
 
     public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateQuiz(actionEvent);
-
     }
 
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
