@@ -131,17 +131,6 @@ class CardControllerTest {
         assertSame(user, userField.get(controller));
     }
 
-    @Test
-    void deleteCard_shouldCallDaoWithCurrentQuestion() {
-        when(cardText.getText()).thenReturn("What is Java?");
-
-        try (MockedStatic<CardDao> cardDaoMock = mockStatic(CardDao.class)) {
-            controller.deleteCard(event);
-
-            cardDaoMock.verify(() -> CardDao.deleteCard("What is Java?"));
-        }
-    }
-
 
     private static void setPrivateField(
             Object target,

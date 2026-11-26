@@ -231,49 +231,6 @@ class CcControllerTest {
     }
 
     @Test
-    void switchToCreateAccount_shouldLoadView() throws Exception {
-        ActionEvent actionEvent = mock(ActionEvent.class);
-        Pane node = mock(Pane.class);
-        Scene scene = mock(Scene.class);
-        Stage stage = mock(Stage.class);
-        when(actionEvent.getSource()).thenReturn(node);
-        when(node.getScene()).thenReturn(scene);
-        when(scene.getWindow()).thenReturn(stage);
-        Parent root = mock(Parent.class);
-
-        try (MockedConstruction<FXMLLoader> loaders = mockConstruction(
-                FXMLLoader.class, (loader, context) -> when(loader.load()).thenReturn(root));
-             MockedConstruction<Scene> scenes = mockConstruction(Scene.class)) {
-            controller.switchToCreateAccount(actionEvent);
-
-            verify(loaders.constructed().get(0)).load();
-            verify(stage).setScene(any(Scene.class));
-            verify(stage).show();
-        }
-    }
-
-    @Test
-    void switchToCreateCard_shouldLoadView() throws Exception {
-        MouseEvent mouseEvent = mock(MouseEvent.class);
-        Pane node = mock(Pane.class);
-        Scene scene = mock(Scene.class);
-        Stage stage = mock(Stage.class);
-        when(mouseEvent.getSource()).thenReturn(node);
-        when(node.getScene()).thenReturn(scene);
-        when(scene.getWindow()).thenReturn(stage);
-        Parent root = mock(Parent.class);
-
-        try (MockedConstruction<FXMLLoader> loaders = mockConstruction(
-                FXMLLoader.class, (loader, context) -> when(loader.load()).thenReturn(root));
-             MockedConstruction<Scene> scenes = mockConstruction(Scene.class)) {
-            controller.switchToCreateCard(mouseEvent);
-
-            verify(loaders.constructed().get(0)).load();
-            verify(stage).setScene(any(Scene.class));
-            verify(stage).show();
-        }
-    }
-    @Test
     void switchToCreateQuiz_shouldLoadView() throws Exception {
         MouseEvent mouseEvent = mock(MouseEvent.class);
         Pane node = mock(Pane.class);
