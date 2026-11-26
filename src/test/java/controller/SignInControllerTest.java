@@ -120,7 +120,7 @@ class SignInControllerTest {
 
         assertEquals(
                 "password",
-                controller.gettPassw()
+                controller.getTPassw()
         );
     }
 

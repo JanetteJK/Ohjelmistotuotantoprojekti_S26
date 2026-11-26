@@ -57,11 +57,11 @@ public class SignInController {
     public ChoiceBox<String> languageChoice;
     private boolean initializingLanguageChoice;
 
-    public String gettUsername() {
+    public String getTUsername() {
         return tUsername.getText();
     }
 
-    public String gettPassw() {
+    public String getTPassw() {
         return tPassw.getText();
     }
 
@@ -115,10 +115,10 @@ public class SignInController {
         alert.showAndWait();
     }
 
-    public void tLogin(javafx.event.ActionEvent actionEvent) throws IOException {
+    public void tLogin(ActionEvent actionEvent) throws IOException {
         if (actionEvent.getSource() == tOk) {
-            String un = gettUsername();
-            String ps = gettPassw();
+            String un = getTUsername();
+            String ps = getTPassw();
             String email = "teacher@email.fi";
             User teacher = new User(un, email, ps, User.Role.teacher);
             if (UserDao.logInUser(teacher)) {
@@ -144,7 +144,7 @@ public class SignInController {
         }
     }
 
-    public void sLogin(javafx.event.ActionEvent actionEvent) throws IOException {
+    public void sLogin(ActionEvent actionEvent) throws IOException {
         if (actionEvent.getSource() == sOk) {
             String un = getSUsername();
             String ps = getsPassw();
@@ -172,7 +172,7 @@ public class SignInController {
         }
     }
 
-    public void switchToCreateAccount(javafx.event.ActionEvent actionEvent) throws IOException {
+    public void switchToCreateAccount(ActionEvent actionEvent) throws IOException {
         Locale localeCA = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
@@ -183,7 +183,7 @@ public class SignInController {
         stage.show();
     }
 
-    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public void switchToCreateCards(MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateCards(actionEvent);
     }
 
@@ -192,7 +192,7 @@ public class SignInController {
     }
 
 
-    public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public void switchToCreateQuiz(MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateQuiz(actionEvent);
 
     }

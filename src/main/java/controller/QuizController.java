@@ -172,7 +172,7 @@ public class QuizController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
         QuizController qc = fxmlLoader.getController();
-        List<String> categories = CardDao.getCategories(currentUser.getUserId());
+        qc.categories = CardDao.getCategories(currentUser.getUserId());
         qc.currentUser = currentUser;
         qc.populateCategorySelection(categories);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -181,7 +181,7 @@ public class QuizController {
         stage.show();
     }
 
-    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public void switchToCreateCards(MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateCards(actionEvent);
     }
 
@@ -189,7 +189,7 @@ public class QuizController {
         PageController.switchToLibrary(actionEvent);
     }
 
-    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public void switchToProfile(MouseEvent actionEvent) throws IOException {
         PageController.switchToProfile(actionEvent);
     }
 

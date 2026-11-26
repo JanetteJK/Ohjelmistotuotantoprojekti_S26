@@ -22,7 +22,7 @@ public class PageController implements Initializable {
     private static final String HOME_GUI_FXML_PATH = "/initHomeGui.fxml";
 
     public void initialize(URL location, ResourceBundle resources) {
-
+        // Initialization logic if needed
     }
     public static void setUser(User user) {
         currentUser = user;
