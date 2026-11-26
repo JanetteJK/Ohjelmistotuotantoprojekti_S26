@@ -67,7 +67,6 @@ public class CcController {
         String answer = getAnswer();
         String category = getCategory();
         Card cardS = new Card(question, answer, category, user.getUserId());
-        log.info("Card submitted: {} - {}", question, answer);
         CardDao.addCard(cardS);
         questionBox.clear();
         answerBox.clear();
