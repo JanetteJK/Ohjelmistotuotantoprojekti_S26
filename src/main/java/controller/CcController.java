@@ -31,7 +31,6 @@ public class CcController {
     private static final Logger log = LoggerFactory.getLogger(CcController.class);
     private Stage stage;
     private Scene scene;
-    CcController cac;
     List<Card> cards = new ArrayList<>();
     private User user;
 
