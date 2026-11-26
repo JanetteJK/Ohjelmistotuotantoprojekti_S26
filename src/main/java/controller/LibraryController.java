@@ -47,7 +47,6 @@ public class LibraryController implements Initializable {
         int column = 0;
         int row = 0;
         try {
-            assert cards != null;
             for (Card card : cards) {
 
                 FXMLLoader cardFxmlLoader = new FXMLLoader(
