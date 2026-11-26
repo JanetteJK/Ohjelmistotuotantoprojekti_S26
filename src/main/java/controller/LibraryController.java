@@ -89,9 +89,7 @@ public class LibraryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        SignInController sc = new SignInController();
-        LibraryController lc = new LibraryController();
-
+        // Initialization logic if needed
     }
 
     public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {

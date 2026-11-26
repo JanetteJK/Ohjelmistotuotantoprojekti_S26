@@ -1,7 +1,6 @@
 package controller;
 
 import dao.UserDao;
-import entity.Language;
 import entity.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

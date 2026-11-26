@@ -77,7 +77,6 @@ public class QuizController {
 
     @FXML
     public void setQuestion() {
-        if (quizCards.size() >= 3) {
             if (index < quizCards.size()) {
                 Card card = quizCards.get(index);
                 options.add(card.getAnswer());
@@ -103,10 +102,7 @@ public class QuizController {
             } else {
                 endQuiz();
             }
-        } else {
-            showQuizAlert();
         }
-    }
 
     public void endQuiz(){
         questionSlot.setText(bundle.getString("SUBHEADER_quiz_score") + this.score );
@@ -125,18 +121,21 @@ public class QuizController {
     }
 
     public void startQuiz(ActionEvent actionEvent) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/quizUI.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-        QuizController qc = fxmlLoader.getController();
-        List<Card> cards = CardDao.getCardsBasedOnCategory(categorySelection.getValue(), currentUser.getUserId());
-        qc.quizCards = cards;
-        Collections.shuffle(qc.quizCards);
-        qc.setQuestion();
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
+        if (quizCards.size() >= 3) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/quizUI.fxml"), LanguageManager.getBundle());
+            Parent root = fxmlLoader.load();
+            QuizController qc = fxmlLoader.getController();
+            List<Card> cards = CardDao.getCardsBasedOnCategory(categorySelection.getValue(), currentUser.getUserId());
+            qc.quizCards = cards;
+            Collections.shuffle(qc.quizCards);
+            qc.setQuestion();
+            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            showQuizAlert();
+        }
     }
 
     public void checkAnswer(ActionEvent actionEvent) {
