@@ -1,6 +1,7 @@
 package controller;
 
 import dao.UserDao;
+import entity.Language;
 import entity.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,7 +57,7 @@ public class CreateAccountController {
     public void createAccount() {
         User newUser = getUserCreationDetails();
         UserDao.registerUser(newUser);
-        createAccountInfo.setText("ELEM_account_created");
+        createAccountInfo.setText(LanguageManager.getBundle().getString("ELEM_account_created"));
     }
 
     public void switchToStart(javafx.event.ActionEvent actionEvent) throws IOException {
