@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 
 public class CardController {
@@ -50,17 +51,20 @@ public class CardController {
         this.user = user;
     }
 
-    public void deleteCard(ActionEvent actionEvent) {
+    public void deleteCard() {
         CardDao.deleteCard(this.cardText.getText());
     }
 
+    @FXML
     void showDeleteAlert() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(LanguageManager.getBundle().getString(""));
-        alert.setHeaderText(LanguageManager.getBundle().getString(""));
-        alert.setContentText(LanguageManager.getBundle().getString(""));
-
-
-        alert.showAndWait();
+        alert.setTitle(LanguageManager.getBundle().getString("WARNING_delete_card_title"));
+        alert.setHeaderText(LanguageManager.getBundle().getString("WARNING_delete_card_title"));
+        alert.setContentText(LanguageManager.getBundle().getString("WARNING_delete_card_text"));
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            CardDao.deleteCard(this.cardText.getText());
+        }else {
+            alert.close();
+        }
     }
 }
