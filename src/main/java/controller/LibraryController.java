@@ -94,10 +94,6 @@ public class LibraryController implements Initializable {
         PageController.switchToCreateCards(actionEvent);
     }
 
-    public void switchToLibrary(MouseEvent actionEvent) throws IOException {
-        PageController.switchToLibrary(actionEvent);
-    }
-
 
     public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateQuiz(actionEvent);

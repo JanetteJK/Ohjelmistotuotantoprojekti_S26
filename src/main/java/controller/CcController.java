@@ -70,10 +70,6 @@ public class CcController {
 
     //switch funtions
 
-    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        PageController.switchToCreateCards(actionEvent);
-    }
-
     public void switchToLibrary(MouseEvent actionEvent) throws IOException {
         PageController.switchToLibrary(actionEvent);
     }
