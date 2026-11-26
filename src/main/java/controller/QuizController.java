@@ -32,6 +32,7 @@ public class QuizController {
     private final Random random = new Random();
     private Stage stage;
     private Scene scene;
+    ResourceBundle bundle = LanguageManager.getBundle();
 
     @FXML
     ChoiceBox<String> categorySelection;
@@ -93,17 +94,17 @@ public class QuizController {
                 answer2.setText(random1);
                 answer3.setText(random2);
             } else {
-                questionSlot.setText("Quiz Completed!\nYour score: " + this.score );
+                questionSlot.setText(bundle.getString("SUBHEADER_quiz_score") + this.score );
                 answer1.setVisible(false);
                 answer2.setVisible(false);
                 answer3.setVisible(false);
                 chooseAnswerLabel.setVisible(false);
-                submitAnswer.setText("Back");
+                submitAnswer.setText(bundle.getString("ELEM_back"));
                 submitAnswer.setOnAction(e -> {
                     try {
                         returnToQuiz(e);
                     } catch (IOException _) {
-                        msg.severe("Error loading quizUI.fxml");
+                        msg.severe("Error");
                     }
                 });
 
