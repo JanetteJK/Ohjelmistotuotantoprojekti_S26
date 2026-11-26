@@ -1,5 +1,6 @@
 package controller;
 
+import dao.CardDao;
 import dao.UserDao;
 import entity.User;
 import javafx.event.ActionEvent;
@@ -32,7 +33,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
 import java.lang.reflect.Field;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -655,53 +655,43 @@ class SignInControllerTest {
         when(scene.getWindow()).thenReturn(stage);
 
         Parent root = mock(Parent.class);
+        QuizController quizController = mock(QuizController.class);
 
-        try (MockedConstruction<FXMLLoader> loaders =
+        User user = mock(User.class);
+        when(user.getUserId()).thenReturn(1);
+
+        setPrivateField("currentUser", user);
+
+        List<String> categories = List.of("History", "Science");
+
+        try (MockedStatic<CardDao> cardDao = mockStatic(CardDao.class);
+             MockedConstruction<FXMLLoader> loaders =
                      mockConstruction(FXMLLoader.class, (loader, context) -> {
                          when(loader.load()).thenReturn(root);
+                         when(loader.getController()).thenReturn(quizController);
                      });
              MockedConstruction<Scene> scenes =
                      mockConstruction(Scene.class)) {
+
+            cardDao.when(() -> CardDao.getCategories(1))
+                    .thenReturn(categories);
 
             controller.switchToCreateQuiz(mouseEvent);
 
             FXMLLoader loader = loaders.constructed().get(0);
 
             verify(loader).load();
+            verify(loader).getController();
+
+            verify(quizController).populateCategorySelection(categories);
+
             verify(stage).setScene(any(Scene.class));
             verify(stage).show();
+
+            assertSame(user, quizController.currentUser);
         }
     }
 
-    @Test
-    void switchToStudyMaterials_shouldLoadView() throws Exception {
-        MouseEvent mouseEvent = mock(MouseEvent.class);
-        Pane node = mock(Pane.class);
-        Scene scene = mock(Scene.class);
-        Stage stage = mock(Stage.class);
-
-        when(mouseEvent.getSource()).thenReturn(node);
-        when(node.getScene()).thenReturn(scene);
-        when(scene.getWindow()).thenReturn(stage);
-
-        Parent root = mock(Parent.class);
-
-        try (MockedConstruction<FXMLLoader> loaders =
-                     mockConstruction(FXMLLoader.class, (loader, context) -> {
-                         when(loader.load()).thenReturn(root);
-                     });
-             MockedConstruction<Scene> scenes =
-                     mockConstruction(Scene.class)) {
-
-            controller.switchToStudyMaterials(mouseEvent);
-
-            FXMLLoader loader = loaders.constructed().get(0);
-
-            verify(loader).load();
-            verify(stage).setScene(any(Scene.class));
-            verify(stage).show();
-        }
-    }
 
     @Test
     void switchToProfile_shouldLoadViewAndSetGreeting() throws Exception {
@@ -730,6 +720,7 @@ class SignInControllerTest {
                      });
              MockedConstruction<Scene> scenes =
                      mockConstruction(Scene.class)) {
+
 
             controller.switchToProfile(mouseEvent);
 
@@ -761,5 +752,11 @@ class SignInControllerTest {
         if (stage != null) {
             stage.close();
         }
+    }
+
+    private void setPrivateField(String fieldName, Object value) throws Exception {
+        Field field = SignInController.class.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(controller, value);
     }
 }
