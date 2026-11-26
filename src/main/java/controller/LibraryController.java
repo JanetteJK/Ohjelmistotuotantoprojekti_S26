@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -95,47 +96,22 @@ public class LibraryController implements Initializable {
     }
 
     public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/createCard.fxml"),
-                LanguageManager.getBundle()
-        );
-        Parent root = fxmlLoader.load();
-        CcController cardCtrl = fxmlLoader.getController();
-        cardCtrl.setUser(user);
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        PageController.switchToCreateCards(actionEvent);
     }
 
+    public void switchToLibrary(MouseEvent actionEvent) throws IOException {
+        PageController.switchToLibrary(actionEvent);
+    }
+
+
     public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        Locale localeCQ = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-        QuizController qc = fxmlLoader.getController();
-        List<String> categories = CardDao.getCategories(currentUser.getUserId());
-        qc.currentUser = currentUser;
-        qc.populateCategorySelection(categories);
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        PageController.switchToCreateQuiz(actionEvent);
+
     }
 
 
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        Locale localeP = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(HOME_GUI_FXML_PATH), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-
-        SignInController controller = fxmlLoader.getController();
-        controller.setCurrentUser(currentUser);
-        controller.setUserGreeting(currentUser.getUserName());
-
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        PageController.switchToProfile(actionEvent);
     }
 
 

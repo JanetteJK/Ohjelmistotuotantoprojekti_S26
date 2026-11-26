@@ -103,8 +103,7 @@ public class QuizController {
             } else {
                 endQuiz();
             }
-        } else {
-            showQuizAlert();
+
         }
     }
 
@@ -130,12 +129,19 @@ public class QuizController {
         QuizController qc = fxmlLoader.getController();
         List<Card> cards = CardDao.getCardsBasedOnCategory(categorySelection.getValue(), currentUser.getUserId());
         qc.quizCards = cards;
+        qc.currentUser = currentUser;
         Collections.shuffle(qc.quizCards);
-        qc.setQuestion();
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if (cards.size() < 3) {
+            showQuizAlert();
+            returnToQuiz(actionEvent);
+        }
+        else {
+            qc.setQuestion();
+            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
 
     }
 
@@ -175,45 +181,23 @@ public class QuizController {
         stage.show();
     }
 
-    public void switchToProfile(MouseEvent actionEvent) throws IOException {
-        Locale localeP = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/initHomeGui.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-
-        SignInController controller = fxmlLoader.getController();
-        controller.setCurrentUser(currentUser);
-        controller.setUserGreeting(currentUser.getUserName());
-
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        PageController.switchToCreateCards(actionEvent);
     }
-
 
     public void switchToLibrary(MouseEvent actionEvent) throws IOException {
-        Locale localeL = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/libraryUI.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-        LibraryController lc = fxmlLoader.getController();
-        lc.setUser(currentUser);
-        lc.getAllCards();
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        PageController.switchToLibrary(actionEvent);
     }
 
-    public void switchToCreateCards(MouseEvent actionEvent) throws IOException {
-        Locale localeCC = LanguageManager.getLocale();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createCard.fxml"), LanguageManager.getBundle());
-        Parent root = fxmlLoader.load();
-        CcController cardCtrl = fxmlLoader.getController();
-        cardCtrl.setUser(currentUser);
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+
+    public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        PageController.switchToCreateQuiz(actionEvent);
+
+    }
+
+
+    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+        PageController.switchToProfile(actionEvent);
     }
 
 }
