@@ -44,7 +44,6 @@ public class CcController {
     @FXML
     Label cardSentLabel;
 
-
     // cardCreation functions
     public String getQuestion() {
         return questionBox.getText();
