@@ -22,25 +22,6 @@ CREATE TABLE flashcards (
 
 ALTER TABLE flashcards ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
 
-CREATE TABLE study_materials (
-   sm_id INT AUTO_INCREMENT NOT NULL,
-   user_id INT NOT NULL,
-   materials VARCHAR (255) NOT NULL,
-   category VARCHAR (255) NULL, 
-   PRIMARY KEY(sm_id)
-);
-
-ALTER TABLE study_materials ADD CONSTRAINT sm_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
-
-CREATE TABLE quizzes (
-   quiz_id INT AUTO_INCREMENT NOT NULL,
-   user_id INT NOT NULL,
-   quiz_length INT NOT NULL,
-   quiz_points INT NOT NULL,
-   PRIMARY KEY(quiz_id)
-);
-
-ALTER TABLE quizzes ADD CONSTRAINT quiz_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
 
 CREATE TABLE IF NOT EXISTS languages (
   lang CHAR(2) NOT NULL,
@@ -54,4 +35,3 @@ VALUES ('en', 'English', 'Flashcard saved.'),
 ('fi', 'Suomeksi', 'Kortti tallennettu.'),
 ('ja', '日本語で', 'フラッシュカードを保存しました。'),
 ('ko', '한국어', '플래시카드가 저장되었습니다.');
-

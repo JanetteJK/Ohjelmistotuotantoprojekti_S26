@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -19,6 +21,7 @@ import static org.mockito.Mockito.mock;
 class QuizControllerTest {
 
     private QuizController controller;
+    private final ResourceBundle bundle = LanguageManager.getBundle();
 
     @BeforeAll
     static void startJavaFxToolkit() {
@@ -162,11 +165,17 @@ class QuizControllerTest {
 
         controller.setQuestion();
 
-        assertEquals("Quiz Completed!\nYour score: 2", controller.questionSlot.getText());
+        assertEquals(
+                bundle.getString("SUBHEADER_quiz_score") + 2,
+                controller.questionSlot.getText()
+        );
         assertFalse(controller.answer1.isVisible());
         assertFalse(controller.answer2.isVisible());
         assertFalse(controller.answer3.isVisible());
-        assertEquals("Back", controller.submitAnswer.getText());
+        assertEquals(
+                bundle.getString("ELEM_back"),
+                controller.submitAnswer.getText()
+        );
         assertNotNull(controller.submitAnswer.getOnAction());
     }
 
@@ -261,8 +270,14 @@ class QuizControllerTest {
 
         assertEquals(3, getPrivateInt("index"));
         assertEquals(1, getPrivateInt("score"));
-        assertEquals("Quiz Completed!\nYour score: 1", controller.questionSlot.getText());
-        assertEquals("Back", controller.submitAnswer.getText());
+        assertEquals(
+                bundle.getString("SUBHEADER_quiz_score") + 1,
+                controller.questionSlot.getText()
+        );
+        assertEquals(
+                bundle.getString("ELEM_back"),
+                controller.submitAnswer.getText()
+        );
         assertFalse(controller.answer1.isVisible());
         assertFalse(controller.answer2.isVisible());
         assertFalse(controller.answer3.isVisible());
