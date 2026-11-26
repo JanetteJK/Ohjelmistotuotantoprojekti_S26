@@ -165,6 +165,10 @@ public class QuizController {
     public void returnToQuiz(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
+        QuizController qc = fxmlLoader.getController();
+        List<String> categories = CardDao.getCategories(currentUser.getUserId());
+        qc.currentUser = currentUser;
+        qc.populateCategorySelection(categories);
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

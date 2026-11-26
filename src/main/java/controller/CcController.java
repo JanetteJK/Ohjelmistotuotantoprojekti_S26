@@ -14,7 +14,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,6 +75,7 @@ public class CcController {
     //switch funtions
 
     public void switchToLibrary(javafx.scene.input.MouseEvent actionEvent) throws IOException{
+        Locale localeL = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(
                 getClass().getResource("/libraryUI.fxml"),
                 LanguageManager.getBundle()
@@ -92,6 +92,7 @@ public class CcController {
     }
 
     public void switchToCreateQuiz(MouseEvent actionEvent) throws IOException{
+        Locale localeCQ = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(
                 getClass().getResource("/createQuizUI.fxml"),
                 LanguageManager.getBundle()
