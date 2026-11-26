@@ -69,9 +69,9 @@ public class QuizController {
 
     void showQuizAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Error making quiz");
-        alert.setHeaderText("Error making quiz");
-        alert.setContentText("Not enough cards in category.");
+        alert.setTitle(LanguageManager.getBundle().getString("ELEM_quiz_error"));
+        alert.setHeaderText(LanguageManager.getBundle().getString("ELEM_quiz_error"));
+        alert.setContentText(LanguageManager.getBundle().getString("ELEM_quiz_error2"));
         alert.showAndWait();
     }
 
@@ -104,7 +104,7 @@ public class QuizController {
                 endQuiz();
             }
         } else {
-            questionSlot.setText("Not enough questions in this category.");
+            showQuizAlert();
         }
     }
 
