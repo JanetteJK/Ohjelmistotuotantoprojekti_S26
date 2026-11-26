@@ -17,7 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
 
@@ -132,7 +131,7 @@ public class SignInController {
                 SignInController controller = fxmlLoader.getController();
                 controller.setUserGreeting(currentUser.getUserName());
                 controller.setCurrentUser(currentUser);
-                pc.setUser(currentUser);
+                PageController.setUser(currentUser);
                 stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -196,11 +195,6 @@ public class SignInController {
     public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateQuiz(actionEvent);
 
-    }
-
-
-    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
-        PageController.switchToProfile(actionEvent);
     }
 
     public void setUserGreeting(String un) {
