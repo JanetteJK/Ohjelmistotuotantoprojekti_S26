@@ -4,6 +4,7 @@ import dao.CardDao;
 import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -51,5 +52,15 @@ public class CardController {
 
     public void deleteCard(ActionEvent actionEvent) {
         CardDao.deleteCard(this.cardText.getText());
+    }
+
+    void showDeleteAlert() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(LanguageManager.getBundle().getString(""));
+        alert.setHeaderText(LanguageManager.getBundle().getString(""));
+        alert.setContentText(LanguageManager.getBundle().getString(""));
+
+
+        alert.showAndWait();
     }
 }
