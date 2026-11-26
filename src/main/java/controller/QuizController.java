@@ -77,32 +77,32 @@ public class QuizController {
 
     @FXML
     public void setQuestion() {
-            if (index < quizCards.size()) {
-                Card card = quizCards.get(index);
-                options.add(card.getAnswer());
-                correctAnswer = card.getAnswer();
+        if (index < quizCards.size()) {
+            Card card = quizCards.get(index);
+            options.add(card.getAnswer());
+            correctAnswer = card.getAnswer();
 
-                while (options.size() < 3) {
-                    String newAnswer = quizCards.get(
-                            this.random.nextInt(quizCards.size())
-                    ).getAnswer();
-                    if (!options.contains(newAnswer)) {
-                        options.add(newAnswer);
-                    }
+            while (options.size() < 3) {
+                String newAnswer = quizCards.get(
+                        this.random.nextInt(quizCards.size())
+                ).getAnswer();
+                if (!options.contains(newAnswer)) {
+                    options.add(newAnswer);
                 }
-                Collections.shuffle(options);
-
-                questionSlot.setText(quizCards.get(index).getQuestion());
-                String random1 = options.removeFirst();
-                String random2 = options.removeFirst();
-                String random3 = options.removeFirst();
-                answer1.setText(random3);
-                answer2.setText(random1);
-                answer3.setText(random2);
-            } else {
-                endQuiz();
             }
+            Collections.shuffle(options);
+
+            questionSlot.setText(quizCards.get(index).getQuestion());
+            String random1 = options.removeFirst();
+            String random2 = options.removeFirst();
+            String random3 = options.removeFirst();
+            answer1.setText(random3);
+            answer2.setText(random1);
+            answer3.setText(random2);
+        } else {
+            endQuiz();
         }
+    }
 
     public void endQuiz(){
         questionSlot.setText(bundle.getString("SUBHEADER_quiz_score") + this.score );
@@ -121,13 +121,14 @@ public class QuizController {
     }
 
     public void startQuiz(ActionEvent actionEvent) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/quizUI.fxml"), LanguageManager.getBundle());
+        Parent root = fxmlLoader.load();
+        QuizController qc = fxmlLoader.getController();
+        List<Card> cards = CardDao.getCardsBasedOnCategory(categorySelection.getValue(), currentUser.getUserId());
+        qc.quizCards = cards;
+        Collections.shuffle(qc.quizCards);
+        qc.currentUser = currentUser;
         if (quizCards.size() >= 3) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/quizUI.fxml"), LanguageManager.getBundle());
-            Parent root = fxmlLoader.load();
-            QuizController qc = fxmlLoader.getController();
-            List<Card> cards = CardDao.getCardsBasedOnCategory(categorySelection.getValue(), currentUser.getUserId());
-            qc.quizCards = cards;
-            Collections.shuffle(qc.quizCards);
             qc.setQuestion();
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -135,6 +136,7 @@ public class QuizController {
             stage.show();
         } else {
             showQuizAlert();
+            returnToQuiz(actionEvent);
         }
     }
 
