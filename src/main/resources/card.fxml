@@ -52,7 +52,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="38.0" prefWidth="140.0">
                      <children>
-                        <Button fx:id="deleteCardButton" alignment="CENTER" mnemonicParsing="false" onAction="#showDeleteAlert" prefHeight="22.0" prefWidth="117.0" stylesheets="@style.css" text="%ELEM_delete" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="deleteCardButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#showDeleteAlert" prefHeight="22.0" prefWidth="117.0" stylesheets="@style.css" text="%ELEM_delete" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font name="Bell MT" size="12.0" />
                            </font>

@@ -82,12 +82,10 @@ public class CcController {
         PageController.switchToLibrary(actionEvent);
     }
 
-
     public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateQuiz(actionEvent);
 
     }
-
 
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         PageController.switchToProfile(actionEvent);
