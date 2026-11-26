@@ -11,9 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -23,7 +20,6 @@ import java.util.List;
 
 public class CcController {
 
-    private static final Logger log = LoggerFactory.getLogger(CcController.class);
     private Stage stage;
     private Scene scene;
     List<Card> cards = new ArrayList<>();

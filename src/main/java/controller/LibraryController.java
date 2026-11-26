@@ -24,17 +24,13 @@ public class LibraryController implements Initializable {
     private User user;
     private Stage stage;
     private Scene scene;
-    private User currentUser;
-
 
     @FXML
     private GridPane grid;
 
     public void setUser(User user) {
         this.user = user;
-        this.currentUser = user;
     }
-
 
     public void getAllCards() {
         List<Card> cards;
@@ -78,10 +74,7 @@ public class LibraryController implements Initializable {
             Logger logger = Logger.getLogger(LibraryController.class.getName());
             logger.severe("Error loading FXML file.");
         }
-
-
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -94,7 +87,6 @@ public class LibraryController implements Initializable {
 
     public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateQuiz(actionEvent);
-
     }
 
     public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
