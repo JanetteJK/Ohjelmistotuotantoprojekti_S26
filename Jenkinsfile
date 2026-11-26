@@ -7,6 +7,7 @@ pipeline {
 
     environment {
         PATH = "C:\\Program Files\\DockerDesktop\\resources\\bin;${env.PATH}"
+        SONARQUBE_SERVER = 'SonarQubeServer'
         DOCKERHUB_CREDENTIALS_ID = 'docker'
         DOCKERHUB_REPO = 'sinyalohis/flashers'
         DOCKER_IMAGE_TAG = 'v1'
@@ -34,6 +35,26 @@ pipeline {
                 jacoco()
             }
         }
+
+        stage('SonarQube Analysis') {
+                    steps {
+                        withCredentials([
+                            string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')
+                        ]) {
+                            withSonarQubeEnv("${env.SONARQUBE_SERVER}") {
+                                bat """
+                                    sonar-scanner ^
+                                    -Dsonar.projectKey=flashers ^
+                                    -Dsonar.projectName=Flashers ^
+                                    -Dsonar.sources=src/main/java ^
+                                    -Dsonar.host.url=http://localhost:9000 ^
+                                    -Dsonar.token=%SONAR_TOKEN% ^
+                                    -Dsonar.java.binaries=target/classes
+                                """
+                            }
+                        }
+                    }
+                }
 
 
         stage('Build Docker Image') {
