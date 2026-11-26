@@ -28,7 +28,7 @@ public class PageController implements Initializable {
         currentUser = user;
     }
 
-    public static void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public static void switchToCreateCards(MouseEvent actionEvent) throws IOException {
         Locale localeCC = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(PageController.class.getResource("/createCard.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
@@ -53,7 +53,7 @@ public class PageController implements Initializable {
         stage.show();
     }
 
-    public static void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public static void switchToCreateQuiz(MouseEvent actionEvent) throws IOException {
         Locale localeCQ = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(PageController.class.getResource("/createQuizUI.fxml"), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();
@@ -68,7 +68,7 @@ public class PageController implements Initializable {
     }
 
 
-    public static void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public static void switchToProfile(MouseEvent actionEvent) throws IOException {
         Locale localeP = LanguageManager.getLocale();
         FXMLLoader fxmlLoader = new FXMLLoader(PageController.class.getResource(HOME_GUI_FXML_PATH), LanguageManager.getBundle());
         Parent root = fxmlLoader.load();

@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -81,15 +82,15 @@ public class LibraryController implements Initializable {
         // Initialization logic if needed
     }
 
-    public void switchToCreateCards(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public void switchToCreateCards(MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateCards(actionEvent);
     }
 
-    public void switchToCreateQuiz(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public void switchToCreateQuiz(MouseEvent actionEvent) throws IOException {
         PageController.switchToCreateQuiz(actionEvent);
     }
 
-    public void switchToProfile(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    public void switchToProfile(MouseEvent actionEvent) throws IOException {
         PageController.switchToProfile(actionEvent);
     }
 }

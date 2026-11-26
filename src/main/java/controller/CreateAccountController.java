@@ -2,6 +2,7 @@ package controller;
 
 import dao.UserDao;
 import entity.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -59,7 +60,7 @@ public class CreateAccountController {
         createAccountInfo.setText(LanguageManager.getBundle().getString("ELEM_account_created"));
     }
 
-    public void switchToStart(javafx.event.ActionEvent actionEvent) throws IOException {
+    public void switchToStart(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
                 getClass().getResource("/loginUi.fxml"),
                 LanguageManager.getBundle()

@@ -8,8 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class CardController {
@@ -59,7 +59,7 @@ public class CardController {
     }
 
     @FXML
-    void showDeleteAlert(javafx.scene.input.MouseEvent actionEvent) throws IOException {
+    void showDeleteAlert(MouseEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(LanguageManager.getBundle().getString("WARNING_delete_card_title"));
         alert.setHeaderText(LanguageManager.getBundle().getString("WARNING_delete_card_title"));
