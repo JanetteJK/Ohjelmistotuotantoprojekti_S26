@@ -18,8 +18,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.lang.reflect.Field;
+import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -116,11 +118,29 @@ class CreateAccountControllerTest {
         newPassw.setText("newPassword");
         studentButton.setSelected(true);
 
-        try (MockedStatic<UserDao> userDao = org.mockito.Mockito.mockStatic(UserDao.class)) {
-            controller.createAccount();
-        }
+        try (MockedStatic<UserDao> userDao =
+                     Mockito.mockStatic(UserDao.class);
+             MockedStatic<LanguageManager> languageManager =
+                     Mockito.mockStatic(LanguageManager.class)) {
 
-        assertEquals("ELEM_account_created", createAccountInfo.getText());
+            ResourceBundle bundle = Mockito.mock(ResourceBundle.class);
+
+            languageManager.when(LanguageManager::getBundle)
+                    .thenReturn(bundle);
+
+            Mockito.when(bundle.getString("ELEM_account_created"))
+                    .thenReturn("ELEM_account_created");
+
+            controller.createAccount();
+
+            userDao.verify(() ->
+                    UserDao.registerUser(Mockito.any(User.class)));
+
+            assertEquals(
+                    "ELEM_account_created",
+                    createAccountInfo.getText()
+            );
+        }
     }
 
     @Test
